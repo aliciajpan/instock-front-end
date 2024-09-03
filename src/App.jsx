@@ -1,35 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.scss'
+import './App.scss';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from './components/Header/Header';
+import WarehouseList from './components/WarehouseList/WarehouseList';
+import InventoryList from './components/InventoryList/InventoryList';
+import NotFoundPage from './components/NotFoundPage/NotFoundPage';
+import WarehouseCard from './components/WarehouseCard/WarehouseCard';
+import InventoryCard from './components/InventoryCard/InventoryCard';
+import AddWarehouse from './components/AddWarehouse/AddWarehouse';
+import AddInventory from './components/AddInventory/AddInventory';
+import EditWarehouse from './components/EditWarehouse/EditWarehouse';
+import EditInventory from './components/EditInventory/EditInventory';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Router>
+      <Header />
+      <Routes>
+        <Route path="/" element={<WarehouseList />} />
+        <Route path="/inventory" element={<InventoryList />} />
+        <Route path="/warehouses/add" element={<AddWarehouse />} />
+        <Route path="/inventory/add" element={<AddInventory />} />
+        <Route path="/warehouses/:id" element={<WarehouseCard />} />
+        <Route path="/warehouses/edit/:id" element={<EditWarehouse />} />
+        <Route path="/inventory/:id" element={<InventoryCard />} />
+        <Route path="/inventory/edit/:id" element={<EditInventory />} />
+
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
