@@ -17,13 +17,13 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<WarehouseList />} />
-        <Route path="/inventory" element={<InventoryList />} />
+        <Route path="/inventories" element={<InventoryList />} />
         <Route path="/warehouses/add" element={<AddWarehouse />} />
-        <Route path="/inventory/add" element={<AddInventory />} />
+        <Route path="/inventories/add" element={<AddInventory />} />
         <Route path="/warehouses/:id" element={<WarehouseCard />} />
         <Route path="/warehouses/edit/:id" element={<EditWarehouse />} />
-        <Route path="/inventory/:id" element={<InventoryCard />} />
-        <Route path="/inventory/edit/:id" element={<EditInventory />} />
+        <Route path="/inventories/:id" element={<InventoryCard />} />
+        <Route path="/inventories/edit/:id" element={<EditInventory />} />
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
