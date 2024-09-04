@@ -10,6 +10,7 @@ import AddWarehouse from './components/AddWarehouse/AddWarehouse';
 import AddInventory from './components/AddInventory/AddInventory';
 import EditWarehouse from './components/EditWarehouse/EditWarehouse';
 import EditInventory from './components/EditInventory/EditInventory';
+import Footer from './components/Footer/Footer';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+      <Footer />
     </Router>
   );
 }
