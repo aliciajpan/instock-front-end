@@ -48,9 +48,16 @@ $color-background-table-row-hover: rgba($instock-indigo, 7%);
 // Form Field Colors
 $color-text-input-default: $slate;
 $color-text-input-active: $instock-black;
+$color-text-input-error: $red;
 $color-border-input-default: $cloud;
 $color-border-input-active: $instock-indigo;
 $color-border-input-error: $red;
 
 // Link Colors
 $color-text-link: $instock-indigo;
+
+// Tag Colors
+$color-tag-background-default: rgba($green, 7%);
+$color-tag-background-warning: rgba($red, 7%);
+$color-tag-text-default: $green;
+$color-tag-text-warning: $red;

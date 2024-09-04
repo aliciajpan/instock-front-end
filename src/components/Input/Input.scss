@@ -1,11 +1,16 @@
 @use "../../styles/partials/mixins" as *;
 @use "../../styles/partials/variables" as *;
+@use "../../styles/partials/typography" as *;
 
-.form-field {
-    position: relative;
+.input {
+    display: flex;
+    flex-direction: column;
     width: 100%;
+    gap: 0.25rem;
 
-
+    &__container {
+        position: relative;
+    }
 
     &__label {
         font-size: 0.75rem;
@@ -14,23 +19,27 @@
     }
 
     &__input {
+        appearance: none;
         outline: none;
         height: 2.25rem;
         border-radius: 1.25rem;
         width: 100%;
         padding: 0 1rem;
-        background-color: $color-btn-secondary-default;
-        color: $color-text-btn-secondary-default;
-        border: 1px solid $color-border-btn-secondary-default;
-
+        color: $color-text-input-active;
+        border: 1px solid $color-border-input-default;
+        
         &:focus {
-            background-color: $color-btn-secondary-hover;
-            color: $color-text-btn-secondary-hover;
-            border: 1px solid $color-border-btn-secondary-hover;
+            color: $color-text-input-active;
+            border: 1px solid $color-border-input-active;            
         }
 
         &::placeholder {
             color: $color-text-input-default;
+            font-family: $font-family;
+        }
+
+        &--error {
+            border: 1px solid $color-border-input-error;
         }
 
         @include tablet {
@@ -46,6 +55,13 @@
         right: 1rem;
         transform: translateY(-50%);
         cursor: pointer;
+    }
+
+    &__error {
+        display: flex;
+        flex-direction: row;
+        gap: 0.25rem;
+        color: $color-text-input-error;
     }
     
     @include tablet {

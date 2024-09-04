@@ -5,6 +5,7 @@
     display: none;
     
     @include tablet {
+        height: 2.5rem;
         background-color: $color-background-header-with-sorting;
         text-transform: uppercase;
         color: $color-text-header-with-sorting;
@@ -12,9 +13,9 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        padding: 0.5rem 1.5rem;
+        padding: 0 1.5rem;
         width: 100%;
-        border-bottom: none;
+        font-weight: $semi-bold;
 
         &__sortable-item {
             flex: 1;
@@ -32,9 +33,5 @@
             justify-content: center;
             display: flex;
         }
-    }
-
-    @include desktop {
-        padding: 1rem 1.5rem;
     }
 }

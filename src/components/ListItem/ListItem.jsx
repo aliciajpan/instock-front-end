@@ -16,7 +16,7 @@ const ListItem = ({ properties, actions }) => {
                             <div
                                 className="list-item__property-value"
                                 dangerouslySetInnerHTML={{
-                                    __html: property.valueHtml,
+                                    __html: property.valueHtml.toString(),
                                 }}
                             />
                         )}
@@ -51,7 +51,7 @@ const ListItem = ({ properties, actions }) => {
                 {actions.map((action) => (
                     <img
                         key={action.icon}
-                        className="list-item__action-icon"
+                        className="list-item__actions-icon"
                         src={action.icon}
                         alt={action.name}
                         onClick={action.onClick}
