@@ -1,23 +1,31 @@
 @import '../../styles/partials/mixins';
 @import '../../styles/partials/variables';
+@import '../../styles/global';
 
 .header {
   background-color: $graphite;
-  color: $white;
-  padding: 1rem;
   display: flex;
-  flex-direction: column;
   align-items: center;
-
-  @include tablet {
-    flex-direction: row;
-    justify-content: space-between;
+  justify-content: center;
+  &__banner {
+    color: $white;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    padding: 1rem 2rem;
-  }
 
-  @include desktop {
-    padding: 1rem 5rem;
+    @include tablet {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      width: 100%;
+    }
+
+    @include desktop {
+      padding: 1rem 5rem;
+      width: 79rem;
+    }
   }
 
   &__logo {
@@ -35,6 +43,7 @@
     display: flex;
     flex-direction: row;
     gap: 1rem;
+    justify-content: space-between;
 
     @include tablet {
       flex-direction: row;
@@ -44,6 +53,13 @@
     @include desktop {
       gap: 2rem;
     }
+  }
+
+  &__nav li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
   }
 
   &__nav a {
