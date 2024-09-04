@@ -36,3 +36,21 @@ $color-text-btn-secondary-hover: $instock-indigo;
 $color-text-btn-delete: $white;
 $color-border-btn-secondary-default: $cloud;
 $color-border-btn-secondary-hover: $instock-indigo;
+
+// Table Colors
+$color-text-column-header: $slate;
+$color-text-column-data: $instock-black;
+$color-border-table-row: $cloud;
+$color-background-header-with-sorting: rgba($light-grey, 70%);
+$color-text-header-with-sorting: $slate;
+$color-background-table-row-hover: rgba($instock-indigo, 7%);
+
+// Form Field Colors
+$color-text-input-default: $slate;
+$color-text-input-active: $instock-black;
+$color-border-input-default: $cloud;
+$color-border-input-active: $instock-indigo;
+$color-border-input-error: $red;
+
+// Link Colors
+$color-text-link: $instock-indigo;

@@ -1,0 +1,108 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.list-item {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid $color-border-table-row;
+    padding: 0.5rem 1.5rem;
+    gap: 0.5rem;
+
+    &__info {
+        display: grid;
+        grid-auto-flow: column;
+        grid-template-rows: repeat(2, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+
+        @include tablet {
+            display: flex;
+            flex-direction: row;
+            flex: 1;
+        }
+    }
+
+    &__property {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        gap: 0.25rem;
+
+        &-name {
+            color: $color-text-column-header;
+            font-weight: $semi-bold;
+            font-size: .6875rem;
+            line-height: 1rem;
+
+            @include tablet {
+                display: none;
+                font-size: .75rem;
+                line-height: 1.125rem;
+            }
+        }
+
+        &-value {
+            color: $color-text-column-data;
+            font-weight: $regular;
+            font-size: .8125rem;
+            line-height: 1.25rem;
+
+            &-link {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 0.25rem;
+
+                &-text {
+                    @include link;
+                    font-weight: $semi-bold;
+                }
+            }
+
+
+            @include tablet {
+                font-size: .875rem;
+                line-height: 1.375rem;
+            }
+        }
+
+        @include tablet {
+            flex-direction: row;
+            flex: 1;
+            align-items: center;
+        }
+    }
+
+    &__actions {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.5rem;
+
+        &-icon {
+            cursor: pointer;
+        }
+    }
+
+    @include tablet {
+        border-top: none;
+        display: flex;
+        flex-direction: row;
+        flex-grow: 1;
+        align-items: center;
+        gap: 0;
+        padding: 0.5rem 1.5rem;
+
+        &:not(:last-child) {
+            border-bottom: 1px solid $color-border-table-row;
+        }
+    }
+
+    @include desktop {
+        padding: 1rem 1.5rem;
+
+        &:hover {
+            background-color: $color-background-table-row-hover;
+        }
+    }
+}
