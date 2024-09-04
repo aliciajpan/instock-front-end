@@ -2,7 +2,7 @@ import "./Input.scss";
 import errorIcon from "../../assets/icons/error-24px.svg";
 
 const Input = ({ 
-    type = "input",
+    type = "text",
     icon = null, 
     placeholder, 
     label = null, 
@@ -19,18 +19,15 @@ const Input = ({
                 {label && 
                     <label className="input__label" htmlFor={name}>{label}</label>
                 }
-                {type === "input" && (
-                    <input
+                <input
                     id={name}
                     name={name}
                     className={`input__input input__input--${status}`}
-                    type="text"
+                    type={type}
                     placeholder={placeholder}
                     {...props}
                     onChange={onChange}
                 />
-                )}
-
                 {icon && (
                     <img className="input__icon" src={icon} alt="icon" />
                 )}
