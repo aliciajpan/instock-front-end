@@ -12,7 +12,7 @@ const warehouseList = [
     {
         id: 1,
         warehouse_name: "Manhattan",
-        address: "503 Broadway",
+        address: "503 Broadway New York, USA",
         city: "New York",
         country: "USA",
         contact_name: "Parmin Aujla",
@@ -23,7 +23,7 @@ const warehouseList = [
     {
         id: 2,
         warehouse_name: "Washington",
-        address: "33 Pearl Street SW",
+        address: "33 Pearl Street SW, Washington, USA",
         city: "Washington",
         country: "USA",
         contact_name: "Greame Lyon",
@@ -54,12 +54,13 @@ const WarehouseList = () => {
             key: "contact_information",
             name: "Contact Information",
             sortable: true,
+            width: "25%",
         },
         { key: "actions", name: "Actions", sortable: false },
     ];
 
     const getProperties = (warehouse) =>
-        headerItems.filter(({sortable}) => sortable).map(({key, name}) => ({
+        headerItems.filter(({sortable}) => sortable).map(({key, name, width}) => ({
             key,
             value: key !== "contact_information"
                 ? warehouse[key]
@@ -70,6 +71,7 @@ const WarehouseList = () => {
             name,
             link:
                 key === "warehouse_name" ? `/warehouses/${warehouse.id}` : null,
+            width: width,
         }));
 
     const sortByProperty = (property) => {

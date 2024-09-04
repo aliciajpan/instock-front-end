@@ -7,8 +7,7 @@ const ListItem = ({ properties, actions }) => {
         <div className="list-item">
             <div className="list-item__info">
                 {properties.map((property) => (
-                    <>
-                    <div className="list-item__property">
+                    <div key={property.key} className="list-item__property">
                         <p className="list-item__property-name">
                             {property.name}
                         </p>
@@ -46,12 +45,12 @@ const ListItem = ({ properties, actions }) => {
                             </p>
                         )}
                     </div>
-                </>
-            ))}
+                ))}
             </div>
             <div className="list-item__actions">
                 {actions.map((action) => (
                     <img
+                        className="list-item__action-icon"
                         src={action.icon}
                         alt={action.name}
                         onClick={action.onClick}
