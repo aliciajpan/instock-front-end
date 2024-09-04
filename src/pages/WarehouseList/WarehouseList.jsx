@@ -8,34 +8,11 @@ import deleteIcon from "../../assets/icons/delete_outline-24px.svg";
 import ListItem from "../../components/ListItem/ListItem";
 import TableHeaderWithSorting from "../../components/TableHeaderWithSorting/TableHeaderWithSorting";
 import searchIcon from "../../assets/icons/search-24px.svg";
-
-const warehouseList = [
-    {
-        id: 1,
-        warehouse_name: "Manhattan",
-        address: "503 Broadway New York, USA",
-        city: "New York",
-        country: "USA",
-        contact_name: "Parmin Aujla",
-        contact_position: "Warehouse Manager",
-        contact_phone: "+1 (646) 123-1234",
-        contact_email: "paujla@instock.com",
-    },
-    {
-        id: 2,
-        warehouse_name: "Washington",
-        address: "33 Pearl Street SW, Washington, USA",
-        city: "Washington",
-        country: "USA",
-        contact_name: "Greame Lyon",
-        contact_position: "Warehouse Manager",
-        contact_phone: "+1 (646) 123-1234",
-        contact_email: "glyon@instock.com",
-    },
-];
+import axios from "axios";
 
 const WarehouseList = () => {
     const navigate = useNavigate();
+    const baseURL = import.meta.env.VITE_BASE_URL;
     const [warehouses, setWarehouses] = useState(null);
     const actions = [
         {
@@ -84,7 +61,7 @@ const WarehouseList = () => {
                 value: key !== "contact_information" ? warehouse[key] : null,
                 valueHtml:
                     key === "contact_information"
-                        ? `<p>${warehouse.contact_phone}</p><p>${warehouse.contact_email}</p>`
+                        ? `<div>${warehouse.contact_phone}</div><div>${warehouse.contact_email}</div>`
                         : null,
                 name,
                 link:
@@ -101,21 +78,27 @@ const WarehouseList = () => {
     };
     useEffect(() => {
         const fetchWarehouses = async () => {
-            // const response = await axios.get(`${import.meta.env.VITE_API_URL}/warehouses`);
-            // const data = await response.json();
-            const data = warehouseList;
+            if (!baseURL) {
+                console.error("VITE_API_URL is not set");
+                return;
+            }
+            const {data} = await axios.get(`${baseURL}/api/warehouses`);
             setWarehouses(data);
         };
         fetchWarehouses();
-    }, []);
+    }, [baseURL]);
     if (!warehouses) return <div>Loading...</div>;
     return (
         <div className="warehouse-list">
-            <h2>Warehouses</h2>
-            <FormField icon={searchIcon} placeholder="Search..." />
-            <Button onClick={() => navigate("/warehouses/add")}>
-                + Add New Warehouse
-            </Button>
+            <div className="warehouse-list__header">
+                <h1 className="warehouse-list__title">Warehouses</h1>
+                <div className="warehouse-list__actions">
+                    <FormField icon={searchIcon} placeholder="Search..." />
+                    <Button onClick={() => navigate("/warehouses/add")}>
+                        + Add New Warehouse
+                    </Button>
+                </div>
+            </div>
             <div className="warehouse-list__container">
                 <TableHeaderWithSorting
                     headerItems={headerItems}

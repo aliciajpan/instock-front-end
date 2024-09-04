@@ -1,5 +1,6 @@
 @use './styles/partials/typography' as *;
-
+@use './styles/partials/variables' as *;
+@use './styles/partials/mixins' as *;
 
 * {
   box-sizing: border-box;
@@ -7,4 +8,54 @@
 
 body {
   font-family: $font-family, Arial;
+  font-size: .8125rem;
+  line-height: 1.25rem;
+  
+  h1 {
+    font-size: 1.75rem;
+    line-height: 2.25rem;
+    font-weight: 600; 
+
+    @include tablet {
+      font-size: 2rem;
+      font-weight: $semi-bold;
+      line-height: 2.5rem;
+    }
+  }
+
+  h2 {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+
+    @include tablet {
+      font-size: 1.5rem;
+      font-weight: 600;
+      line-height: 2rem;
+    }
+  }
+
+  h3 {
+    font-size: .8125rem;
+    line-height: 1.25rem;
+
+    @include tablet {
+      font-size: .875rem;
+      font-weight: 600;
+      line-height: 1.375rem;
+    }
+  } 
+
+  a {
+    text-decoration: none;
+    color: $color-text-link;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  @include tablet {
+    font-size: .875rem;
+    line-height: 1.375rem;
+  }
 }

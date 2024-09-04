@@ -8,9 +8,9 @@ const ListItem = ({ properties, actions }) => {
             <div className="list-item__info">
                 {properties.map((property) => (
                     <div key={property.key} className="list-item__property">
-                        <p className="list-item__property-name">
+                        <div className="list-item__property-name">
                             {property.name}
-                        </p>
+                        </div>
 
                         {property.valueHtml && (
                             <div
@@ -22,17 +22,17 @@ const ListItem = ({ properties, actions }) => {
                         )}
 
                         {property.value && (
-                            <p className="list-item__property-value">
+                            <div className="list-item__property-value">
                                 {property.link ? (
                                     <Link
                                         to={property.link}
                                         className="list-item__property-value-link"
                                     >
-                                        <span className="list-item__property-value-text">
+                                        <span className="list-item__property-value-link-text">
                                             {property.value}
                                         </span>
                                         <img
-                                            className="list-item__property-value-icon"
+                                            className="list-item__property-value-link-icon"
                                             src={chevronRightIcon}
                                             alt="chevron-right"
                                         />
@@ -42,7 +42,7 @@ const ListItem = ({ properties, actions }) => {
                                         {property.value}
                                     </span>
                                 )}
-                            </p>
+                            </div>
                         )}
                     </div>
                 ))}
