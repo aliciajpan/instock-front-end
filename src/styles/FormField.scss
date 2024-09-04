@@ -1,0 +1,39 @@
+@use "./partials/mixins" as *;
+@use "./partials/variables" as *;
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+
+  &__label {
+    font-weight: $semi-bold;
+    margin-bottom: 0.25rem;
+  }
+
+  &__input {
+    border: 1px solid $cloud;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    font-size: 1rem;
+
+    &:focus {
+      outline: none;
+      border-color: $instock-indigo;
+    }
+  }
+
+  &__error {
+    color: $red;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+
+  @include tablet {
+    // Add any tablet-specific styles here
+  }
+
+  @include desktop {
+    // Add any desktop-specific styles here
+  }
+}
