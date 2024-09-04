@@ -1,7 +1,7 @@
 import sortIcon from '../../assets/icons/sort-24px.svg';
-import "./HeaderWithSorting.scss";
+import "./TableHeaderWithSorting.scss";
 
-const HeaderWithSorting = ({ headerItems, sortByProperty, sortDirection }) => {
+const TableHeaderWithSorting = ({ headerItems, sortByProperty }) => {
     return (
         <div className="header-with-sorting">
                 {headerItems.map((item) => (
@@ -11,11 +11,12 @@ const HeaderWithSorting = ({ headerItems, sortByProperty, sortDirection }) => {
                         <span>{item.name}</span>
                         <img src={sortIcon} alt="sort" onClick={() => sortByProperty(item.name)}/>
                     </div>
-                    : <div><div key={item} className="header-with-sorting__item"
-                     >{item.name}</div></div>
+                    : <div className='header-with-sorting__item' key={item.key}>
+                        <div className="header-with-sorting__item-name">{item.name}</div>
+                    </div>
             ))}
         </div>
     )
 };
 
-export default HeaderWithSorting;
+export default TableHeaderWithSorting;

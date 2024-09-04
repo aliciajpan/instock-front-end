@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import editIcon from "../../assets/icons/edit-24px.svg";
 import deleteIcon from "../../assets/icons/delete_outline-24px.svg";
 import ListItem from "../../components/ListItem/ListItem";
-import HeaderWithSorting from "../../components/HeaderWithSorting/HeaderWithSorting";
+import TableHeaderWithSorting from "../../components/TableHeaderWithSorting/TableHeaderWithSorting";
 
 const warehouseList = [
     {
@@ -37,14 +37,31 @@ const WarehouseList = () => {
     const navigate = useNavigate();
     const [warehouses, setWarehouses] = useState(null);
     const actions = [
-        { icon: deleteIcon, onClick: () => {
-            console.log("delete");
-        } },
         {
+            name: "Delete",
+            icon: deleteIcon,
+            onClick: (warehouseId) => {
+                console.log("delete", warehouseId);
+                navigate(`/warehouses/delete/${warehouseId}`);
+            },
+        },
+        {
+            name: "Edit",
             icon: editIcon,
-            onClick: () => navigate(`/warehouses/edit/${warehouse.id}`),
-        }
+            onClick: (warehouseId) => {
+                console.log("edit", warehouseId);
+                navigate(`/warehouses/edit/${warehouseId}`);
+            },
+        },
     ];
+
+    const getActions = (warehouse) => {
+        return actions.map((action) => ({
+            icon: action.icon,
+            name: action.name,
+            onClick: () => action.onClick(warehouse.id),
+        }));
+    };
 
     const headerItems = [
         { key: "warehouse_name", name: "Warehouse", sortable: true },
@@ -60,19 +77,22 @@ const WarehouseList = () => {
     ];
 
     const getProperties = (warehouse) =>
-        headerItems.filter(({sortable}) => sortable).map(({key, name, width}) => ({
-            key,
-            value: key !== "contact_information"
-                ? warehouse[key]
-                : null,
-            valueHtml: key === "contact_information"
-                ? `<p>${warehouse.contact_phone}</p><p>${warehouse.contact_email}</p>`
-                : null,
-            name,
-            link:
-                key === "warehouse_name" ? `/warehouses/${warehouse.id}` : null,
-            width: width,
-        }));
+        headerItems
+            .filter(({ sortable }) => sortable)
+            .map(({ key, name, width }) => ({
+                key,
+                value: key !== "contact_information" ? warehouse[key] : null,
+                valueHtml:
+                    key === "contact_information"
+                        ? `<p>${warehouse.contact_phone}</p><p>${warehouse.contact_email}</p>`
+                        : null,
+                name,
+                link:
+                    key === "warehouse_name"
+                        ? `/warehouses/${warehouse.id}`
+                        : null,
+                width: width,
+            }));
 
     const sortByProperty = (property) => {
         console.log(property);
@@ -98,7 +118,7 @@ const WarehouseList = () => {
                 + Add New Warehouse
             </Button>
             <div className="warehouse-list__container">
-                <HeaderWithSorting
+                <TableHeaderWithSorting
                     headerItems={headerItems}
                     sortByProperty={sortByProperty}
                     sortDirection={sortDirection}
@@ -107,7 +127,7 @@ const WarehouseList = () => {
                     <ListItem
                         key={warehouse.id}
                         properties={getProperties(warehouse)}
-                        actions={actions}
+                        actions={getActions(warehouse)}
                     />
                 ))}
             </div>

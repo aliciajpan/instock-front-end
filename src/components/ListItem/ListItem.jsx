@@ -50,6 +50,7 @@ const ListItem = ({ properties, actions }) => {
             <div className="list-item__actions">
                 {actions.map((action) => (
                     <img
+                        key={action.icon}
                         className="list-item__action-icon"
                         src={action.icon}
                         alt={action.name}
