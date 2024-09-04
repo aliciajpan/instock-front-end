@@ -1,4 +1,4 @@
-@import './styles/partials/typography';
+@use './styles/partials/typography' as *;
 
 body{
   font-family: $font-family, Arial;

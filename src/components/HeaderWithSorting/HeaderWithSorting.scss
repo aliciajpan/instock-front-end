@@ -1,0 +1,12 @@
+@use "../../styles/partials/mixins" as *;
+
+.header-with-sorting {
+    display: none;
+
+    @include tablet {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+}

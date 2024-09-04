@@ -1,7 +1,7 @@
 import './App.scss';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header/Header';
-import WarehouseList from './components/WarehouseList/WarehouseList';
+import WarehouseList from './pages/WarehouseList/WarehouseList';
 import InventoryList from './components/InventoryList/InventoryList';
 import NotFoundPage from './components/NotFoundPage/NotFoundPage';
 import WarehouseCard from './components/WarehouseCard/WarehouseCard';
@@ -24,7 +24,6 @@ function App() {
         <Route path="/warehouses/edit/:id" element={<EditWarehouse />} />
         <Route path="/inventories/:id" element={<InventoryCard />} />
         <Route path="/inventories/edit/:id" element={<EditInventory />} />
-
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
