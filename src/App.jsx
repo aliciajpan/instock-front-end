@@ -11,6 +11,7 @@ import AddInventory from './pages/AddInventory/AddInventory';
 import EditWarehouse from './pages/EditWarehouse/EditWarehouse';
 import EditInventory from './pages/EditInventory/EditInventory';
 import DeleteWarehouse from './pages/DeleteWarehouse/DeleteWarehouse';
+
 function App() {
   return (
     <Router>

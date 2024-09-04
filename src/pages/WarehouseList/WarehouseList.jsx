@@ -1,5 +1,5 @@
 import "./WarehouseList.scss";
-import SearchBar from "../../components/SearchBar/SearchBar";
+import FormField from "../../components/FormField/FormField";
 import Button from "../../components/Button/Button";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -7,6 +7,7 @@ import editIcon from "../../assets/icons/edit-24px.svg";
 import deleteIcon from "../../assets/icons/delete_outline-24px.svg";
 import ListItem from "../../components/ListItem/ListItem";
 import TableHeaderWithSorting from "../../components/TableHeaderWithSorting/TableHeaderWithSorting";
+import searchIcon from "../../assets/icons/search-24px.svg";
 
 const warehouseList = [
     {
@@ -71,7 +72,6 @@ const WarehouseList = () => {
             key: "contact_information",
             name: "Contact Information",
             sortable: true,
-            width: "25%",
         },
         { key: "actions", name: "Actions", sortable: false },
     ];
@@ -79,7 +79,7 @@ const WarehouseList = () => {
     const getProperties = (warehouse) =>
         headerItems
             .filter(({ sortable }) => sortable)
-            .map(({ key, name, width }) => ({
+            .map(({ key, name }) => ({
                 key,
                 value: key !== "contact_information" ? warehouse[key] : null,
                 valueHtml:
@@ -91,7 +91,6 @@ const WarehouseList = () => {
                     key === "warehouse_name"
                         ? `/warehouses/${warehouse.id}`
                         : null,
-                width: width,
             }));
 
     const sortByProperty = (property) => {
@@ -113,7 +112,7 @@ const WarehouseList = () => {
     return (
         <div className="warehouse-list">
             <h2>Warehouses</h2>
-            <SearchBar />
+            <FormField icon={searchIcon} placeholder="Search..." />
             <Button onClick={() => navigate("/warehouses/add")}>
                 + Add New Warehouse
             </Button>
