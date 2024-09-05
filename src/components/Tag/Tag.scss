@@ -1,0 +1,25 @@
+@use "../../styles/partials/_variables.scss" as *;
+@use "../../styles/partials/_mixins.scss" as *;
+
+.tag {
+    @include link;
+    height: 1.5rem;
+    width: fit-content;
+    padding: 0 0.5rem;
+    border-radius: 1.25rem;
+    text-transform: uppercase;
+    font-weight: $semi-bold;
+    &--default {
+        background-color: $color-tag-background-default;
+        color: $color-tag-text-default;
+    }
+
+    &--warning {
+        background-color: $color-tag-background-warning;
+        color: $color-tag-text-warning;
+    }
+
+    @include tablet {
+        height: 1.625rem;
+    }
+}

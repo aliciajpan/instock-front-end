@@ -1,5 +1,5 @@
-import "./WarehouseList.scss";
-import FormField from "../../components/FormField/FormField";
+import "./WarehouseListPage.scss";
+import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -10,7 +10,7 @@ import TableHeaderWithSorting from "../../components/TableHeaderWithSorting/Tabl
 import searchIcon from "../../assets/icons/search-24px.svg";
 import axios from "axios";
 
-const WarehouseList = () => {
+const WarehouseListPage = () => {
     const navigate = useNavigate();
     const baseURL = import.meta.env.VITE_BASE_URL;
     const [warehouses, setWarehouses] = useState(null);
@@ -19,7 +19,6 @@ const WarehouseList = () => {
             name: "Delete",
             icon: deleteIcon,
             onClick: (warehouseId) => {
-                console.log("delete", warehouseId);
                 navigate(`/warehouses/delete/${warehouseId}`);
             },
         },
@@ -27,7 +26,6 @@ const WarehouseList = () => {
             name: "Edit",
             icon: editIcon,
             onClick: (warehouseId) => {
-                console.log("edit", warehouseId);
                 navigate(`/warehouses/edit/${warehouseId}`);
             },
         },
@@ -70,20 +68,12 @@ const WarehouseList = () => {
                         : null,
             }));
 
-    const sortByProperty = (property) => {
-        console.log(property);
-    };
-    const sortDirection = (direction) => {
-        console.log(direction);
-    };
     useEffect(() => {
         const fetchWarehouses = async () => {
-            if (!baseURL) {
-                console.error("VITE_API_URL is not set");
-                return;
+            if (baseURL) {
+                const { data } = await axios.get(`${baseURL}/api/warehouses`);
+                setWarehouses(data);
             }
-            const {data} = await axios.get(`${baseURL}/api/warehouses`);
-            setWarehouses(data);
         };
         fetchWarehouses();
     }, [baseURL]);
@@ -93,18 +83,14 @@ const WarehouseList = () => {
             <div className="warehouse-list__header">
                 <h1 className="warehouse-list__title">Warehouses</h1>
                 <div className="warehouse-list__actions">
-                    <FormField icon={searchIcon} placeholder="Search..." />
+                    <Input icon={searchIcon} placeholder="Search..." />
                     <Button onClick={() => navigate("/warehouses/add")}>
                         + Add New Warehouse
                     </Button>
                 </div>
             </div>
             <div className="warehouse-list__container">
-                <TableHeaderWithSorting
-                    headerItems={headerItems}
-                    sortByProperty={sortByProperty}
-                    sortDirection={sortDirection}
-                />
+                <TableHeaderWithSorting headerItems={headerItems} />
                 {warehouses.map((warehouse) => (
                     <ListItem
                         key={warehouse.id}
@@ -117,4 +103,4 @@ const WarehouseList = () => {
     );
 };
 
-export default WarehouseList;
+export default WarehouseListPage;
