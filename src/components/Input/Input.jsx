@@ -11,6 +11,7 @@ const Input = ({
     error = null, 
     defaultValue = null,
     onChange,
+    onIconClick,
     box = "input",
     ...props 
 }) => {
@@ -43,7 +44,7 @@ const Input = ({
                         />
                     )}
                     {icon && (
-                        <img className="input__icon" src={icon} alt="icon" />
+                        <img className="input__icon" src={icon} alt="icon" onClick={onIconClick}/>
                     )}
                 </div>
             </div>

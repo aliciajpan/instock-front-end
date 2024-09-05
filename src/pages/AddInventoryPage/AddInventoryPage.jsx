@@ -3,7 +3,6 @@ import Input from "../../components/Input/Input";
 import Dropdown from "../../components/Dropdown/Dropdown";
 import RadioText from "../../components/RadioText/RadioText";
 import "./AddInventoryPage.scss";
-import arrowDownIcon from "../../assets/icons/arrow_drop_down-24px.svg";
 import arrowBackIcon from "../../assets/icons/arrow_back-24px.svg";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -14,119 +13,207 @@ function AddInventoryPage() {
     const [warehouses, setWarehouses] = useState([]);
     const baseURL = import.meta.env.VITE_BASE_URL;
 
-    const [formData, setFormData] = useState({
+    const propertyNameLabelMap = {
+        item_name: "Item Name",
+        description: "Description",
+        category: "Category",
+        status: "Status",
+        quantity: "Quantity",
+        warehouse_id: "Warehouse",
+    };
+
+    const initialErrors = {
         item_name: "",
         description: "",
         category: "",
-        status: "",
+        quantity: "",
+        warehouse_id: "",
+    };
+
+    const initialFormData = {
+        item_name: "",
+        description: "",
+        category: "",
+        status: "In Stock",
         quantity: 0,
-        warehouse: "",
-    });
+        warehouse_id: "",
+    };
+    const intFields = ["quantity"];
+
+    const [formData, setFormData] = useState(initialFormData);
+    const [errors, setErrors] = useState(initialErrors);
 
     const handleChange = (value, propertyName) => {
-        setFormData({ ...formData, [propertyName]: value });
-        if (propertyName === "status" && value === "out-of-stock") {
-            setFormData({ ...formData, quantity: 0 });
+        if (propertyName === "status" && value === "Out of Stock") {
+            setFormData((prevFormData) => ({ ...prevFormData, quantity: 0 }));
+        }
+        if (intFields.includes(propertyName)) {
+            setFormData((prevFormData) => ({
+                ...prevFormData,
+                [propertyName]: parseInt(value),
+            }));
+        } else {
+            setFormData((prevFormData) => ({
+                ...prevFormData,
+                [propertyName]: value,
+            }));
+        }
+        if (value === "") {
+            setErrors((prevErrors) => ({
+                ...prevErrors,
+                [propertyName]: `${propertyNameLabelMap[propertyName]} is required`,
+            }));
+        } else {
+            setErrors((prevErrors) => ({
+                ...prevErrors,
+                [propertyName]: "",
+            }));
         }
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();     
-        const { item_name, description, category, status, quantity, warehouse } = formData;
-        if (item_name === "" || description === "" || category === "" || status === "" || quantity === 0 || warehouse === "") {
-            console.log("Please fill in all fields");
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const requiredFields = ["item_name", "description", "category", "status", "quantity", "warehouse_id"];
+        if (requiredFields.some((field) => formData[field] === "")) {
+            const newErrors = requiredFields.reduce((acc, field) => {
+                acc[field] = formData[field] === "" ? `${propertyNameLabelMap[field]} is required` : "";
+                return acc;
+            }, initialErrors);
+            setErrors(newErrors);
         } else {
-            console.log(item_name, description, category, status, quantity, warehouse);
+            setErrors(initialErrors);
+            const { data } = await axios.post(`${baseURL}/api/inventories`, formData);
+            console.log(data);
+            navigate("/inventories");
         }
     };
 
     useEffect(() => {
         const fetchWarehouses = async () => {
-            const {data} = await axios.get(`${baseURL}/api/warehouses`)
+            const { data } = await axios.get(`${baseURL}/api/warehouses`);
             setWarehouses(data);
-        }
+        };
         fetchWarehouses();
     }, [baseURL]);
 
     return (
         <div className="add-inventory-page">
             <h1 className="add-inventory-page__title">
-              <img className="add-inventory-page__title-back" src={arrowBackIcon} alt="back" onClick={() => navigate(-1)}/>
-              Add New Inventory Item
+                <img
+                    className="add-inventory-page__title-back"
+                    src={arrowBackIcon}
+                    alt="back"
+                    onClick={() => navigate(-1)}
+                />
+                Add New Inventory Item
             </h1>
             <div className="add-inventory-page__form">
                 <form onSubmit={handleSubmit}>
                     <div className="add-inventory-page__form-group">
-                        <h2 className="add-inventory-page__form-group-title">Item Details</h2>
+                        <h2 className="add-inventory-page__form-group-title">
+                            Item Details
+                        </h2>
                         <Input
                             name="item_name"
                             type="text"
                             label="Item Name"
                             placeholder="Item Name"
-                            onChange={(e) => handleChange(e.target.value, "item_name")}
+                            onChange={(e) =>
+                                handleChange(e.target.value, "item_name")
+                            }
+                            status={errors.item_name ? "error" : "default"}
+                            error={errors.item_name}
                         />
                         <Input
                             name="description"
                             type="text"
-                            label="Description"
+                            label={propertyNameLabelMap.description}
                             placeholder="Please enter a brief item description..."
                             box="textarea"
-                            onChange={(e) => handleChange(e.target.value, "description")}
+                            onChange={(e) =>
+                                handleChange(e.target.value, "description")
+                            }
+                            status={errors.description ? "error" : "default"}
+                            error={errors.description}
                         />
-                        <Dropdown 
+                        <Dropdown
                             name="category"
-                            label="Category"
+                            label={propertyNameLabelMap.category}
                             placeholder="Please select"
-                            onChange={(option) => handleChange(option.value, "category")}
+                            onChange={(option) =>
+                                handleChange(option.value, "category")
+                            }
                             options={[
-                              { value: 'accessories', label: 'Accessories' },
-                              { value: 'apparel', label: 'Apparel' }, 
-                              { value: 'electronics', label: 'Electronics' },
-                              { value: 'gear', label: 'Gear' },
-                              { value: 'health', label: 'Health' },
+                                { value: "Accessories", label: "Accessories" },
+                                { value: "Apparel", label: "Apparel" },
+                                { value: "Electronics", label: "Electronics" },
+                                { value: "Gear", label: "Gear" },
+                                { value: "Health", label: "Health" },
                             ]}
-                            icon={arrowDownIcon}
+                            status={errors.category ? "error" : "default"}
+                            error={errors.category}
                         />
                     </div>
                     <div className="add-inventory-page__form-group">
-                        <h2 className="add-inventory-page__form-group-title">Item Availability</h2>                            
+                        <h2 className="add-inventory-page__form-group-title">
+                            Item Availability
+                        </h2>
                         <RadioText
                             name="status"
-                            label="Status"
+                            label={propertyNameLabelMap.status}
                             options={[
-                                { value: 'in-stock', label: 'In Stock' },
-                                { value: 'out-of-stock', label: 'Out of Stock' },
+                                { value: "In Stock", label: "In Stock" },
+                                {
+                                    value: "Out of Stock",
+                                    label: "Out of Stock",
+                                },
                             ]}
-                            onChange={(option) => handleChange(option.value, "status")}
-                        />  
-                        {formData.status === "in-stock" && (
+                            onChange={(option) =>
+                                handleChange(option.value, "status")
+                            }
+                        />
+                        {formData.status === "In Stock" && (
                             <Input
                                 name="quantity"
                                 type="number"
-                                label="Quantity"
+                                label={propertyNameLabelMap.quantity}
                                 placeholder="Quantity"
                                 defaultValue={0}
-                                onChange={(e) => handleChange(e.target.value, "quantity")}
+                                onChange={(e) =>
+                                    handleChange(e.target.value, "quantity")
+                                }
+                                status={errors.quantity ? "error" : "default"}
+                                error={errors.quantity}
                             />
                         )}
-                        <Dropdown 
-                            status="default"
-                            name="warehouse"
-                            label="Warehouse"
+                        <Dropdown
+                            name="warehouse_id"
+                            label={propertyNameLabelMap.warehouse_id}
                             placeholder="Please select"
-                            onChange={(option) => handleChange(option.value, "warehouse")}
-                            options={warehouses.map((warehouse) => ({value: warehouse.id, label: warehouse.warehouse_name}))}
+                            onChange={(option) =>
+                                handleChange(option.value, "warehouse_id")
+                            }
+                            options={warehouses.map((warehouse) => ({
+                                value: warehouse.id,
+                                label: warehouse.warehouse_name,
+                            }))}
+                            status={errors.warehouse_id ? "error" : "default"}
+                            error={errors.warehouse_id}
                         />
                     </div>
                     <div className="add-inventory-page__form-actions">
-                      <div className="add-inventory-page__form-actions-button">
-                        <Button type="button" status="secondary">
-                            Cancel
-                        </Button>
-                      </div>
-                      <div className="add-inventory-page__form-actions-button"> 
-                        <Button type="submit">+ Add Item</Button>
-                      </div>
+                        <div className="add-inventory-page__form-actions-button">
+                            <Button
+                                type="button"
+                                status="secondary"
+                                onClick={() => navigate(-1)}
+                            >
+                                Cancel
+                            </Button>
+                        </div>
+                        <div className="add-inventory-page__form-actions-button">
+                            <Button type="submit">+ Add Item</Button>
+                        </div>
                     </div>
                 </form>
             </div>

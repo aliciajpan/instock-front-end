@@ -14,7 +14,7 @@ function InventoryListPage({}) {
 
     useEffect(() => {
         const fetchInventories = async () => {
-            const {data} = await axios.get(`${baseURL}/inventories`)
+            const {data} = await axios.get(`${baseURL}/api/inventories`)
             setInventories(data);
         }
         fetchInventories();
