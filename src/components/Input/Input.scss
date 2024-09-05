@@ -9,13 +9,20 @@
     gap: 0.25rem;
 
     &__container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    &__box {
         position: relative;
     }
 
     &__label {
-        font-size: 0.75rem;
-        font-weight: 600;
-        margin-bottom: 0.25rem;
+        @include link;
+        & {
+            font-weight: $semi-bold;
+        }
     }
 
     &__input {
@@ -24,9 +31,10 @@
         height: 2.25rem;
         border-radius: 1.25rem;
         width: 100%;
-        padding: 0 1rem;
+        padding: 1rem;
         color: $color-text-input-active;
         border: 1px solid $color-border-input-default;
+        font-family: $font-family;
         
         &:focus {
             color: $color-text-input-active;
@@ -34,8 +42,56 @@
         }
 
         &::placeholder {
+            font-size: .8125rem;
+            line-height: 1.25rem;
             color: $color-text-input-default;
             font-family: $font-family;
+
+            @include tablet {
+                font-size: .875rem;
+                line-height: 1.375rem;
+            }
+        }
+
+        &--error {
+            border: 1px solid $color-border-input-error;
+        }
+
+        @include tablet {
+            height: 2.375rem;
+            padding: 0 1rem;
+            width: fit-content;
+        }
+    }
+
+    &__textarea {
+        appearance: none;
+        outline: none;
+        height: 2.25rem;
+        border-radius: 1.25rem;
+        width: 100%;
+        padding: 1rem;
+        color: $color-text-input-active;
+        border: 1px solid $color-border-input-default;
+        resize: none;
+        height: 7.5rem;
+        font-family: $font-family;
+
+        &:focus {
+            color: $color-text-input-active;
+            border: 1px solid $color-border-input-active;            
+        }
+
+        &::placeholder {
+            font-size: .8125rem;
+            line-height: 1.25rem;
+            color: $color-text-input-default;
+            font-family: $font-family;
+
+            @include tablet {
+                font-size: .875rem;
+                line-height: 1.375rem;
+            }
         }
 
         &--error {

@@ -5,7 +5,7 @@ $desktop-breakpoint: 80rem;
 // Primary Colors
 $instock-black: #13182C;
 $instock-indigo: #2E66E5;
-$white: #ffffff;
+$white: #FFFFFF;
 
 // Secondary Colors
 $slate: #5C667E;
@@ -14,6 +14,7 @@ $cloud: #BDC5D5;
 // Background Colors
 $graphite: #232940;
 $light-grey: #F7F8F9;
+$button-area-background: rgba($light-grey, 70%);
 
 // Supporting Colors
 $green: #158463;
@@ -22,6 +23,9 @@ $red: #C94515;
 // Font Weight
 $regular: 400;
 $semi-bold: 600;
+
+// Divider
+$color-divider: $cloud;
 
 // Button Colors
 $color-btn-primary-default: $instock-indigo;
@@ -45,7 +49,7 @@ $color-background-header-with-sorting: rgba($light-grey, 70%);
 $color-text-header-with-sorting: $slate;
 $color-background-table-row-hover: rgba($instock-indigo, 7%);
 
-// Form Field Colors
+// Input Colors
 $color-text-input-default: $slate;
 $color-text-input-active: $instock-black;
 $color-text-input-error: $red;
@@ -61,3 +65,21 @@ $color-tag-background-default: rgba($green, 7%);
 $color-tag-background-warning: rgba($red, 7%);
 $color-tag-text-default: $green;
 $color-tag-text-warning: $red;
+
+// Dropdown Colors
+$color-text-dropdown-default: $slate;
+$color-text-dropdown-active: $instock-black;
+$color-border-dropdown-default: $cloud;
+$color-border-dropdown-active: $instock-indigo;
+$color-background-dropdown-default: $white;
+$color-background-dropdown-active: $white;
+$color-background-dropdown-hover: rgba($instock-indigo, 7%);
+
+// Radio Text Colors
+$color-text-radio-text-default: $slate;
+$color-text-radio-text-active: $instock-black;
+$color-border-radio-text-default: $cloud;
+$color-border-radio-text-active: $instock-indigo;
+$color-background-radio-text-default: $white;
+$color-background-radio-text-active: $white;
+$color-background-radio-text-hover: rgba($instock-indigo, 7%);

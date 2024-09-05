@@ -1,0 +1,45 @@
+@import '../../styles/partials/_variables.scss';
+
+.add-inventory-page {
+    &__title {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        &-back {
+            cursor: pointer;
+        }
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    &__form-group {
+        border-top: 1px solid $color-divider;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1.5rem;
+    }
+
+    &__form-group-title {
+        margin: 0;
+        padding: 0 0 0.5rem 0;
+    }
+
+    &__form-actions {
+        background-color: $button-area-background;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    &__form-actions-button {
+        width: 8.75rem;
+    }
+}

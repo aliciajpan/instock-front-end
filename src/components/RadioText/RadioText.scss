@@ -1,0 +1,76 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/typography" as *;
+
+.radio-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    &__label {
+        @include link;
+        & {
+            font-weight: $semi-bold;
+        }
+    }
+
+    &__options {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    &__option {
+        flex-basis: 50%;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+        align-items: center;
+
+        &-label {
+            @include link;
+            & {
+                font-weight: $regular;
+                cursor: pointer;
+                color: $color-text-radio-text-default;
+            }
+
+            &--active {
+                color: $color-text-radio-text-active;
+            }
+        }
+
+        &-input {
+            appearance: none;
+            width: 1rem;
+            height: 1rem;
+            border: 1px solid $color-border-radio-text-default;
+            border-radius: 50%;
+            cursor: pointer;
+            position: relative;
+
+            &:checked {
+                border-color: $color-border-radio-text-active;
+                color: $color-text-radio-text-active;
+
+                &::after {
+                    content: "";
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 0.4375rem;
+                    height: 0.4375rem;
+                    background-color: $color-border-radio-text-active;
+                    border-radius: 50%;
+                }
+            }
+
+            &:focus {
+                outline: none;
+                box-shadow: 0 0 0 2px rgba($color-border-radio-text-active, 0.2);
+            }
+        }
+    }
+}
