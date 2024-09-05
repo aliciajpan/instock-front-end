@@ -11,6 +11,7 @@ const Dropdown = ({
     status = "default",
     error = null,
     onChange,
+    width = null,
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState(null);
@@ -41,7 +42,7 @@ const Dropdown = ({
     }, []);
 
     return (
-        <div className="dropdown" ref={dropdownRef}>
+        <div className="dropdown" ref={dropdownRef} style={width ? { width } : {}}>
             <div className="dropdown__wrapper">
                 {label && <label className="dropdown__label">{label}</label>}
                 <div

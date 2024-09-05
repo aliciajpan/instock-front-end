@@ -13,6 +13,7 @@ const Input = ({
     onChange,
     onIconClick,
     box = "input",
+    width = null,
     ...props 
 }) => {
     const properties = {
@@ -25,7 +26,7 @@ const Input = ({
         ...props,
     };
     return (
-        <div className="input">
+        <div className="input" style={width ? { width } : {}}>
             <div className="input__container">
                 {label && 
                     <label className="input__label" htmlFor={name}>{label}</label>
@@ -39,6 +40,7 @@ const Input = ({
                     )}
                     {box === "textarea" && (
                         <textarea
+                            style={{ width }}
                             className={`input__textarea input__textarea--${status}`}
                             {...properties}
                         />

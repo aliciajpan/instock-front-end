@@ -73,18 +73,34 @@ function AddInventoryPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const requiredFields = ["item_name", "description", "category", "status", "quantity", "warehouse_id"];
+        const requiredFields = [
+            "item_name",
+            "description",
+            "category",
+            "status",
+            "quantity",
+            "warehouse_id",
+        ];
         if (requiredFields.some((field) => formData[field] === "")) {
             const newErrors = requiredFields.reduce((acc, field) => {
-                acc[field] = formData[field] === "" ? `${propertyNameLabelMap[field]} is required` : "";
+                acc[field] =
+                    formData[field] === ""
+                        ? `${propertyNameLabelMap[field]} is required`
+                        : "";
                 return acc;
             }, initialErrors);
             setErrors(newErrors);
         } else {
             setErrors(initialErrors);
-            const { data } = await axios.post(`${baseURL}/api/inventories`, formData);
-            console.log(data);
-            navigate("/inventories");
+            try {
+                await axios.post(
+                    `${baseURL}/api/inventories`,
+                    formData
+                );
+                navigate("/inventories");
+            } catch (error) {
+                console.error(error);
+            }
         }
     };
 
@@ -109,97 +125,116 @@ function AddInventoryPage() {
             </h1>
             <div className="add-inventory-page__form">
                 <form onSubmit={handleSubmit}>
-                    <div className="add-inventory-page__form-group">
-                        <h2 className="add-inventory-page__form-group-title">
-                            Item Details
-                        </h2>
-                        <Input
-                            name="item_name"
-                            type="text"
-                            label="Item Name"
-                            placeholder="Item Name"
-                            onChange={(e) =>
-                                handleChange(e.target.value, "item_name")
-                            }
-                            status={errors.item_name ? "error" : "default"}
-                            error={errors.item_name}
-                        />
-                        <Input
-                            name="description"
-                            type="text"
-                            label={propertyNameLabelMap.description}
-                            placeholder="Please enter a brief item description..."
-                            box="textarea"
-                            onChange={(e) =>
-                                handleChange(e.target.value, "description")
-                            }
-                            status={errors.description ? "error" : "default"}
-                            error={errors.description}
-                        />
-                        <Dropdown
-                            name="category"
-                            label={propertyNameLabelMap.category}
-                            placeholder="Please select"
-                            onChange={(option) =>
-                                handleChange(option.value, "category")
-                            }
-                            options={[
-                                { value: "Accessories", label: "Accessories" },
-                                { value: "Apparel", label: "Apparel" },
-                                { value: "Electronics", label: "Electronics" },
-                                { value: "Gear", label: "Gear" },
-                                { value: "Health", label: "Health" },
-                            ]}
-                            status={errors.category ? "error" : "default"}
-                            error={errors.category}
-                        />
-                    </div>
-                    <div className="add-inventory-page__form-group">
-                        <h2 className="add-inventory-page__form-group-title">
-                            Item Availability
-                        </h2>
-                        <RadioText
-                            name="status"
-                            label={propertyNameLabelMap.status}
-                            options={[
-                                { value: "In Stock", label: "In Stock" },
-                                {
-                                    value: "Out of Stock",
-                                    label: "Out of Stock",
-                                },
-                            ]}
-                            onChange={(option) =>
-                                handleChange(option.value, "status")
-                            }
-                        />
-                        {formData.status === "In Stock" && (
+                    <div className="add-inventory-page__form-groups">
+                        <div className="add-inventory-page__form-group">
+                            <h2 className="add-inventory-page__form-group-title">
+                                Item Details
+                            </h2>
                             <Input
-                                name="quantity"
-                                type="number"
-                                label={propertyNameLabelMap.quantity}
-                                placeholder="Quantity"
-                                defaultValue={0}
+                                width="100%"
+                                name="item_name"
+                                type="text"
+                                label="Item Name"
+                                placeholder="Item Name"
                                 onChange={(e) =>
-                                    handleChange(e.target.value, "quantity")
+                                    handleChange(e.target.value, "item_name")
                                 }
-                                status={errors.quantity ? "error" : "default"}
-                                error={errors.quantity}
+                                status={errors.item_name ? "error" : "default"}
+                                error={errors.item_name}
                             />
-                        )}
-                        <Dropdown
-                            name="warehouse_id"
-                            label={propertyNameLabelMap.warehouse_id}
-                            placeholder="Please select"
-                            onChange={(option) =>
-                                handleChange(option.value, "warehouse_id")
-                            }
-                            options={warehouses.map((warehouse) => ({
-                                value: warehouse.id,
-                                label: warehouse.warehouse_name,
-                            }))}
-                            status={errors.warehouse_id ? "error" : "default"}
-                            error={errors.warehouse_id}
-                        />
+                            <Input
+                                width="100%"
+                                name="description"
+                                type="text"
+                                label={propertyNameLabelMap.description}
+                                placeholder="Please enter a brief item description..."
+                                box="textarea"
+                                onChange={(e) =>
+                                    handleChange(e.target.value, "description")
+                                }
+                                status={
+                                    errors.description ? "error" : "default"
+                                }
+                                error={errors.description}
+                            />
+                            <Dropdown
+                                name="category"
+                                width="100%"
+                                label={propertyNameLabelMap.category}
+                                placeholder="Please select"
+                                onChange={(option) =>
+                                    handleChange(option.value, "category")
+                                }
+                                options={[
+                                    {
+                                        value: "Accessories",
+                                        label: "Accessories",
+                                    },
+                                    { value: "Apparel", label: "Apparel" },
+                                    {
+                                        value: "Electronics",
+                                        label: "Electronics",
+                                    },
+                                    { value: "Gear", label: "Gear" },
+                                    { value: "Health", label: "Health" },
+                                ]}
+                                status={errors.category ? "error" : "default"}
+                                error={errors.category}
+                            />
+                        </div>
+                        <div className="add-inventory-page__form-group">
+                            <h2 className="add-inventory-page__form-group-title">
+                                Item Availability
+                            </h2>
+                            <RadioText
+                                name="status"
+                                label={propertyNameLabelMap.status}
+                                options={[
+                                    { value: "In Stock", label: "In Stock" },
+                                    {
+                                        value: "Out of Stock",
+                                        label: "Out of Stock",
+                                    },
+                                ]}
+                                onChange={(option) =>
+                                    handleChange(option.value, "status")
+                                }
+                            />
+                            {formData.status === "In Stock" && (
+                                <Input
+                                    width="100%"
+                                    name="quantity"
+                                    type="number"
+                                    label={propertyNameLabelMap.quantity}
+                                    placeholder="Quantity"
+                                    defaultValue={0}
+                                    onChange={(e) =>
+                                        handleChange(e.target.value, "quantity")
+                                    }
+                                    status={
+                                        errors.quantity ? "error" : "default"
+                                    }
+                                    error={errors.quantity}
+                                />
+                            )}
+                            <Dropdown
+                                width="100%"
+                                name="warehouse_id"
+                                label={propertyNameLabelMap.warehouse_id}
+                                placeholder="Please select"
+                                onChange={(option) =>
+                                    handleChange(option.value, "warehouse_id")
+                                }
+                                options={warehouses.map((warehouse) => ({
+                                    value: warehouse.id,
+                                    label: warehouse.warehouse_name,
+                                }))}
+                                status={
+                                    errors.warehouse_id ? "error" : "default"
+                                }
+                                error={errors.warehouse_id}
+                            />
+                        </div>
                     </div>
                     <div className="add-inventory-page__form-actions">
                         <div className="add-inventory-page__form-actions-button">
