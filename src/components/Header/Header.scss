@@ -1,0 +1,78 @@
+@import '../../styles/partials/mixins';
+@import '../../styles/partials/variables';
+
+.header {
+  background-color: $graphite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &__banner {
+    color: $white;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @include tablet {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem 1rem 1rem;
+      width: 100%;
+    }
+
+    @include desktop {
+      padding: 1rem 5rem;
+      width: 79rem;
+    }
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+
+    @include tablet {
+      margin: 1rem;
+    }
+  }
+
+  &__nav {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: space-between;
+
+    @include tablet {
+      flex-direction: row;
+      width: auto;
+    }
+
+    @include desktop {
+      gap: 2rem;
+    }
+  }
+
+  &__nav li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+  }
+
+  &__nav a {
+    color: $cloud;
+    text-decoration: none;
+    border-radius: 20px;
+  }
+
+  &__nav a.active {
+    padding: 0.5rem 3rem;
+    color: $white;
+    background-color: $instock-black;
+    @include tablet {
+      padding: 0.5rem 1rem;
+    }
+  }
+}

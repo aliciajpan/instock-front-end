@@ -4,6 +4,7 @@
 
 * {
   box-sizing: border-box;
+  margin: 0;
 }
 
 body {
@@ -58,4 +59,14 @@ body {
     font-size: .875rem;
     line-height: 1.375rem;
   }
+
+  li{
+    list-style: none;
+}
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
