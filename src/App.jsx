@@ -10,6 +10,7 @@ import AddWarehouse from './pages/AddWarehouse/AddWarehouse';
 import AddInventory from './pages/AddInventory/AddInventory';
 import EditWarehouse from './pages/EditWarehouse/EditWarehouse';
 import EditInventory from './pages/EditInventory/EditInventory';
+import Footer from './components/Footer/Footer';
 import DeleteWarehouse from './pages/DeleteWarehouse/DeleteWarehouse';
 import DeleteInventory from './pages/DeleteInventory/DeleteInventory';
 
@@ -30,6 +31,7 @@ function App() {
         <Route path="/inventories/delete/:id" element={<DeleteInventory />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+      <Footer />
     </Router>
   );
 }
