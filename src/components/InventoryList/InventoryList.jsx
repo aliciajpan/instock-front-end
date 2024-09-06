@@ -53,15 +53,6 @@ const InventoryList = ({headerItems, inventories: initialInventories}) => {
                     key === "item_name" ? `/inventories/${inventory.id}` : null,
             }));
 
-    const buttons = [
-        {
-            id: "cancel",
-            text: "Cancel",
-            onClick: () => {
-                setIsDeleteModalOpen(false);
-            },
-        },
-    ];
     if (!inventories) return <div>Loading...</div>;
     return (
         <div className="inventory-list">
