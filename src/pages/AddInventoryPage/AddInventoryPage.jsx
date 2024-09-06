@@ -7,12 +7,12 @@ import arrowBackIcon from "../../assets/icons/arrow_back-24px.svg";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Toast from "../../components/Toast/Toast";
 
 function AddInventoryPage() {
     const navigate = useNavigate();
     const [warehouses, setWarehouses] = useState([]);
     const baseURL = import.meta.env.VITE_BASE_URL;
-
     const propertyNameLabelMap = {
         item_name: "Item Name",
         description: "Description",
@@ -38,42 +38,52 @@ function AddInventoryPage() {
         quantity: 0,
         warehouse_id: "",
     };
-    const intFields = ["quantity"];
+    const positiveIntFields = ["quantity"];
 
     const [formData, setFormData] = useState(initialFormData);
     const [errors, setErrors] = useState(initialErrors);
+    const [toast, setToast] = useState(null);
 
     const handleChange = (value, propertyName) => {
         if (propertyName === "status" && value === "Out of Stock") {
             setFormData((prevFormData) => ({ ...prevFormData, quantity: 0 }));
         }
-        if (intFields.includes(propertyName)) {
-            setFormData((prevFormData) => ({
-                ...prevFormData,
-                [propertyName]: parseInt(value),
-            }));
-        } else {
-            setFormData((prevFormData) => ({
-                ...prevFormData,
-                [propertyName]: value,
-            }));
+        const {errorMessage, parsedValue} = getValidationResult(value, propertyName);
+        if (errorMessage) {
+          setErrors((prevErrors) => ({
+              ...prevErrors,
+              [propertyName]: errorMessage,
+          }));
+      } else {
+          setFormData((prevFormData) => ({
+              ...prevFormData,
+              [propertyName]: parsedValue,
+          }));
+          setErrors((prevErrors) => ({
+              ...prevErrors,
+              [propertyName]: "",
+          }));
+      }
+    };
+
+    const getValidationResult = (value, propertyName) => {
+        let errorMessage = null;
+        let parsedValue = value;
+        if (positiveIntFields.includes(propertyName)) {
+            parsedValue = parseInt(value);
+            if (parsedValue <= 0 && formData.status === "In Stock") {
+                errorMessage = `${propertyNameLabelMap[propertyName]} must be a positive integer`;
+            }
         }
         if (value === "") {
-            setErrors((prevErrors) => ({
-                ...prevErrors,
-                [propertyName]: `${propertyNameLabelMap[propertyName]} is required`,
-            }));
-        } else {
-            setErrors((prevErrors) => ({
-                ...prevErrors,
-                [propertyName]: "",
-            }));
+            errorMessage = `${propertyNameLabelMap[propertyName]} is required`;
         }
+        return {errorMessage, parsedValue};
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const requiredFields = [
+        const propertyNamesToValidate = [
             "item_name",
             "description",
             "category",
@@ -81,27 +91,36 @@ function AddInventoryPage() {
             "quantity",
             "warehouse_id",
         ];
-        if (requiredFields.some((field) => formData[field] === "")) {
-            const newErrors = requiredFields.reduce((acc, field) => {
-                acc[field] =
-                    formData[field] === ""
-                        ? `${propertyNameLabelMap[field]} is required`
-                        : "";
-                return acc;
-            }, initialErrors);
-            setErrors(newErrors);
-        } else {
-            setErrors(initialErrors);
-            try {
-                await axios.post(
-                    `${baseURL}/api/inventories`,
-                    formData
-                );
-                navigate("/inventories");
+        const errors =propertyNamesToValidate.reduce((acc, propertyName) => {
+            const {errorMessage} = getValidationResult(formData[propertyName], propertyName);
+            if (errorMessage) {
+                acc[propertyName] = errorMessage;
+            }
+            else {
+                acc[propertyName] = "";
+            }
+            return acc;
+        }, initialErrors);
+        setErrors(errors);
+        if (Object.values(errors).some((error) => error !== "")) {
+            return;
+        }
+        try {
+                await axios.post(`${baseURL}/api/inventories`, formData);
+                setToast({
+                    message: "Inventory added successfully",
+                    status: "success",
+                });
+                setTimeout(() => {
+                    navigate("/inventories");
+                }, 500);
             } catch (error) {
                 console.error(error);
+                setToast({
+                    message: "Failed to add inventory",
+                    status: "error",
+                });
             }
-        }
     };
 
     useEffect(() => {
@@ -252,6 +271,15 @@ function AddInventoryPage() {
                     </div>
                 </form>
             </div>
+            {toast && (
+                <Toast
+                    message={toast.message}
+                    status={toast.status}
+                    onClose={() => {
+                        setToast(null);
+                    }}
+                />
+            )}
         </div>
     );
 }

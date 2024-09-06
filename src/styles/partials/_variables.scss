@@ -19,6 +19,7 @@ $color-background-header: $graphite;
 $color-background-main-content: $white;
 $color-background-footer: rgba($light-grey, 70%);
 $color-box-shadow: rgba($instock-black, 10%);
+$color-background-modal: rgba($instock-black, 50%);
 
 // Text Colors
 $color-text-footer: $slate;
@@ -77,6 +78,10 @@ $color-tag-background-default: rgba($green, 7%);
 $color-tag-background-warning: rgba($red, 7%);
 $color-tag-text-default: $green;
 $color-tag-text-warning: $red;
+
+// Toast Colors
+$color-toast-background-success: $green;
+$color-toast-background-error: $red;
 
 // Dropdown Colors
 $color-text-dropdown-default: $slate;

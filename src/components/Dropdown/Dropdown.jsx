@@ -48,7 +48,7 @@ const Dropdown = ({
                 <div
                     className={`dropdown__selected ${
                         isOpen ? "dropdown__selected--open" : ""
-                    }`}
+                    } ${selectedOption === null ? "dropdown__selected--empty" : ""}`}
                     onClick={toggleDropdown}
                 >
                     {selectedOption ? selectedOption.label : placeholder}

@@ -6,19 +6,25 @@ import Button from "../../components/Button/Button";
 import { useNavigate } from "react-router-dom";
 import "./InventoryListPage.scss";
 import axios from "axios";
+import Toast from "../../components/Toast/Toast";
 
 function InventoryListPage({}) {
     const navigate = useNavigate();
     const [inventories, setInventories] = useState(null);
     const baseURL = import.meta.env.VITE_BASE_URL;
+    const [toast, setToast] = useState(null);
 
     useEffect(() => {
         const fetchInventories = async () => {
             try {
                 const {data} = await axios.get(`${baseURL}/api/inventories`)
-                setInventories(data);
+                setInventories(data);                
             } catch (error) {
                 console.error(error);
+                setToast({
+                    message: "Failed to fetch inventories",
+                    status: "error",
+                });
             }
         }
         fetchInventories();
@@ -49,6 +55,7 @@ function InventoryListPage({}) {
                 inventories={inventories}
                 headerItems={headerItems}
             />
+            {toast && <Toast message={toast.message} status={toast.status} />}
         </div>
     );
 }

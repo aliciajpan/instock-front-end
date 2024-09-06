@@ -6,22 +6,26 @@ import editIcon from "../../assets/icons/edit-24px.svg";
 import deleteIcon from "../../assets/icons/delete_outline-24px.svg";
 import { renderToStaticMarkup } from "react-dom/server";
 import Tag from "../../components/Tag/Tag";
+import DeleteInventoryModal from "../../components/DeleteInventoryModal/DeleteInventoryModal";
+import { useState } from "react";
 
-const InventoryList = ({headerItems, inventories}) => {
+const InventoryList = ({headerItems, inventories: initialInventories}) => {
     const navigate = useNavigate();
+    const [inventories, setInventories] = useState(initialInventories);
+    const [inventoryToBeDeleted, setInventoryToBeDeleted] = useState(null);
     const actions = [
         {
             name: "Delete",
             icon: deleteIcon,
-            onClick: (inventoryId) => {
-                navigate(`/inventories/delete/${inventoryId}`);
+            onClick: (inventory) => {
+                setInventoryToBeDeleted(inventory);
             },
         },
         {
             name: "Edit",
             icon: editIcon,
-            onClick: (inventoryId) => {
-                navigate(`/inventories/edit/${inventoryId}`);
+            onClick: (inventory) => {
+                navigate(`/inventories/edit/${inventory.id}`);
             },
         },
     ];
@@ -30,7 +34,7 @@ const InventoryList = ({headerItems, inventories}) => {
         return actions.map((action) => ({
             icon: action.icon,
             name: action.name,
-            onClick: () => action.onClick(inventory.id),
+            onClick: () => action.onClick(inventory),
         }));
     };
 
@@ -49,7 +53,6 @@ const InventoryList = ({headerItems, inventories}) => {
                     key === "item_name" ? `/inventories/${inventory.id}` : null,
             }));
 
-
     if (!inventories) return <div>Loading...</div>;
     return (
         <div className="inventory-list">
@@ -65,6 +68,12 @@ const InventoryList = ({headerItems, inventories}) => {
                     />
                 ))}
             </div>
+            <DeleteInventoryModal 
+                inventory={inventoryToBeDeleted} 
+                onClose={() => setInventoryToBeDeleted(null)} 
+                isOpen={!!inventoryToBeDeleted}
+                onDelete={() => {setInventories(inventories.filter(inventory => inventory.id !== inventoryToBeDeleted.id))}}
+            />
         </div>
     );
 };
