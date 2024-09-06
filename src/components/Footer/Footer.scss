@@ -4,7 +4,12 @@
 .footer {
   color: $color-text-footer;
   background-color: $color-background-footer;
-  text-align: center;
   padding: 1rem;
   width: 100%;
+  height: 100%;
+  flex: 1;
+  justify-content: flex-end;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
