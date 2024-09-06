@@ -11,7 +11,7 @@ function Header() {
         </div>
         <nav className="header__nav">
           <li>
-            <NavLink to='/' href="#" end>
+            <NavLink to='/warehouses' href="#">
               Warehouses
             </NavLink>
           </li>
