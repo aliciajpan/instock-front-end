@@ -12,19 +12,19 @@
     justify-content: center;
     align-items: center;
     z-index: 100;
-    box-shadow: 0 2px 5px 0 $color-box-shadow;
 
     &__overlay {
         height: 100%;
         width: 100%;
         background-color: white;
         padding: 2rem;
-        border-radius: 0.5rem;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         gap: 2rem;
+        position: relative;
         @include tablet {
+            border-radius: 0.5rem;
             height: auto;
             width: 42rem;
             padding: 2rem 4rem;
@@ -54,6 +54,17 @@
         @include tablet {
             justify-content: flex-end;
         }
+    }
+
+    &__close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        cursor: pointer;
+    }
+
+    @include tablet {
+        box-shadow: 0 2px 5px 0 $color-box-shadow;
     }
 
 }

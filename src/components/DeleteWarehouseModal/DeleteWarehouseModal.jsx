@@ -50,6 +50,7 @@ const DeleteWarehouseModal = ({ warehouse, onClose, isOpen, onDelete }) => {
                     isOpen={isOpen}
                     title={`Delete ${warehouse.warehouse_name} Warehouse`}
                     buttons={buttons}
+                    onClose={onClose}
                 >
                     <div className="modal__body">
                         Please confirm that you’d like to delete the{" "}
