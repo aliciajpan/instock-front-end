@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
+import backArrowIcon from '../../assets/icons/arrow_back-24px.svg';
 import "./WarehouseDetails.scss";
 
 function WarehouseDetails({warehouseId}) {
@@ -45,7 +46,37 @@ function WarehouseDetails({warehouseId}) {
     }
 
     return (
-        <h1>{warehouseDetails.warehouse_name}</h1>
+        <>
+            <div className='whdetails__title'>
+                <img src={backArrowIcon} alt="Back arrow icon" />
+                <h1>{warehouseDetails.warehouse_name}</h1>
+                <Button onClick={() => navigate("/inventories/add")}>
+                        + Add New Item
+                </Button>
+            </div>
+
+            <div>
+                <div>
+                    <h3>WAREHOUSE ADDRESS:</h3>
+                    <p>{warehouseDetails.address}, {warehouseDetails.city}, {warehouseDetails.country}</p>  
+                </div>
+
+                <div className='whdetails__contact'>
+                    <div>
+                        <h3>CONTACT NAME:</h3>
+                        <p>{warehouseDetails.contact_name}</p>
+                        <p>{warehouseDetails.contact_position}</p>
+                    </div>
+                    <div>
+                        <h3>CONTACT INFORMATION:</h3>
+                        <p>{warehouseDetails.contact_phone}</p>
+                        <p>{warehouseDetails.contact_email}</p>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </>
     );
 }
 

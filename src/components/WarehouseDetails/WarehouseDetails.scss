@@ -1,0 +1,12 @@
+.whdetails {
+    &__title {
+        display: flex;
+        border-bottom: solid 1px grey;
+    }
+
+    &__contact {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: solid 1px grey;
+    }
+}
