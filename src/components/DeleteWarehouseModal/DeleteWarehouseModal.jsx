@@ -1,10 +1,10 @@
 import Modal from "../Modal/Modal";
-import "./DeleteWarehouse.scss";
+import "./DeleteWarehouseModal.scss";
 import { useState } from "react";
 import axios from "axios";
 import Toast from "../Toast/Toast";
 
-const DeleteWarehouse = ({ warehouse, onClose, isOpen, onDelete }) => {
+const DeleteWarehouseModal = ({ warehouse, onClose, isOpen, onDelete }) => {
     const API_BASE_URL = import.meta.env.VITE_BASE_URL;
     const [toast, setToast] = useState(null);
 
@@ -33,7 +33,7 @@ const DeleteWarehouse = ({ warehouse, onClose, isOpen, onDelete }) => {
                     });
                     setTimeout(() => {
                         onClose();
-                    }, 1000);
+                    }, 100);
                 } catch (error) {
                     console.error(error);
                     setToast({
@@ -48,23 +48,28 @@ const DeleteWarehouse = ({ warehouse, onClose, isOpen, onDelete }) => {
         <>
             {warehouse && (
                 <Modal
-                isOpen={isOpen}
-                onClose={() => {
-                    onClose();
-                }}
-                title={`Delete ${warehouse.name} Warehouse`}
-                buttons={buttons}
-            >
-                <div>
-                    Please confirm that you’d like to delete the{" "}
-                    <span>{warehouse.name}</span> from the list of warehouses.
-                    You won’t be able to undo this action.
-                </div>
-            </Modal>
+                    isOpen={isOpen}
+                    title={`Delete ${warehouse.warehouse_name} Warehouse`}
+                    buttons={buttons}
+                >
+                    <div className="modal__body">
+                        Please confirm that you’d like to delete the{" "}
+                        <span>{warehouse.warehouse_name}</span> from the list of
+                        warehouses. You won’t be able to undo this action.
+                    </div>
+                </Modal>
             )}
-            <Toast message={toast.message} status={toast.status} />
+            {toast && (
+                <Toast
+                    message={toast.message}
+                    status={toast.status}
+                    onClose={() => {
+                        setToast(null);
+                    }}
+                />
+            )}
         </>
     );
 };
 
-export default DeleteWarehouse;
+export default DeleteWarehouseModal;

@@ -9,24 +9,26 @@ import ListItem from "../../components/ListItem/ListItem";
 import TableHeaderWithSorting from "../../components/TableHeaderWithSorting/TableHeaderWithSorting";
 import searchIcon from "../../assets/icons/search-24px.svg";
 import axios from "axios";
+import DeleteWarehouseModal from "../../components/DeleteWarehouseModal/DeleteWarehouseModal";
 
 const WarehouseListPage = () => {
     const navigate = useNavigate();
     const baseURL = import.meta.env.VITE_BASE_URL;
     const [warehouses, setWarehouses] = useState(null);
+    const [warehouseToBeDeleted, setWarehouseToBeDeleted] = useState(null);
     const actions = [
         {
             name: "Delete",
             icon: deleteIcon,
-            onClick: (warehouseId) => {
-                navigate(`/warehouses/delete/${warehouseId}`);
+            onClick: (warehouse) => {
+                setWarehouseToBeDeleted(warehouse);
             },
         },
         {
             name: "Edit",
             icon: editIcon,
-            onClick: (warehouseId) => {
-                navigate(`/warehouses/edit/${warehouseId}`);
+            onClick: (warehouse) => {
+                navigate(`/warehouses/edit/${warehouse.id}`);
             },
         },
     ];
@@ -35,7 +37,7 @@ const WarehouseListPage = () => {
         return actions.map((action) => ({
             icon: action.icon,
             name: action.name,
-            onClick: () => action.onClick(warehouse.id),
+            onClick: () => action.onClick(warehouse),
         }));
     };
 
@@ -79,27 +81,42 @@ const WarehouseListPage = () => {
     }, [baseURL]);
     if (!warehouses) return <div>Loading...</div>;
     return (
-        <div className="warehouse-list">
-            <div className="warehouse-list__header">
-                <h1 className="warehouse-list__title">Warehouses</h1>
-                <div className="warehouse-list__actions">
-                    <Input icon={searchIcon} placeholder="Search..." />
-                    <Button onClick={() => navigate("/warehouses/add")}>
-                        + Add New Warehouse
-                    </Button>
+        <>
+            <div className="warehouse-list">
+                <div className="warehouse-list__header">
+                    <h1 className="warehouse-list__title">Warehouses</h1>
+                    <div className="warehouse-list__actions">
+                        <Input icon={searchIcon} placeholder="Search..." />
+                        <Button onClick={() => navigate("/warehouses/add")}>
+                            + Add New Warehouse
+                        </Button>
+                    </div>
+                </div>
+                <div className="warehouse-list__container">
+                    <TableHeaderWithSorting headerItems={headerItems} />
+                    {warehouses.map((warehouse) => (
+                        <ListItem
+                            key={warehouse.id}
+                            properties={getProperties(warehouse)}
+                            actions={getActions(warehouse)}
+                        />
+                    ))}
                 </div>
             </div>
-            <div className="warehouse-list__container">
-                <TableHeaderWithSorting headerItems={headerItems} />
-                {warehouses.map((warehouse) => (
-                    <ListItem
-                        key={warehouse.id}
-                        properties={getProperties(warehouse)}
-                        actions={getActions(warehouse)}
-                    />
-                ))}
-            </div>
-        </div>
+            <DeleteWarehouseModal
+                warehouse={warehouseToBeDeleted}
+                onClose={() => setWarehouseToBeDeleted(null)}
+                isOpen={!!warehouseToBeDeleted}
+                onDelete={() => {
+                    setWarehouses(
+                        warehouses.filter(
+                            (warehouse) =>
+                                warehouse.id !== warehouseToBeDeleted.id
+                        )
+                    );
+                }}
+            />
+        </>
     );
 };
 

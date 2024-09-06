@@ -31,7 +31,9 @@ const DeleteInventoryModal = ({ inventory, onClose, isOpen, onDelete }) => {
                         message: "Inventory deleted successfully",
                         status: "success",
                     });
-                    onClose();
+                    setTimeout(() => {
+                        onClose();
+                    }, 100);
                 } catch (error) {
                     console.error(error);
                     setToast({
@@ -50,10 +52,9 @@ const DeleteInventoryModal = ({ inventory, onClose, isOpen, onDelete }) => {
                     title={`Delete ${inventory.item_name} inventory item?`}
                     buttons={buttons}
                 >
-                    <div>
-                        Please confirm that you’d like to delete {inventory.item_name}{" "}
-                        from the inventory list. You won’t be able to undo this
-                        action.
+                    <div className="modal__body">
+                        Please confirm that you’d like to delete {inventory.item_name} from the inventory list.
+                        You won’t be able to undo this action.
                     </div>
                 </Modal>
             )}
