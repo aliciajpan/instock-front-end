@@ -6,6 +6,7 @@
         display: flex;
         align-items: center;
         gap: 0.5rem;
+        padding: 0.5rem 1.5rem;
 
         &-back {
             cursor: pointer;
@@ -41,7 +42,9 @@
             padding: 0 1.5rem;
             margin: 2rem 0;
             border-top: none;
-            border-left: 1px solid $color-divider;
+            &:last-child {
+                border-left: 1px solid $color-divider;
+            }
         }
     }
 
@@ -51,7 +54,7 @@
     }
 
     &__form-actions {
-        background-color: $button-area-background;
+        background-color: $color-background-button-area;
         display: flex;
         justify-content: center;
         align-items: center;

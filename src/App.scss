@@ -4,10 +4,10 @@
 
 * {
   box-sizing: border-box;
-  margin: 0;
 }
 
 body {
+  min-height: 100vh;
   font-family: $font-family, Arial;
   font-size: .8125rem;
   line-height: 1.25rem;
@@ -68,5 +68,31 @@ body {
 .app {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  flex: 1;
+  
+  &__main {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(to bottom, $color-background-header 0%, $color-background-header 4rem, $color-background-footer 4rem, $color-background-footer 100%);
+    flex: 1;
+    width: 100%;
+    @include tablet {
+      background: linear-gradient(to bottom, $color-background-header 0%, $color-background-header 6rem, $color-background-footer 6rem, $color-background-footer 100%);
+    }
+  }
+
+  &__main-content {
+    margin: 0 auto;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    background-color: $color-background-main-content;
+    flex: 1;
+    box-shadow: 0 2px 5px $color-box-shadow;
+
+    @include desktop {
+      margin: 0 auto;
+      width: 100%;
+      max-width: $desktop-breakpoint;
+    }
+  }
 }

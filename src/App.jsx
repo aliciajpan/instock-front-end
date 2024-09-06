@@ -18,24 +18,28 @@ function App() {
 
   return (
     <Router>
-      <Header />
-      <main className='app'>
-        <Routes>
-          <Route path="/" element={<WarehouseListPage />} />
-          <Route path="/warehouses" element={<WarehouseListPage />} />
-          <Route path="/inventories" element={<InventoryListPage />} />
-          <Route path="/warehouses/add" element={<AddWarehouse />} />
-          <Route path="/inventories/add" element={<AddInventoryPage />} />
-          <Route path="/warehouses/:id" element={<WarehouseCard />} />
-          <Route path="/warehouses/edit/:id" element={<EditWarehouse />} />
-          <Route path="/inventories/:id" element={<InventoryCard />} />
-          <Route path="/inventories/edit/:id" element={<EditInventory />} />
-          <Route path="/warehouses/delete/:id" element={<DeleteWarehouse />} />
-          <Route path="/inventories/delete/:id" element={<DeleteInventory />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </main>
-      <Footer />
+      <div className='app'>
+        <Header />
+        <main className='app__main'>
+          <div className='app__main-content'>
+            <Routes>
+                <Route path="/" element={<WarehouseListPage />} />
+                <Route path="/warehouses" element={<WarehouseListPage />} />
+                <Route path="/inventories" element={<InventoryListPage />} />
+                <Route path="/warehouses/add" element={<AddWarehouse />} />
+                <Route path="/inventories/add" element={<AddInventoryPage />} />
+                <Route path="/warehouses/:id" element={<WarehouseCard />} />
+                <Route path="/warehouses/edit/:id" element={<EditWarehouse />} />
+                <Route path="/inventories/:id" element={<InventoryCard />} />
+                <Route path="/inventories/edit/:id" element={<EditInventory />} />
+                <Route path="/warehouses/delete/:id" element={<DeleteWarehouse />} />
+                <Route path="/inventories/delete/:id" element={<DeleteInventory />} />
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+          </div>
+        </main>
+        <Footer />
+      </div>
     </Router>
   );
 }

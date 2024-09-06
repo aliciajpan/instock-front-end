@@ -14,7 +14,14 @@ $cloud: #BDC5D5;
 // Background Colors
 $graphite: #232940;
 $light-grey: #F7F8F9;
-$button-area-background: rgba($light-grey, 70%);
+$color-background-button-area: rgba($light-grey, 70%);
+$color-background-header: $graphite;
+$color-background-main-content: $white;
+$color-background-footer: rgba($light-grey, 70%);
+$color-box-shadow: rgba($instock-black, 10%);
+
+// Text Colors
+$color-text-footer: $slate;
 
 // Supporting Colors
 $green: #158463;
@@ -23,6 +30,11 @@ $red: #C94515;
 // Font Weight
 $regular: 400;
 $semi-bold: 600;
+
+// Nav Colors
+$color-nav-text: $cloud;
+$color-nav-text-active: $white;
+$color-nav-background-active: $instock-black;
 
 // Divider
 $color-divider: $cloud;

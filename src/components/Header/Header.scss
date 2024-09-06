@@ -1,13 +1,14 @@
-@import '../../styles/partials/mixins';
-@import '../../styles/partials/variables';
+@use '../../styles/partials/mixins' as *;
+@use '../../styles/partials/variables' as *;
 
 .header {
-  background-color: $graphite;
+  background-color: $color-background-header;
   display: flex;
   align-items: center;
   justify-content: center;
+
   &__banner {
-    color: $white;
+    color: $color-nav-text;
     padding: 1rem;
     display: flex;
     flex-direction: column;
@@ -22,8 +23,8 @@
     }
 
     @include desktop {
-      padding: 1rem 5rem;
-      width: 79rem;
+      max-width: $desktop-breakpoint;
+      margin: 0 auto;
     }
   }
 
@@ -69,8 +70,8 @@
 
   &__nav a.active {
     padding: 0.5rem 3rem;
-    color: $white;
-    background-color: $instock-black;
+    color: $color-nav-text-active;
+    background-color: $color-nav-background-active;
     @include tablet {
       padding: 0.5rem 1rem;
     }
