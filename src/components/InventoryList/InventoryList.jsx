@@ -7,12 +7,23 @@ import deleteIcon from "../../assets/icons/delete_outline-24px.svg";
 import { renderToStaticMarkup } from "react-dom/server";
 import Tag from "../../components/Tag/Tag";
 import DeleteInventoryModal from "../../components/DeleteInventoryModal/DeleteInventoryModal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-const InventoryList = ({headerItems, inventories: initialInventories}) => {
+const InventoryList = ({headerItems, warehouseId = null}) => {
+    const baseURL = import.meta.env.VITE_BASE_URL;
     const navigate = useNavigate();
-    const [inventories, setInventories] = useState(initialInventories);
+    const [inventories, setInventories] = useState(null);
     const [inventoryToBeDeleted, setInventoryToBeDeleted] = useState(null);
+    useEffect(() => {
+        const url = warehouseId ? `${baseURL}/api/warehouses/${warehouseId}/inventories` : `${baseURL}/api/inventories`;
+        const fetchInventories = async () => {
+            const { data } = await axios.get(url);
+            setInventories(data);
+        };
+        fetchInventories();
+    }, [baseURL]);
+
     const actions = [
         {
             name: "Delete",
@@ -54,6 +65,7 @@ const InventoryList = ({headerItems, inventories: initialInventories}) => {
             }));
 
     if (!inventories) return <div>Loading...</div>;
+    
     return (
         <div className="inventory-list">
             <div className="inventory-list__container">
