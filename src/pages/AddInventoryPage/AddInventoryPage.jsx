@@ -71,9 +71,8 @@ function AddInventoryPage() {
         let parsedValue = value;
         if (positiveIntFields.includes(propertyName)) {
             const intParsedValue = parseInt(value);
-            if (intParsedValue > 0) {
-                parsedValue = intParsedValue;
-            } else if (intParsedValue <= 0 && formData.status === "In Stock") {
+            parsedValue = intParsedValue;
+            if (intParsedValue <= 0 && formData.status === "In Stock") {
                 errorMessage = `${propertyNameLabelMap[propertyName]} must be a positive integer`;
             }
         }
