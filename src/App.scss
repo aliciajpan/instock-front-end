@@ -88,6 +88,7 @@ body {
     margin-right: 1rem;
     background-color: $color-background-main-content;
     box-shadow: 0 2px 5px $color-box-shadow;
+    border-radius: 0.25rem;
 
     @include desktop {
       margin: 0 auto;
