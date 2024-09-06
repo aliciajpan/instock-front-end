@@ -1,0 +1,126 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/typography" as *;
+
+.dropdown {
+    width: 100%;
+
+    &__wrapper {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    &__label {
+        @include link;
+        & {
+            font-weight: $semi-bold;
+        }
+    }
+
+    &__selected {
+        position: relative;
+        appearance: none;
+        width: 100%;
+        padding: 0.5rem 2.5rem 0.5rem 1rem;
+        border: 1px solid $color-border-dropdown-default;
+        border-radius: 20px;
+        background-color: $color-background-dropdown-default;
+        font-family: $font-family;
+        font-size: 0.8125rem;
+        color: $color-text-dropdown-active;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:focus,
+        &--open {
+            outline: none;
+            border-color: $color-border-dropdown-active;
+            color: $color-text-dropdown-active;
+        }
+
+        &::placeholder {
+            font-size: 0.8125rem;
+            line-height: 1.25rem;
+            color: $color-text-dropdown-default;
+            font-family: $font-family;
+
+            @include tablet {
+                font-size: 0.875rem;
+                line-height: 1.375rem;
+            }
+        }
+
+        @include tablet {
+            font-size: 0.875rem;
+            padding: 0.6875rem 2.5rem 0.6875rem 1rem;
+        }
+    }
+
+    &__icon {
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+        transition: transform 0.3s ease;
+
+        img {
+            width: 1.5rem;
+            height: 1.5rem;
+            display: block;
+        }
+    }
+
+    &__options {
+        position: absolute;
+        top: 100%;
+        width: calc(100% - 1rem);
+        left: 0.5rem;
+        max-height: 200px;
+        overflow-y: auto;
+        background-color: $color-background-dropdown-default;
+        border: 1px solid $color-border-dropdown-default;
+        border-top: none;
+        border-radius: 0 0 20px 20px;
+        z-index: 10;
+        display: none;
+        list-style: none;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+
+        &--open {
+            display: block;
+        }
+    }
+
+    &__option {
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        font-size: 0.8125rem;
+        color: $color-text-dropdown-default;
+
+        &:hover {
+            background-color: $color-background-dropdown-hover;
+        }
+
+        @include tablet {
+            font-size: 0.875rem;
+        }
+    }
+
+    &__error {
+        display: flex;
+        flex-direction: row;
+        gap: 0.25rem;
+        color: $color-text-input-error;
+    }
+
+    @include tablet {
+        width: fit-content;
+        min-width: 120px;
+    }
+}

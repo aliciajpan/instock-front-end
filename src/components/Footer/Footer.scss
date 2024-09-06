@@ -1,8 +1,10 @@
-@import '../../styles/partials/mixins';
-@import '../../styles/partials/variables';
+@use '../../styles/partials/mixins' as *;
+@use '../../styles/partials/variables' as *;
 
 .footer {
-  color: $slate;
+  color: $color-text-footer;
+  background-color: $color-background-footer;
   text-align: center;
   padding: 1rem;
+  width: 100%;
 }
