@@ -6,7 +6,7 @@ import InventoryListPage from './pages/InventoryListPage/InventoryListPage';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import WarehouseDetailsPage from './pages/WarehouseDetailsPage/WarehouseDetailsPage';
 import InventoryCard from './pages/InventoryCard/InventoryCard';
-import AddWarehouse from './pages/AddWarehouse/AddWarehouse';
+import AddWarehouse from './pages/AddWarehousePage/AddWarehousePage';
 import AddInventoryPage from './pages/AddInventoryPage/AddInventoryPage';
 import EditWarehouse from './pages/EditWarehouse/EditWarehouse';
 import EditInventory from './pages/EditInventory/EditInventory';

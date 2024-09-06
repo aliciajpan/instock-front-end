@@ -153,8 +153,8 @@ function AddInventoryPage() {
                                 width="100%"
                                 name="item_name"
                                 type="text"
-                                label="Item Name"
-                                placeholder="Item Name"
+                                label={propertyNameLabelMap.item_name}
+                                placeholder={propertyNameLabelMap.item_name}
                                 onChange={(e) =>
                                     handleChange(e.target.value, "item_name")
                                 }
@@ -175,30 +175,6 @@ function AddInventoryPage() {
                                     errors.description ? "error" : "default"
                                 }
                                 error={errors.description}
-                            />
-                            <Dropdown
-                                name="category"
-                                width="100%"
-                                label={propertyNameLabelMap.category}
-                                placeholder="Please select"
-                                onChange={(option) =>
-                                    handleChange(option.value, "category")
-                                }
-                                options={[
-                                    {
-                                        value: "Accessories",
-                                        label: "Accessories",
-                                    },
-                                    { value: "Apparel", label: "Apparel" },
-                                    {
-                                        value: "Electronics",
-                                        label: "Electronics",
-                                    },
-                                    { value: "Gear", label: "Gear" },
-                                    { value: "Health", label: "Health" },
-                                ]}
-                                status={errors.category ? "error" : "default"}
-                                error={errors.category}
                             />
                         </div>
                         <div className="add-inventory-page__form-group">
