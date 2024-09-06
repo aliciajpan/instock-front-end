@@ -59,19 +59,19 @@ function AddWarehouse() {
                 [propertyName]: errorMessage,
             }));
         } else {
-            setFormData((prevFormData) => ({
-                ...prevFormData,
-                [propertyName]: value,
-            }));
             setErrors((prevErrors) => ({
                 ...prevErrors,
                 [propertyName]: "",
             }));
         }
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+            [propertyName]: value,
+        }));
     };
 
     const getValidationResult = (value, propertyName) => {
-        let errorMessage = null;
+        let errorMessage = "";
         if (value === "") {
             errorMessage = `${propertyNameLabelMap[propertyName]} is required`;
         } else if (
@@ -112,7 +112,10 @@ function AddWarehouse() {
             }
             return acc;
         }, initialErrors);
-        setErrors(errors);
+        setErrors((prevErrors) => ({
+            ...prevErrors,
+            ...errors,
+        }));
         if (Object.values(errors).some((error) => error !== "")) {
             return;
         }

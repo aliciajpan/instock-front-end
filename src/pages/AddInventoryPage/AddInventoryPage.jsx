@@ -48,26 +48,29 @@ function AddInventoryPage() {
         if (propertyName === "status" && value === "Out of Stock") {
             setFormData((prevFormData) => ({ ...prevFormData, quantity: 0 }));
         }
-        const {errorMessage, parsedValue} = getValidationResult(value, propertyName);
+        const { errorMessage, parsedValue } = getValidationResult(
+            value,
+            propertyName
+        );
         if (errorMessage) {
-          setErrors((prevErrors) => ({
-              ...prevErrors,
-              [propertyName]: errorMessage,
-          }));
-      } else {
-          setFormData((prevFormData) => ({
-              ...prevFormData,
-              [propertyName]: parsedValue,
-          }));
-          setErrors((prevErrors) => ({
-              ...prevErrors,
-              [propertyName]: "",
-          }));
-      }
+            setErrors((prevErrors) => ({
+                ...prevErrors,
+                [propertyName]: errorMessage,
+            }));
+        } else {
+            setErrors((prevErrors) => ({
+                ...prevErrors,
+                [propertyName]: "",
+            }));
+        }
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+            [propertyName]: parsedValue,
+        }));
     };
 
     const getValidationResult = (value, propertyName) => {
-        let errorMessage = null;
+        let errorMessage = "";
         let parsedValue = value;
         if (positiveIntFields.includes(propertyName)) {
             parsedValue = parseInt(value);
@@ -78,7 +81,7 @@ function AddInventoryPage() {
         if (value === "") {
             errorMessage = `${propertyNameLabelMap[propertyName]} is required`;
         }
-        return {errorMessage, parsedValue};
+        return { errorMessage, parsedValue };
     };
 
     const handleSubmit = async (e) => {
@@ -91,36 +94,41 @@ function AddInventoryPage() {
             "quantity",
             "warehouse_id",
         ];
-        const errors =propertyNamesToValidate.reduce((acc, propertyName) => {
-            const {errorMessage} = getValidationResult(formData[propertyName], propertyName);
+        const errors = propertyNamesToValidate.reduce((acc, propertyName) => {
+            const { errorMessage } = getValidationResult(
+                formData[propertyName],
+                propertyName
+            );
             if (errorMessage) {
                 acc[propertyName] = errorMessage;
-            }
-            else {
+            } else {
                 acc[propertyName] = "";
             }
             return acc;
         }, initialErrors);
-        setErrors(errors);
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+            ...errors,
+        }));
         if (Object.values(errors).some((error) => error !== "")) {
             return;
         }
         try {
-                await axios.post(`${baseURL}/api/inventories`, formData);
-                setToast({
-                    message: "Inventory added successfully",
-                    status: "success",
-                });
-                setTimeout(() => {
-                    navigate("/inventories");
-                }, 500);
-            } catch (error) {
-                console.error(error);
-                setToast({
-                    message: "Failed to add inventory",
-                    status: "error",
-                });
-            }
+            await axios.post(`${baseURL}/api/inventories`, formData);
+            setToast({
+                message: "Inventory added successfully",
+                status: "success",
+            });
+            setTimeout(() => {
+                navigate("/inventories");
+            }, 500);
+        } catch (error) {
+            console.error(error);
+            setToast({
+                message: "Failed to add inventory",
+                status: "error",
+            });
+        }
     };
 
     useEffect(() => {
@@ -175,6 +183,30 @@ function AddInventoryPage() {
                                     errors.description ? "error" : "default"
                                 }
                                 error={errors.description}
+                            />
+                            <Dropdown
+                                name="category"
+                                width="100%"
+                                label={propertyNameLabelMap.category}
+                                placeholder="Please select"
+                                onChange={(option) =>
+                                    handleChange(option.value, "category")
+                                }
+                                options={[
+                                    {
+                                        value: "Accessories",
+                                        label: "Accessories",
+                                    },
+                                    { value: "Apparel", label: "Apparel" },
+                                    {
+                                        value: "Electronics",
+                                        label: "Electronics",
+                                    },
+                                    { value: "Gear", label: "Gear" },
+                                    { value: "Health", label: "Health" },
+                                ]}
+                                status={errors.category ? "error" : "default"}
+                                error={errors.category}
                             />
                         </div>
                         <div className="add-inventory-page__form-group">
