@@ -11,8 +11,6 @@ import AddInventoryPage from './pages/AddInventoryPage/AddInventoryPage';
 import EditWarehouse from './pages/EditWarehouse/EditWarehouse';
 import EditInventory from './pages/EditInventory/EditInventory';
 import Footer from './components/Footer/Footer';
-import WarehouseDetails from './components/WarehouseDetails/WarehouseDetails';
-import WarehouseDetailsPage from './pages/WarehouseDetailsPage/WarehouseDetailsPage.jsx';
 
 function App() {
 

@@ -23,6 +23,23 @@
   }
 }
 
-@mixin details-label {
-    
+@mixin label {
+    color: $color-text-column-header;
+    font-weight: $semi-bold;
+    font-size: .6875rem;
+    line-height: 1rem;
+    text-transform: uppercase;
+
+    @include tablet {
+        display: none;
+        font-size: .75rem;
+        line-height: 1.125rem;
+    }
+}
+
+@mixin value-text {
+    color: $color-text-column-data;
+    font-weight: $regular;
+    font-size: .8125rem;
+    line-height: 1.25rem;
 }

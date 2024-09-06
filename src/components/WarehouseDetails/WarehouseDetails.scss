@@ -1,12 +1,55 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
 .whdetails {
     &__title {
         display: flex;
-        border-bottom: solid 1px grey;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid $color-border-table-row;
+        padding: 0.5rem 1.5rem;
+    }
+
+    &__name {
+        display: flex;
+        margin-top: 0.5rem;
+    }
+
+    &__back-icon {
+        margin-right: 0.5rem;
+    }
+
+    &__edit-container {
+        width: 2.25rem;
+    }
+
+    &__edit-icon {
+        width: 85%;
+    }
+
+    &__info {
+        // padding: 1.5rem 0;
+    }
+
+    &__address {
+        padding: 0 1.5rem;
+        margin: 1rem 0;
+    }
+
+    &__label {
+        @include label;
+        margin: 0 0 0.25rem;
+    }
+
+    &__text {
+        @include value-text;
+        margin: 0;
     }
 
     &__contact {
         display: flex;
         justify-content: space-between;
-        border-bottom: solid 1px grey;
+        padding: 1rem 1.5rem 0;
+        margin: 1rem 0;
     }
 }
