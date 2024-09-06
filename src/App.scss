@@ -92,7 +92,7 @@ body {
     @include desktop {
       margin: 0 auto;
       width: 100%;
-      max-width: $desktop-breakpoint;
+      max-width: calc($desktop-breakpoint - 2rem);
     }
   }
 }
