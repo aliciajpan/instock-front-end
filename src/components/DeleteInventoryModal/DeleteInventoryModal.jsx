@@ -1,5 +1,4 @@
 import Modal from "../Modal/Modal";
-import "./DeleteInventoryModal.scss";
 import axios from "axios";
 import { useState } from "react";
 import Toast from "../Toast/Toast";
