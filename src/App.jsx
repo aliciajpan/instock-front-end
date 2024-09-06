@@ -4,7 +4,7 @@ import Header from './components/Header/Header';
 import WarehouseListPage from './pages/WarehouseListPage/WarehouseListPage';
 import InventoryListPage from './pages/InventoryListPage/InventoryListPage';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
-import WarehousePage from './pages/WarehousePage/WarehousePage';
+import WarehouseDetailsPage from './pages/WarehouseDetailsPage/WarehouseDetailsPage';
 import InventoryCard from './pages/InventoryCard/InventoryCard';
 import AddWarehouse from './pages/AddWarehouse/AddWarehouse';
 import AddInventoryPage from './pages/AddInventoryPage/AddInventoryPage';
@@ -26,7 +26,7 @@ function App() {
               <Route path="/inventories" element={<InventoryListPage />} />
               <Route path="/warehouses/add" element={<AddWarehouse />} />
               <Route path="/inventories/add" element={<AddInventoryPage />} />
-              <Route path="/warehouses/:id" element={<WarehousePage />} />
+              <Route path="/warehouses/:warehouseId" element={<WarehouseDetailsPage />} />
               <Route path="/warehouses/edit/:id" element={<EditWarehouse />} />
               <Route path="/inventories/:id" element={<InventoryCard />} />
               <Route path="/inventories/edit/:id" element={<EditInventory />} />
