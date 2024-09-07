@@ -1,28 +1,32 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
-import Button from '../Button/Button';
-import backArrowIcon from '../../assets/icons/arrow_back-24px.svg';
-import editIcon from '../../assets/icons/edit-white-24px.svg';
+import DetailsTitle from '../DetailsTitle/DetailsTitle';
+import Toast from "../../components/Toast/Toast";
 import "./WarehouseDetails.scss";
 
 function WarehouseDetails({warehouseId}) {
     const baseURL = import.meta.env.VITE_BASE_URL;
-    const navigate = useNavigate();
     const [warehouseDetails, setWarehouseDetails] = useState(null);
-    const [warehouseList, setWarehouseList] = useState([]);
+    const [toast, setToast] = useState(null);
+    const navigate = useNavigate();
 
     async function fetchWarehouseDetails() {
         try {
             const {data} = await axios.get(`${baseURL}/api/warehouses/${warehouseId}`);
             setWarehouseDetails(data);
-
-            const {data:allData} = await axios.get(`${baseURL}/api/warehouses`);
-            setWarehouseList(allData);
         }
 
         catch(error) {
             console.error(error);
+            setToast({
+                message: `Failed to fetch warehouse ID ${warehouseId}`,
+                status: "error",
+            });
+            
+            if (error.status === 404) {
+                navigate("/notfound");
+            }
         }
     }   
 
@@ -34,42 +38,11 @@ function WarehouseDetails({warehouseId}) {
         fetchWarehouseDetails();
     }, [warehouseId, baseURL])
 
-    const validIds = [];
-    warehouseList.forEach((warehouse) => validIds.push(warehouse.id));
-
-    if (!warehouseDetails || !warehouseId) {
-        if (warehouseId && !validIds.includes(warehouseId)) {
-            return <div>This warehouse does not exist</div>;
-        } 
-
-        else {
-            return <div>Loading...</div>;
-        }
-    }
+    if (!warehouseDetails && !toast) return <div>Loading...</div>;
 
     return (
-        <div className='whdetails'>
-            <div className='whdetails__title'>
-                <div className='whdetails__name'>
-                    <img className='whdetails__back-icon' onClick={() => navigate("/warehouses")} src={backArrowIcon} alt="Back arrow icon" />
-                    <h1>{warehouseDetails.warehouse_name}</h1>
-                </div>
-
-                <div className='whdetails__edit-container'>
-                    <div className='whdetails__mobile-edit'>
-                        <Button onClick={() => navigate("/warehouses/edit/:id")}>
-                                <img className='whdetails__edit-icon' src={editIcon} alt="Edit icon" />
-                        </Button>
-                    </div>
-
-                    <div className='whdetails__tablet-edit'>
-                        <Button onClick={() => navigate("/warehouses/edit/:id")}>
-                                <img className='whdetails__edit-icon' src={editIcon} alt="Edit icon" /> <span>Edit</span>
-                        </Button>
-                    </div>
-                </div>
-                
-            </div>
+        <section className='whdetails'>
+            <DetailsTitle itemName={warehouseDetails.warehouse_name} backLink={"/warehouses"} editLink={`/warehouses/${warehouseId}/edit`}/>
 
             <div className='whdetails__info'>
                 <div className='whdetails__address'>
@@ -93,8 +66,8 @@ function WarehouseDetails({warehouseId}) {
                 </div>
                 
             </div>
-            
-        </div>
+            {toast && <Toast message={toast.message} status={toast.status} />}
+        </section>
     );
 }
 

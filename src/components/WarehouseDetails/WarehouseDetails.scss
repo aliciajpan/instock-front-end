@@ -2,55 +2,6 @@
 @use "../../styles/partials/mixins" as *;
 
 .whdetails {
-
-    &__title {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid $color-border-table-row;
-        padding: 0.5rem 1.5rem;
-
-        @include tablet {
-            padding: 0.25rem 1.5rem 0;
-        }
-
-        @include desktop {
-            padding: 0.25rem 2.5rem 0;
-        }
-    }
-
-    &__name {
-        display: flex;
-        margin-top: 0.5rem;
-    }
-
-    &__back-icon {
-        margin-right: 0.5rem;
-    }
-
-    &__edit-container {
-        display: flex;
-    }
-
-    &__mobile-edit {
-        @include tablet {
-            display: none;
-        }
-    }
-
-    &__tablet-edit {
-        display: none;
-
-        @include tablet {
-            display: flex;
-        }
-    }
-
-    &__edit-icon {
-        width: 85%;
-        margin-right: 0.25rem;
-    }
-
     &__info {
         display: flex;
         justify-content: center;
@@ -84,12 +35,16 @@
 
     &__label {
         @include label;
-        margin: 0 0 0.25rem;
+        & {
+            margin: 0 0 0.25rem;
+        }
     }
 
     &__text {
         @include value-text;
-        margin: 0;
+        & {
+            margin: 0;
+        }
     }
 
     &__contact {

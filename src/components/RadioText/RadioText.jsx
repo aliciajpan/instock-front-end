@@ -1,7 +1,7 @@
 import "./RadioText.scss";
 import { useState } from "react";
-const RadioText = ({ options, label, defaultSelectedOptionValue = options[0]?.value, onChange }) => {
-    const [selectedOptionValue, setSelectedOptionValue] = useState(defaultSelectedOptionValue);
+const RadioText = ({ options, label, value, onChange }) => {
+    const [selectedOptionValue, setSelectedOptionValue] = useState(value?.value ?? null);
 
     const handleChange = (option) => {
         setSelectedOptionValue(option.value);
