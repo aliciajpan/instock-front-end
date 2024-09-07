@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import InventoryList from "../../components/InventoryList/InventoryList";
+import WarehouseDetails from '../../components/WarehouseDetails/WarehouseDetails';
 
 function WarehouseDetailsPage() {
     const { warehouseId } = useParams();
@@ -14,6 +15,7 @@ function WarehouseDetailsPage() {
 
     return (
       <>
+      <WarehouseDetails warehouseId={warehouseId}/>
         <InventoryList
           warehouseId={warehouseId}
           headerItems={inventoryListHeaderItems}
