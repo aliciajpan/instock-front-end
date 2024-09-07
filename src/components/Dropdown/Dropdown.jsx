@@ -12,15 +12,21 @@ const Dropdown = ({
     error = null,
     onChange,
     width = null,
+    defaultValue = null,
 }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedOption, setSelectedOption] = useState(null);
+    const [selectedOption, setSelectedOption] = useState(defaultValue);
     const dropdownRef = useRef(null);
 
     const toggleDropdown = () => setIsOpen(!isOpen);
 
     const handleOptionClick = (option) => {
-        setSelectedOption(option);
+        setSelectedOption((prevOption) => {
+            if (prevOption && prevOption.value === option.value) {
+                return null;
+            }
+            return option;
+        });
         setIsOpen(false);
         onChange(option);
     };
