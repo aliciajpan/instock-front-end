@@ -29,7 +29,7 @@
     }
 
     &__edit-container {
-        width: 2.25rem;
+        display: flex;
     }
 
     &__mobile-edit {
@@ -43,13 +43,12 @@
 
         @include tablet {
             display: flex;
-            width: 100px;
-            margin-right: 1rem;
         }
     }
 
     &__edit-icon {
         width: 85%;
+        margin-right: 0.25rem;
     }
 
     &__info {
@@ -91,17 +90,6 @@
     &__text {
         @include value-text;
         margin: 0;
-
-        &--address {
-            @include tablet {
-                width: 45%;
-            }
-
-            @include desktop {
-                width: 25%;
-            }
-        }
-        
     }
 
     &__contact {
