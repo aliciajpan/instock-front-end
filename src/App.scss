@@ -88,10 +88,15 @@ body {
     margin-right: 1rem;
     background-color: $color-background-main-content;
     box-shadow: 0 2px 5px $color-box-shadow;
+    border-radius: 0.25rem;
+
+    @include tablet {
+        margin: 0 2rem;
+    }
 
     @include desktop {
       margin: 0 auto;
-      width: 100%;
+      width: 80%;
       max-width: calc($desktop-breakpoint - 2rem);
     }
   }

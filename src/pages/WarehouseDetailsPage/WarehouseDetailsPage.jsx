@@ -15,7 +15,7 @@ function WarehouseDetailsPage() {
 
     return (
       <>
-      <WarehouseDetails warehouseId={warehouseId}/>
+        <WarehouseDetails warehouseId={warehouseId}/>
         <InventoryList
           warehouseId={warehouseId}
           headerItems={inventoryListHeaderItems}
