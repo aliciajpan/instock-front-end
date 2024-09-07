@@ -1,6 +1,16 @@
 @use "../../styles/partials/variables" as *;
 @use "../../styles/partials/mixins" as *;
 
+@keyframes move-arrow {
+    0% {
+        right: 0;
+    }
+
+    100% {
+        right: -0.25rem;
+    }
+}
+
 .list-item {
     display: flex;
     flex-direction: column;
@@ -76,9 +86,21 @@
                 align-items: center;
                 gap: 0.25rem;
 
+                &:hover .list-item__property-value-link-icon {
+                    animation-name: move-arrow;
+                    animation-duration: 0.25s;
+                    animation-iteration-count: 1;
+                    animation-timing-function: ease;
+                    animation-fill-mode: forwards;
+                }
+
                 &-text {
                     font-weight: $semi-bold;
                     @include link;
+                }
+
+                &-icon {
+                    position: relative;
                 }
             }
 
