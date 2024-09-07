@@ -46,9 +46,10 @@ const Dropdown = ({
             <div className="dropdown__wrapper">
                 {label && <label className="dropdown__label">{label}</label>}
                 <div
-                    className={`dropdown__selected ${
-                        isOpen ? "dropdown__selected--open" : ""
-                    } ${selectedOption === null ? "dropdown__selected--empty" : ""}`}
+                    className={`dropdown__selected 
+                        ${ isOpen ? "dropdown__selected--open" : "" } 
+                        ${ selectedOption === null ? "dropdown__selected--empty" : "" }
+                        ${ status === "error" ? "dropdown__selected--error" : "" }`}
                     onClick={toggleDropdown}
                 >
                     {selectedOption ? selectedOption.label : placeholder}

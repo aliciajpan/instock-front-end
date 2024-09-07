@@ -41,4 +41,77 @@
     font-weight: $regular;
     font-size: .8125rem;
     line-height: 1.25rem;
+  
+@mixin add-edit-page {
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.5rem;
+
+    &-back {
+        cursor: pointer;
+    }
+}
+
+  &__form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+  }
+
+  &__form-groups {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      @include tablet {
+          flex-direction: row;
+          border-top: 1px solid $color-divider;
+      }
+  }
+
+  &__form-group {
+      border-top: 1px solid $color-divider;
+      flex-basis: 50%;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1.5rem;
+
+      @include tablet {
+          padding: 0 1.5rem;
+          margin: 2rem 0;
+          border-top: none;
+          &:last-child {
+              border-left: 1px solid $color-divider;
+          }
+      }
+  }
+
+  &__form-group-title {
+      margin: 0;
+      padding: 0 0 0.5rem 0;
+  }
+
+  &__form-actions {
+      background-color: $color-background-button-area;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+
+      @include tablet {
+          justify-content: flex-end;
+          gap: 1rem;
+      }
+  }
+
+  &__form-actions-button {
+      width: 8.75rem;
+      @include tablet {
+          width: fit-content;
+      }
+  }
 }

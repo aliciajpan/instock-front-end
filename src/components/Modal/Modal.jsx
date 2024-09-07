@@ -1,8 +1,9 @@
 import "./Modal.scss";
 import Button from "../Button/Button";
 import { useEffect } from "react";
+import closeIcon from "../../assets/icons/close-24px.svg";
 
-const Modal = ({ isOpen, title, buttons, children }) => {
+const Modal = ({ isOpen, title, buttons, onClose,children }) => {
     useEffect(() => {
         document.body.style.overflow = 'hidden';
         return () => {
@@ -27,6 +28,7 @@ const Modal = ({ isOpen, title, buttons, children }) => {
                             </Button>
                         ))}
                 </div>
+                <img src={closeIcon} alt="close" className="modal__close" onClick={onClose} />
             </div>
         </div>
     );

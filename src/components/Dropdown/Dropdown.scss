@@ -52,6 +52,10 @@
             color: $color-text-dropdown-active;
         }
 
+        &--error {
+            border-color: $color-border-input-error;
+        }
+
         @include tablet {
             font-size: 0.875rem;
             padding: 0.6875rem 2.5rem 0.6875rem 1rem;
