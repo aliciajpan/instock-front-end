@@ -8,6 +8,7 @@ function AddInventoryPage() {
     const navigate = useNavigate();
     const [warehouses, setWarehouses] = useState([]);
     const baseURL = import.meta.env.VITE_BASE_URL;
+    const [toast, setToast] = useState(null);
     const buttons = [
         {
             label: "Cancel",
