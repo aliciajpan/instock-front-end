@@ -7,7 +7,9 @@ function Header() {
     <header className="header">
       <div className="header__banner">
         <div className="header__logo">
-          <img src={logo} alt="Instock logo" />
+            <NavLink to='/'>
+                <img src={logo} alt="Instock logo" />
+            </NavLink>
         </div>
         <nav className="header__nav">
           <li>
