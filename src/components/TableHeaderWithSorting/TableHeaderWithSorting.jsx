@@ -9,7 +9,7 @@ const TableHeaderWithSorting = ({ headerItems }) => {
                      ? <div key={item.key} className="header-with-sorting__sortable-item" 
                      >
                         <span>{item.name}</span>
-                        <img src={sortIcon} alt="sort"/>
+                        <img className="header-with-sorting__sort-icon"  src={sortIcon} alt="sort"/>
                     </div>
                     : <div className='header-with-sorting__item' key={item.key}>
                         <div className="header-with-sorting__item-name">{item.name}</div>

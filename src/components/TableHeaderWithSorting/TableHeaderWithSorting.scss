@@ -34,4 +34,13 @@
             display: flex;
         }
     }
+
+    &__sort-icon {
+        width: 10%;
+        margin-left: 0.25rem;
+    }
+
+    @include desktop {
+        padding: 0 3rem;
+    }
 }

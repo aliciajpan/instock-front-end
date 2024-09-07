@@ -2,12 +2,21 @@
 @use "../../styles/partials/mixins" as *;
 
 .whdetails {
+
     &__title {
         display: flex;
         justify-content: space-between;
         align-items: center;
         border-bottom: 1px solid $color-border-table-row;
         padding: 0.5rem 1.5rem;
+
+        @include tablet {
+            padding: 0.25rem 1.5rem 0;
+        }
+
+        @include desktop {
+            padding: 0.25rem 2.5rem 0;
+        }
     }
 
     &__name {
@@ -23,17 +32,55 @@
         width: 2.25rem;
     }
 
+    &__mobile-edit {
+        @include tablet {
+            display: none;
+        }
+    }
+
+    &__tablet-edit {
+        display: none;
+
+        @include tablet {
+            display: flex;
+            width: 100px;
+            margin-right: 1rem;
+        }
+    }
+
     &__edit-icon {
         width: 85%;
     }
 
     &__info {
-        // padding: 1.5rem 0;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+
+        @include tablet {
+            flex-direction: row;
+            justify-content: flex-start;
+            padding: 1.25rem 0;
+        }
+
+        @include desktop {
+            padding: 1.25rem 1.5rem;
+        }
     }
 
     &__address {
         padding: 0 1.5rem;
         margin: 1rem 0;
+
+        @include tablet {
+            border-right: 1px solid $color-border-table-row;
+            margin: 0;
+            width: 40%;
+        }
+
+        @include desktop {
+            width: 45%;
+        }
     }
 
     &__label {
@@ -44,12 +91,38 @@
     &__text {
         @include value-text;
         margin: 0;
+
+        &--address {
+            @include tablet {
+                width: 45%;
+            }
+
+            @include desktop {
+                width: 25%;
+            }
+        }
+        
     }
 
     &__contact {
         display: flex;
         justify-content: space-between;
-        padding: 1rem 1.5rem 0;
+        padding: 0.5rem 1.5rem 0;
         margin: 1rem 0;
+
+        @include tablet {
+            margin: 0;
+            padding: 0 2.5rem;
+            width: 55%;
+            flex: 1;
+        }
+
+        @include tablet {
+            width: 43%;
+        }
+    }
+
+    &__contact-details {
+        flex: 1;
     }
 }

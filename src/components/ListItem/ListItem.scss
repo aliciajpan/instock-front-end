@@ -59,6 +59,12 @@
 
         &-name {
             @include label;
+
+            @include tablet {
+                display: none;
+                font-size: .75rem;
+                line-height: 1.125rem;
+            }
         }
 
         &-value {
@@ -117,7 +123,7 @@
     }
 
     @include desktop {
-        padding: 1rem 1.5rem;
+        padding: 1rem 3rem;
 
         &:hover {
             background-color: $color-background-table-row-hover;

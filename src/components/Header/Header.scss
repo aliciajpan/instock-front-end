@@ -25,6 +25,7 @@
     @include desktop {
       max-width: $desktop-breakpoint;
       margin: 0 auto;
+      width: 85%;
     }
   }
 

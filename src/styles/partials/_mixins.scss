@@ -31,7 +31,6 @@
     text-transform: uppercase;
 
     @include tablet {
-        display: none;
         font-size: .75rem;
         line-height: 1.125rem;
     }

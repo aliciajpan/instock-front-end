@@ -56,9 +56,17 @@ function WarehouseDetails({warehouseId}) {
                 </div>
 
                 <div className='whdetails__edit-container'>
-                    <Button onClick={() => navigate("/inventories/add")}>
-                            <img className='whdetails__edit-icon' src={editIcon} alt="Edit icon" />
-                    </Button>
+                    <div className='whdetails__mobile-edit'>
+                        <Button onClick={() => navigate("/warehouses/edit/:id")}>
+                                <img className='whdetails__edit-icon' src={editIcon} alt="Edit icon" />
+                        </Button>
+                    </div>
+
+                    <div className='whdetails__tablet-edit'>
+                        <Button onClick={() => navigate("/warehouses/edit/:id")}>
+                                <img className='whdetails__edit-icon' src={editIcon} alt="Edit icon" /> Edit
+                        </Button>
+                    </div>
                 </div>
                 
             </div>
@@ -66,16 +74,16 @@ function WarehouseDetails({warehouseId}) {
             <div className='whdetails__info'>
                 <div className='whdetails__address'>
                     <h3 className='whdetails__label'>WAREHOUSE ADDRESS:</h3>
-                    <p className='whdetails__text'>{warehouseDetails.address}, {warehouseDetails.city}, {warehouseDetails.country}</p>  
+                    <p className='whdetails__text whdetails__text--address'>{warehouseDetails.address}, {warehouseDetails.city}, {warehouseDetails.country}</p>  
                 </div>
 
                 <div className='whdetails__contact'>
-                    <div>
+                    <div className='whdetails__contact-details'>
                         <h3 className='whdetails__label'>CONTACT NAME:</h3>
                         <p className='whdetails__text'>{warehouseDetails.contact_name}</p>
                         <p className='whdetails__text'>{warehouseDetails.contact_position}</p>
                     </div>
-                    <div>
+                    <div className='whdetails__contact-details'>
                         <h3 className='whdetails__label'>CONTACT INFORMATION:</h3>
                         <p className='whdetails__text'>{warehouseDetails.contact_phone}</p>
                         <p className='whdetails__text'>{warehouseDetails.contact_email}</p>
