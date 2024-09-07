@@ -11,6 +11,7 @@ import AddInventoryPage from './pages/AddInventoryPage/AddInventoryPage';
 import EditWarehouse from './pages/EditWarehouse/EditWarehouse';
 import EditInventory from './pages/EditInventory/EditInventory';
 import Footer from './components/Footer/Footer';
+import InventoryDetailsPage from './pages/InventoryDetailsPage/InventoryDetailsPage';
 
 function App() {
 
@@ -28,7 +29,7 @@ function App() {
               <Route path="/inventories/add" element={<AddInventoryPage />} />
               <Route path="/warehouses/:warehouseId" element={<WarehouseDetailsPage />} />
               <Route path="/warehouses/edit/:id" element={<EditWarehouse />} />
-              <Route path="/inventories/:id" element={<InventoryCard />} />
+              <Route path="/inventories/:inventoryId" element={<InventoryDetailsPage />} />
               <Route path="/inventories/edit/:id" element={<EditInventory />} />
               <Route path="*" element={<NotFoundPage />} />
               </Routes>
