@@ -36,7 +36,7 @@ const InventoryList = ({headerItems, warehouseId = null}) => {
             name: "Edit",
             icon: editIcon,
             onClick: (inventory) => {
-                navigate(`/inventories/edit/${inventory.id}`);
+                navigate(`/inventories/${inventory.id}/edit`);
             },
         },
     ];

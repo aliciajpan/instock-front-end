@@ -43,7 +43,7 @@ function InventoryDetails({inventoryId}) {
 
     return (
         <section className='invdetails'>
-            <DetailsTitle itemName={inventoryDetails.item_name} backLink={"/inventories"} editLink={`/inventories/edit/${inventoryId}`}/>
+            <DetailsTitle itemName={inventoryDetails.item_name} backLink={"/inventories"} editLink={`/inventories/${inventoryId}/edit`}/>
 
             <div className='invdetails__info'>
                 <div className='invdetails__item'>

@@ -1,28 +1,39 @@
 import "./Input.scss";
 import errorIcon from "../../assets/icons/error-24px.svg";
+import { useState, useEffect } from "react";
 
 const Input = ({ 
     type = "text",
     icon = null, 
-    placeholder, 
+    placeholder = "", 
     label = null, 
     status = "default", 
     name = null, 
     error = null, 
     defaultValue = null,
-    onChange,
+    onChange = () => {},
     onIconClick,
     box = "input",
     width = null,
     ...props 
 }) => {
+    const [value, setValue] = useState(defaultValue);
+    useEffect(() => {
+        if (defaultValue !== value) {
+            setValue(defaultValue);
+        }
+    }, [defaultValue]);
+    const handleChange = (e) => {
+        setValue(e.target.value);
+        onChange(e);
+    };
     const properties = {
         id: name,
         name: name,
+        value: value,
         placeholder: placeholder,
         type: type,
-        defaultValue: defaultValue,
-        onChange: onChange,
+        onChange: handleChange,
         ...props,
     };
     return (

@@ -28,7 +28,7 @@ const WarehouseListPage = () => {
             name: "Edit",
             icon: editIcon,
             onClick: (warehouse) => {
-                navigate(`/warehouses/edit/${warehouse.id}`);
+                navigate(`/warehouses/${warehouse.id}/edit`);
             },
         },
     ];

@@ -42,7 +42,7 @@ function WarehouseDetails({warehouseId}) {
 
     return (
         <section className='whdetails'>
-            <DetailsTitle itemName={warehouseDetails.warehouse_name} backLink={"/warehouses"} editLink={`/warehouses/edit/${warehouseId}`}/>
+            <DetailsTitle itemName={warehouseDetails.warehouse_name} backLink={"/warehouses"} editLink={`/warehouses/${warehouseId}/edit`}/>
 
             <div className='whdetails__info'>
                 <div className='whdetails__address'>
