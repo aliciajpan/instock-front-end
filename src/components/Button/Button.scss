@@ -10,9 +10,13 @@
     width: 100%;
     border-radius: 1.25rem;
     cursor: pointer;
+    
     &--primary {
         background-color: $color-btn-primary-default;
         color: $color-text-btn-primary;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
         &:hover {
             background-color: $color-btn-primary-hover;
