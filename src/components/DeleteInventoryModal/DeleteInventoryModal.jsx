@@ -50,6 +50,7 @@ const DeleteInventoryModal = ({ inventory, onClose, isOpen, onDelete }) => {
                     isOpen={isOpen}
                     title={`Delete ${inventory.item_name} inventory item?`}
                     buttons={buttons}
+                    onClose={onClose}
                 >
                     <div className="modal__body">
                         Please confirm that you’d like to delete {inventory.item_name} from the inventory list.
