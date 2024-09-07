@@ -7,10 +7,10 @@
         justify-content: space-between;
         align-items: center;
         border-bottom: 1px solid $color-border-table-row;
-        padding: 0.5rem 1.5rem;
+        padding: 0 1.5rem;
     
         @include tablet {
-            padding: 0.25rem 1.5rem 0;
+            padding: 0 2rem;
         }
     
         @include desktop {
@@ -21,10 +21,22 @@
     &__name {
         display: flex;
         margin-top: 0.5rem;
+
+        @include tablet {
+            margin: 0.2rem 0 -0.75rem;
+        }
+
+        @include desktop {
+            margin: 0 0 -0.75rem;
+        }
     }
     
     &__back-icon {
         margin-right: 0.5rem;
+
+        &:hover {
+            cursor: pointer;
+        }
     }
     
     &__edit-container {
@@ -47,6 +59,9 @@
     
     &__edit-icon {
         width: 85%;
-        margin-right: 0.25rem;
+
+        @include tablet {
+            margin-right: 0.25rem;
+        }
     }
 }

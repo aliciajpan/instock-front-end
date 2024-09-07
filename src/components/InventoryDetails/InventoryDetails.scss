@@ -1,0 +1,84 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.invdetails {
+    &__info {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        padding: 1rem 1.5rem 1.5rem;
+
+        @include tablet {
+            flex-direction: row;
+            justify-content: flex-start;
+            padding: 1.5rem 2rem 1.5rem;
+        }
+
+        @include desktop {
+            padding: 1.5rem 2.75rem 1.5rem;
+        }
+    }
+
+    &__item {
+        display: flex;
+        flex-direction: column;
+
+        @include tablet {
+            width: 50%;
+            border-right: 1px solid $color-border-table-row;
+        }
+    }
+
+    &__item-details {
+        margin-bottom: 1rem;
+
+        @include tablet {
+            margin-bottom: 2rem;
+        }
+
+        &--category {
+            @include tablet {
+                margin-bottom: 0.25rem;
+            }
+        }
+    }
+
+    &__label {
+        @include label;
+        & {
+            margin: 0 0 0.25rem;
+        }
+    }
+
+    &__text {
+        @include value-text;
+        margin: 0;
+
+        &--description {
+            @include tablet {
+                width: 80%;
+            }
+        }
+    }
+
+    &__stock {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+
+        @include tablet {
+            padding-left: 2.5rem;
+        }
+    }
+
+    &__availability {
+        display: flex;
+        justify-content: space-between;
+        width: 70%;
+        margin-bottom: 1rem;
+
+        @include tablet {
+            margin-bottom: 1.75rem;
+        }
+    }
+}
