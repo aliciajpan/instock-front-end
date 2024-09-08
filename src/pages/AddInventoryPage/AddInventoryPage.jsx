@@ -3,6 +3,7 @@ import InventoryInput from "../../components/InventoryInput/InventoryInput";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Toast from '../../components/Toast/Toast';
 
 function AddInventoryPage() {
     const navigate = useNavigate();
@@ -66,7 +67,7 @@ function AddInventoryPage() {
                 onSubmit={handleSubmit}
                 warehouses={warehouses}
             />
-            {toast && <Toast message={toast.message} status={toast.status} />}
+            {toast && <Toast message={toast.message} status={toast.status} onClose={()=>{setToast(null)}}/>}
         </div>
     );
 }

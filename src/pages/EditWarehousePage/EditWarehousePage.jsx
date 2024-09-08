@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import WarehouseInput from '../../components/WarehouseInput/WarehouseInput';
 import { useNavigate } from 'react-router-dom';
+import Toast from '../../components/Toast/Toast';
 
 function EditWarehousePage() {
   const navigate = useNavigate();
@@ -54,6 +55,7 @@ function EditWarehousePage() {
           message: 'Failed to fetch warehouse',
           status: 'error',
         });
+        setWarehouse({});
       }
     };
     fetchWarehouse();
@@ -64,7 +66,7 @@ function EditWarehousePage() {
   return (
     <div className="edit-warehouse-page">
       <WarehouseInput title="Edit Warehouse" defaultValues={warehouse} buttons={buttons} onSubmit={handleSubmit} />
-      {toast && <Toast message={toast.message} status={toast.status} />}
+      {toast && <Toast message={toast.message} status={toast.status} onClose={()=>{setToast(null)}}/>}
     </div>
   );
 }

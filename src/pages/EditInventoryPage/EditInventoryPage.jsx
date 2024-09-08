@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import InventoryInput from "../../components/InventoryInput/InventoryInput";
 import { useNavigate } from "react-router-dom";
+import Toast from '../../components/Toast/Toast';
 
 function EditInventoryPage() {
     const navigate = useNavigate();
@@ -70,6 +71,7 @@ function EditInventoryPage() {
                     message: "Failed to fetch warehouses/inventory",
                     status: "error",
                 });
+                setInventory({});
             }
         };
         fetchWarehousesAndInventory();
@@ -86,7 +88,7 @@ function EditInventoryPage() {
                 onSubmit={handleSubmit}
                 warehouses={warehouses}
             />
-            {toast && <Toast message={toast.message} status={toast.status} />}
+            {toast && <Toast message={toast.message} status={toast.status} onClose={()=>{setToast(null)}}/>}
         </div>
     );
 }

@@ -3,6 +3,7 @@ import './AddWarehousePage.scss';
 import { useState } from 'react';
 import WarehouseInput from '../../components/WarehouseInput/WarehouseInput';
 import { useNavigate } from 'react-router-dom';
+import Toast from '../../components/Toast/Toast';
 
 function AddWarehousePage() {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ function AddWarehousePage() {
   return (
     <div className="add-warehouse-page">
       <WarehouseInput title="Add New Warehouse" buttons={buttons} onSubmit={handleSubmit} />
-      {toast && <Toast message={toast.message} status={toast.status} />}
+      {toast && <Toast message={toast.message} status={toast.status} onClose={()=>{setToast(null)}}/>}
     </div>
   );
 }

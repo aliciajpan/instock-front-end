@@ -23,6 +23,7 @@ function WarehouseDetails({warehouseId}) {
                 message: `Failed to fetch warehouse ID ${warehouseId}`,
                 status: "error",
             });
+            setWarehouseDetails({});
             
             if (error.status === 404) {
                 navigate("/notfound");
@@ -66,7 +67,7 @@ function WarehouseDetails({warehouseId}) {
                 </div>
                 
             </div>
-            {toast && <Toast message={toast.message} status={toast.status} />}
+            {toast && <Toast message={toast.message} status={toast.status} onClose={()=>{setToast(null)}}/>}
         </section>
     );
 }
