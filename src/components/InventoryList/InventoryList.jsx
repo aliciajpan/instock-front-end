@@ -11,19 +11,58 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "./InventoryList.scss";
 
-const InventoryList = ({headerItems, warehouseId = null, search = null, urlSearch = null}) => {
+const InventoryList = ({headerItems, warehouseId = null, sortKey, sortOrderBy, sortToggle, search = null, urlSearch = null}) => {
     const baseURL = import.meta.env.VITE_BASE_URL;
     const navigate = useNavigate();
     const [toast, setToast] = useState(null);
     const [inventories, setInventories] = useState(null);
     const [inventoryToBeDeleted, setInventoryToBeDeleted] = useState(null);
-    let filteredInventories = inventories;
+    function sortByKey(array, key, orderBy) {
+        return array.sort(function(a, b) {
+            const x = a[key]; 
+            const y = b[key];
+
+            if (x < y) {
+                if (orderBy === "desc") {
+                    return 1;
+                }
+                return -1;
+            }
+
+            else if (x > y) {
+                if (orderBy === "desc") {
+                    return -1;
+                }
+                return 1;
+            }
+
+            else {
+                return 0;
+            }
+        });
+    }
 
     useEffect(() => {
         let url = warehouseId ? `${baseURL}/api/warehouses/${warehouseId}/inventories` : `${baseURL}/api/inventories`;
-        if (urlSearch) {
-            url += `?s=${urlSearch}`;
+
+        if (sortKey) {
+            url += `?sort_by=${sortKey}`;
+
+            if (sortOrderBy) {
+                url += `&order_by=${sortOrderBy}`;
+            }
+
+            if (urlSearch) {
+                url += `&s=${urlSearch}`;
+            }
         }
+
+        else {
+            if (urlSearch) {
+                url += `?s=${urlSearch}`;
+            }
+        }
+
         const fetchInventories = async () => {
             try {
                 const { data } = await axios.get(url);
@@ -80,10 +119,13 @@ const InventoryList = ({headerItems, warehouseId = null, search = null, urlSearc
                 name,
                 link:
                     key === "item_name" ? `/inventories/${inventory.id}` : null,
-            }));
+            })
+    );
 
-    if (search) {
-        filteredInventories = inventories.filter((inventory) => {
+    const sortedInventories = sortKey ? sortByKey(inventories, sortKey, sortOrderBy): inventories;
+
+    const filteredInventories = search ?
+        sortedInventories.filter((inventory) => {
             return (
                 inventory.item_name.toLowerCase().includes(search) ||
                 inventory.warehouse_name.toLowerCase().includes(search) ||
@@ -91,7 +133,7 @@ const InventoryList = ({headerItems, warehouseId = null, search = null, urlSearc
                 inventory.category.toLowerCase().includes(search)
             )
         })
-    }
+        : sortedInventories
     
     return (
         <>
@@ -101,7 +143,7 @@ const InventoryList = ({headerItems, warehouseId = null, search = null, urlSearc
                     <>
                         {
                             inventories.length > 0 ? 
-                                <TableHeaderWithSorting headerItems={headerItems}/> 
+                                <TableHeaderWithSorting headerItems={headerItems} sortToggle={sortToggle}/> 
                                 : <></>
                         }
 

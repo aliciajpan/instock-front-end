@@ -38,6 +38,10 @@
     &__sort-icon {
         width: 10%;
         margin-left: 0.25rem;
+
+        &:hover {
+            cursor: pointer;
+        }
     }
 
     @include desktop {
