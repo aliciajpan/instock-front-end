@@ -5,23 +5,25 @@ import editIcon from "../../assets/icons/edit-24px.svg";
 import deleteIcon from "../../assets/icons/delete_outline-24px.svg";
 import { renderToStaticMarkup } from "react-dom/server";
 import Tag from "../../components/Tag/Tag";
+import Toast from "../Toast/Toast";
 import DeleteInventoryModal from "../../components/DeleteInventoryModal/DeleteInventoryModal";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./InventoryList.scss";
-import Toast from "../Toast/Toast";
 
-const InventoryList = ({headerItems, warehouseId = null, search = null}) => {
+const InventoryList = ({headerItems, warehouseId = null, search = null, urlSearch = null}) => {
     const baseURL = import.meta.env.VITE_BASE_URL;
     const navigate = useNavigate();
+    const [toast, setToast] = useState(null);
     const [inventories, setInventories] = useState(null);
     const [inventoryToBeDeleted, setInventoryToBeDeleted] = useState(null);
     let filteredInventories = inventories;
 
-    const [toast, setToast] = useState(null);
-
     useEffect(() => {
-        const url = warehouseId ? `${baseURL}/api/warehouses/${warehouseId}/inventories` : `${baseURL}/api/inventories`;
+        let url = warehouseId ? `${baseURL}/api/warehouses/${warehouseId}/inventories` : `${baseURL}/api/inventories`;
+        if (urlSearch) {
+            url += `?s=${urlSearch}`;
+        }
         const fetchInventories = async () => {
             try {
                 const { data } = await axios.get(url);
@@ -38,7 +40,7 @@ const InventoryList = ({headerItems, warehouseId = null, search = null}) => {
             }
         };
         fetchInventories();
-    }, [baseURL]);
+    }, [baseURL, urlSearch]);
 
     const actions = [
         {
@@ -80,8 +82,6 @@ const InventoryList = ({headerItems, warehouseId = null, search = null}) => {
                     key === "item_name" ? `/inventories/${inventory.id}` : null,
             }));
 
-    if (!inventories) return <div>Loading...</div>;
-
     if (search) {
         filteredInventories = inventories.filter((inventory) => {
             return (
@@ -89,7 +89,7 @@ const InventoryList = ({headerItems, warehouseId = null, search = null}) => {
                 inventory.warehouse_name.toLowerCase().includes(search) ||
                 inventory.description.toLowerCase().includes(search) ||
                 inventory.category.toLowerCase().includes(search)
-            );
+            )
         })
     }
     
@@ -106,7 +106,7 @@ const InventoryList = ({headerItems, warehouseId = null, search = null}) => {
                         }
 
                         {
-                            inventories.map((inventory) => (
+                            filteredInventories.map((inventory) => (
                                 <ListItem
                                     key={inventory.id}
                                     properties={getProperties(inventory)}

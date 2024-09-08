@@ -8,31 +8,17 @@ import "./InventoryListPage.scss";
 
 function InventoryListPage({}) {
     const navigate = useNavigate();
-    // const [inventories, setInventories] = useState(null);
-    // const baseURL = import.meta.env.VITE_BASE_URL;
-    // const [toast, setToast] = useState(null);
     const [search, setSearch] = useState(null);
+    const [urlSearch, setUrlSearch] = useState(null);
+
+    function submitSearch() {
+        setUrlSearch(search);
+    }
 
     function handleChange (event) {
         setSearch(event.target.value.toString().trim().toLowerCase());
     }
 
-    // useEffect(() => {
-    //     const fetchInventories = async () => {
-    //         try {
-    //             const {data} = await axios.get(`${baseURL}/api/inventories`)
-    //             setInventories(data);                
-    //         } catch (error) {
-    //             console.error(error);
-    //             setToast({
-    //                 message: "Failed to fetch inventories",
-    //                 status: "error",
-    //             });
-    //         }
-    //     }
-    //     fetchInventories();
-    // }, [baseURL]);
-    
     const headerItems = [
         { key: "item_name", name: "Inventory Item", sortable: true },
         { key: "category", name: "Category", sortable: true },
@@ -42,13 +28,12 @@ function InventoryListPage({}) {
         { key: "actions", name: "Actions", sortable: false },
     ];
 
-    // if (!inventories && !toast) return <div>Loading...</div>;
     return (
         <div className="inventory-list-page">
             <div className="inventory-list-page__header">
                 <h1 className="inventory-list-page__title">Inventory</h1>
                 <div className="inventory-list-page__actions">
-                    <Input onChange={handleChange} icon={searchIcon} placeholder="Search..." />
+                    <Input onChange={handleChange} icon={searchIcon} placeholder="Search..." onIconClick={submitSearch}/>
                     <Button onClick={() => navigate("/inventories/add")}>
                         + Add New Item
                     </Button>
@@ -57,6 +42,7 @@ function InventoryListPage({}) {
             <InventoryList
                 headerItems={headerItems}
                 search={search}
+                urlSearch={urlSearch}
             />
         </div>
     );
