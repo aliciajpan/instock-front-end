@@ -1,16 +1,14 @@
 import Button from '../../components/Button/Button';
 import Input from '../../components/Input/Input';
-import './EditWarehouseForm.scss';
+import './WarehouseInput.scss';
 import arrowBackIcon from '../../assets/icons/arrow_back-24px.svg';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import Toast from '../../components/Toast/Toast';
 import { phoneRegex, emailRegex } from '../../utils/regexUtils';
 
-function EditWarehouseForm(warehouseId) {
+function WarehouseInput({ title, defaultValues, buttons, onSubmit, warehouse }) {
   const navigate = useNavigate();
-  const baseURL = import.meta.env.VITE_BASE_URL;
   const propertyNameLabelMap = {
     warehouse_name: 'Warehouse Name',
     address: 'Street Address',
@@ -33,32 +31,26 @@ function EditWarehouseForm(warehouseId) {
     contact_email: '',
   };
 
-  const [formData, setFormData] = useState({});
+  const initialFormData = {
+    warehouse_name: '',
+    address: '',
+    city: '',
+    country: '',
+    contact_name: '',
+    contact_position: '',
+    contact_phone: '',
+    contact_email: '',
+  };
+
+  const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState(initialErrors);
   const [toast, setToast] = useState(null);
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const { data } = await axios.get(`${baseURL}/api/warehouses/${warehouseId.warehouseId}`);
-        const wareHouseData = {
-          warehouse_name: data.warehouse_name,
-          address: data.address,
-          city: data.city,
-          country: data.country,
-          contact_name: data.contact_name,
-          contact_position: data.contact_position,
-          contact_phone: data.contact_phone,
-          contact_email: data.contact_email,
-        };
-        setFormData(wareHouseData);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchProfile();
-  }, [baseURL, warehouseId]);
+    if (defaultValues) {
+      setFormData(defaultValues);
+    }
+  }, [defaultValues]);
 
   const handleChange = (value, propertyName) => {
     const { errorMessage } = getValidationResult(value, propertyName);
@@ -91,8 +83,7 @@ function EditWarehouseForm(warehouseId) {
     return { errorMessage };
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const isFormValid = () => {
     const propertyNamesToValidate = [
       'warehouse_name',
       'address',
@@ -117,43 +108,36 @@ function EditWarehouseForm(warehouseId) {
       ...errors,
     }));
     if (Object.values(errors).some((error) => error !== '')) {
-      return;
+      return false;
     }
-    try {
-      await axios.put(`${baseURL}/api/warehouses/${warehouseId.warehouseId}`, formData);
-      setToast({
-        message: 'Warehouse updated successfully',
-        status: 'success',
-      });
-      setTimeout(() => {
-        navigate('/warehouses');
-      }, 500);
-    } catch (error) {
-      console.error(error);
-      setToast({
-        message: 'Failed to add warehouse',
-        status: 'error',
-      });
+    return true;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (isFormValid()) {
+      onSubmit({ formData, setToast });
     }
   };
+
   return (
-    <div className="add-warehouse-page">
-      <h1 className="add-warehouse-page__title">
-        <img className="add-warehouse-page__title-back" src={arrowBackIcon} alt="back" onClick={() => navigate(-1)} />
-        Edit Warehouse
+    <div className="warehouse-input">
+      <h1 className="warehouse-input__title">
+        <img className="warehouse-input__title-back" src={arrowBackIcon} alt="back" onClick={() => navigate(-1)} />
+        {title}
       </h1>
-      <div className="add-warehouse-page__form">
+      <div className="warehouse-input__form">
         <form onSubmit={handleSubmit}>
-          <div className="add-warehouse-page__form-groups">
-            <div className="add-warehouse-page__form-group">
-              <h2 className="add-warehouse-page__form-group-title">Warehouse Details</h2>
+          <div className="warehouse-input__form-groups">
+            <div className="warehouse-input__form-group">
+              <h2 className="warehouse-input__form-group-title">Warehouse Details</h2>
               <Input
                 width="100%"
                 name="warehouse_name"
                 type="text"
                 label={propertyNameLabelMap.warehouse_name}
                 placeholder={propertyNameLabelMap.warehouse_name}
-                value={formData.warehouse_name}
+                defaultValue={formData.warehouse_name}
                 onChange={(e) => handleChange(e.target.value, 'warehouse_name')}
                 status={errors.warehouse_name ? 'error' : 'default'}
                 error={errors.warehouse_name}
@@ -164,7 +148,7 @@ function EditWarehouseForm(warehouseId) {
                 type="text"
                 label={propertyNameLabelMap.address}
                 placeholder={propertyNameLabelMap.address}
-                value={formData.address}
+                defaultValue={formData.address}
                 onChange={(e) => handleChange(e.target.value, 'address')}
                 status={errors.address ? 'error' : 'default'}
                 error={errors.address}
@@ -175,7 +159,7 @@ function EditWarehouseForm(warehouseId) {
                 type="text"
                 label={propertyNameLabelMap.city}
                 placeholder={propertyNameLabelMap.city}
-                value={formData.city}
+                defaultValue={formData.city}
                 onChange={(e) => handleChange(e.target.value, 'city')}
                 status={errors.city ? 'error' : 'default'}
                 error={errors.city}
@@ -186,6 +170,7 @@ function EditWarehouseForm(warehouseId) {
                 type="text"
                 label={propertyNameLabelMap.country}
                 placeholder={propertyNameLabelMap.country}
+                defaultValue={formData.country}
                 onChange={(e) => handleChange(e.target.value, 'country')}
                 status={errors.country ? 'error' : 'default'}
                 error={errors.country}
@@ -199,7 +184,7 @@ function EditWarehouseForm(warehouseId) {
                 type="text"
                 label={propertyNameLabelMap.contact_name}
                 placeholder={propertyNameLabelMap.contact_name}
-                value={formData.contact_name}
+                defaultValue={formData.contact_name}
                 onChange={(e) => handleChange(e.target.value, 'contact_name')}
                 status={errors.contact_name ? 'error' : 'default'}
                 error={errors.contact_name}
@@ -210,7 +195,7 @@ function EditWarehouseForm(warehouseId) {
                 type="text"
                 label={propertyNameLabelMap.contact_position}
                 placeholder={propertyNameLabelMap.contact_position}
-                value={formData.contact_position}
+                defaultValue={formData.contact_position}
                 onChange={(e) => handleChange(e.target.value, 'contact_position')}
                 status={errors.contact_position ? 'error' : 'default'}
                 error={errors.contact_position}
@@ -221,7 +206,7 @@ function EditWarehouseForm(warehouseId) {
                 type="text"
                 label={propertyNameLabelMap.contact_phone}
                 placeholder={propertyNameLabelMap.contact_phone}
-                value={formData.contact_phone}
+                defaultValue={formData.contact_phone}
                 onChange={(e) => handleChange(e.target.value, 'contact_phone')}
                 status={errors.contact_phone ? 'error' : 'default'}
                 error={errors.contact_phone}
@@ -232,22 +217,21 @@ function EditWarehouseForm(warehouseId) {
                 type="text"
                 label={propertyNameLabelMap.contact_email}
                 placeholder={propertyNameLabelMap.contact_email}
-                value={formData.contact_email}
+                defaultValue={formData.contact_email}
                 onChange={(e) => handleChange(e.target.value, 'contact_email')}
                 status={errors.contact_email ? 'error' : 'default'}
                 error={errors.contact_email}
               />
             </div>
           </div>
-          <div className="add-warehouse-page__form-actions">
-            <div className="add-warehouse-page__form-actions-button">
-              <Button type="button" status="secondary" onClick={() => navigate(-1)}>
-                Cancel
-              </Button>
-            </div>
-            <div className="add-warehouse-page__form-actions-button">
-              <Button type="submit">Save</Button>
-            </div>
+          <div className="warehouse-input__form-actions">
+            {buttons.map((button) => (
+              <div key={button.label} className="warehouse-input__form-actions-button">
+                <Button type={button.type} status={button.status} onClick={button.onClick}>
+                  {button.label}
+                </Button>
+              </div>
+            ))}
           </div>
         </form>
       </div>
@@ -264,4 +248,4 @@ function EditWarehouseForm(warehouseId) {
   );
 }
 
-export default EditWarehouseForm;
+export default WarehouseInput;
