@@ -10,27 +10,27 @@ const Input = ({
     status = "default", 
     name = null, 
     error = null, 
-    defaultValue = null,
+    value = "",
     onChange = () => {},
     onIconClick,
     box = "input",
     width = null,
     ...props 
 }) => {
-    const [value, setValue] = useState(defaultValue);
+    const [inputValue, setInputValue] = useState(value);
     useEffect(() => {
-        if (defaultValue !== value) {
-            setValue(defaultValue);
+        if (value !== inputValue) {
+            setInputValue(value);
         }
-    }, [defaultValue]);
+    }, [value]);
     const handleChange = (e) => {
-        setValue(e.target.value);
+        setInputValue(e.target.value);
         onChange(e);
     };
     const properties = {
         id: name,
         name: name,
-        value: value,
+        value: inputValue,
         placeholder: placeholder,
         type: type,
         onChange: handleChange,

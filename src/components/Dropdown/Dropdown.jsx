@@ -12,10 +12,10 @@ const Dropdown = ({
     error = null,
     onChange,
     width = null,
-    defaultValue = null,
+    value = null,
 }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedOption, setSelectedOption] = useState(defaultValue);
+    const [selectedOption, setSelectedOption] = useState(value);
     const dropdownRef = useRef(null);
 
     const toggleDropdown = () => setIsOpen(!isOpen);
@@ -30,6 +30,12 @@ const Dropdown = ({
         setIsOpen(false);
         onChange(option);
     };
+
+    useEffect(() => {
+        if (value) {
+            setSelectedOption(value);
+        }
+    }, [value]);
 
     useEffect(() => {
         const handleClickOutside = (event) => {

@@ -147,7 +147,7 @@ function InventoryInput({title, defaultValues, buttons, onSubmit, warehouses}) {
                                 type="text"
                                 label={propertyNameLabelMap.item_name}
                                 placeholder={propertyNameLabelMap.item_name}
-                                defaultValue={formData.item_name}
+                                value={formData.item_name}
                                 onChange={(e) =>
                                     handleChange(e.target.value, "item_name")
                                 }
@@ -161,7 +161,7 @@ function InventoryInput({title, defaultValues, buttons, onSubmit, warehouses}) {
                                 label={propertyNameLabelMap.description}
                                 placeholder="Please enter a brief item description..."
                                 box="textarea"
-                                defaultValue={formData.description}
+                                value={formData.description}
                                 onChange={(e) =>
                                     handleChange(e.target.value, "description")
                                 }
@@ -178,8 +178,8 @@ function InventoryInput({title, defaultValues, buttons, onSubmit, warehouses}) {
                                 onChange={(option) =>
                                     handleChange(option.value, "category")
                                 }
-                                defaultValue={defaultValues 
-                                    ? {label: defaultValues.category, value: defaultValues.category} 
+                                value={formData.category 
+                                    ? {label: formData.category, value: formData.category} 
                                     : null}
                                 options={[
                                     {
@@ -205,10 +205,9 @@ function InventoryInput({title, defaultValues, buttons, onSubmit, warehouses}) {
                             <RadioText
                                 name="status"
                                 label={propertyNameLabelMap.status}
-                                value={defaultValues 
-                                    ? {label: defaultValues.status, value: defaultValues.status} 
+                                value={formData.status 
+                                    ? {label: formData.status, value: formData.status} 
                                     : {label: "In Stock", value: "In Stock"}}
-                                defaultValue={formData.status}
                                 options={[
                                     { value: "In Stock", label: "In Stock" },
                                     {
@@ -227,7 +226,7 @@ function InventoryInput({title, defaultValues, buttons, onSubmit, warehouses}) {
                                     type="number"
                                     label={propertyNameLabelMap.quantity}
                                     placeholder="Quantity"
-                                    defaultValue={formData.quantity}
+                                    value={isNaN(formData.quantity) ? "" : formData.quantity}
                                     onChange={(e) =>
                                         handleChange(e.target.value, "quantity")
                                     }
@@ -242,12 +241,12 @@ function InventoryInput({title, defaultValues, buttons, onSubmit, warehouses}) {
                                 name="warehouse_id"
                                 label={propertyNameLabelMap.warehouse_id}
                                 placeholder="Please select"
-                                defaultValue={defaultValues 
-                                    ? {label: defaultValues.warehouse_name, value: defaultValues.warehouse_id} 
+                                value={formData.warehouse_id 
+                                    ? {label: warehouses.find(warehouse => warehouse.id === formData.warehouse_id)?.warehouse_name, value: formData.warehouse_id} 
                                     : null}
-                                onChange={(option) =>
-                                    handleChange(option.value, "warehouse_id")
-                                }
+                                onChange={(option) => {
+                                    handleChange(option.value, "warehouse_id");
+                                }}
                                 options={warehouses.map((warehouse) => ({
                                     value: warehouse.id,
                                     label: warehouse.warehouse_name,
