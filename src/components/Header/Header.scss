@@ -67,13 +67,18 @@
     color: $cloud;
     text-decoration: none;
     border-radius: 20px;
+    padding: 0.5rem 3rem;
+
+    @include tablet {
+        padding: 0.5rem 0;
+    }
   }
 
   &__nav a.active {
-    padding: 0.5rem 3rem;
     color: $color-nav-text-active;
     background-color: $color-nav-background-active;
     text-decoration: none;
+
     @include tablet {
       padding: 0.5rem 1rem;
     }
