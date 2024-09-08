@@ -1,5 +1,5 @@
 import "./RadioText.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 const RadioText = ({ options, label, value, onChange }) => {
     const [selectedOptionValue, setSelectedOptionValue] = useState(value?.value ?? null);
 
@@ -7,6 +7,10 @@ const RadioText = ({ options, label, value, onChange }) => {
         setSelectedOptionValue(option.value);
         onChange(option);
     };
+
+    useEffect(() => {
+        setSelectedOptionValue(value?.value ?? null);
+    }, [value]);
 
     if (!options || options?.length === 0) {
         return null;
