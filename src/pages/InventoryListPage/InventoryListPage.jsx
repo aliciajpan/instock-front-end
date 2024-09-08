@@ -19,6 +19,36 @@ function InventoryListPage({}) {
         setSearch(event.target.value.toString().trim().toLowerCase());
     }
 
+    const [sortKey, setSortKey] = useState(null);
+    const [sortOrderBy, setSortOrderBy] = useState(null);
+
+    function sortToggle(headerItemKey) {
+        if (headerItemKey === sortKey) {
+            if (sortOrderBy === null) {
+                setSortOrderBy("asc");
+            }
+
+            else if (sortOrderBy === "asc") {
+                setSortOrderBy("desc");
+            }
+
+            else if (sortOrderBy === "desc") {
+                setSortOrderBy(null);
+                setSortKey(null);
+            }
+
+            else {
+                console.error("Not a valid sorting order_by");
+                setSortOrderBy(null);
+            }
+        }
+
+        else {
+            setSortKey(headerItemKey);
+            setSortOrderBy("asc");
+        }
+    }
+    
     const headerItems = [
         { key: "item_name", name: "Inventory Item", sortable: true },
         { key: "category", name: "Category", sortable: true },
@@ -43,6 +73,9 @@ function InventoryListPage({}) {
                 headerItems={headerItems}
                 search={search}
                 urlSearch={urlSearch}
+                sortKey={sortKey}
+                sortOrderBy={sortOrderBy}
+                sortToggle={sortToggle}
             />
         </div>
     );
