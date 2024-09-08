@@ -18,6 +18,17 @@ const WarehouseListPage = () => {
     const [warehouses, setWarehouses] = useState(null);
     const [warehouseToBeDeleted, setWarehouseToBeDeleted] = useState(null);
     const [toast, setToast] = useState(null);
+    const [search, setSearch] = useState(null);
+    const [urlSearch, setUrlSearch] = useState(null);
+    let filteredWarehouses = warehouses;
+
+    function submitSearch() {
+        setUrlSearch(search);
+    }
+
+    function handleChange (event) {
+        setSearch(event.target.value.toString().trim().toLowerCase());
+    }
 
     const actions = [
         {
@@ -75,25 +86,44 @@ const WarehouseListPage = () => {
 
     useEffect(() => {
         const fetchWarehouses = async () => {
-            try {
-                if (baseURL) {
-                    const { data } = await axios.get(`${baseURL}/api/warehouses`);
+            if (baseURL) {
+                let url = `${baseURL}/api/warehouses`;
+                if (urlSearch) {
+                    url += `?s=${urlSearch}`;
+                }
+
+                try {
+                    const { data } = await axios.get(url);
                     setWarehouses(data);
                 }
-            }
 
-            catch (error) {
-                console.error(error);
-                setToast({
-                    message: 'Failed to fetch warehouses',
-                    status: 'error',
-                });
-                setWarehouses([]);
-            }
-            
+                catch (error) {
+                    console.error(error);
+                    setToast({
+                        message: 'Failed to fetch warehouses',
+                        status: 'error',
+                    });
+                    setWarehouses([]);
+                }
+            }   
         };
         fetchWarehouses();
-    }, [baseURL]);
+    }, [baseURL, urlSearch]);
+
+    if (search) {
+        filteredWarehouses = warehouses.filter((inventory) => {
+            return (
+                inventory.warehouse_name.toLowerCase().includes(search) ||
+                inventory.address.toLowerCase().includes(search) ||
+                inventory.city.toLowerCase().includes(search) ||
+                inventory.country.toLowerCase().includes(search) ||
+                inventory.contact_name.toLowerCase().includes(search) ||
+                inventory.contact_position.toLowerCase().includes(search) ||
+                inventory.contact_phone.toLowerCase().includes(search) ||
+                inventory.contact_email.toLowerCase().includes(search)
+            )
+        })
+    }
 
     return (
         <>
@@ -101,7 +131,7 @@ const WarehouseListPage = () => {
                 <div className="warehouse-list__header">
                     <h1 className="warehouse-list__title">Warehouses</h1>
                     <div className="warehouse-list__actions">
-                        <Input icon={searchIcon} placeholder="Search..." />
+                        <Input onChange={handleChange} icon={searchIcon} placeholder="Search..." onIconClick={submitSearch}/>
                         <Button onClick={() => navigate("/warehouses/add")}>
                             + Add New Warehouse
                         </Button>
@@ -117,7 +147,7 @@ const WarehouseListPage = () => {
                         }
                     
                         {
-                            warehouses.map((warehouse) => (
+                            filteredWarehouses.map((warehouse) => (
                                 <ListItem
                                     key={warehouse.id}
                                     properties={getProperties(warehouse)}

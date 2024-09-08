@@ -1,4 +1,3 @@
-import "./InventoryList.scss";
 import { useNavigate } from "react-router-dom";
 import TableHeaderWithSorting from "../../components/TableHeaderWithSorting/TableHeaderWithSorting";
 import ListItem from "../../components/ListItem/ListItem";
@@ -6,20 +5,25 @@ import editIcon from "../../assets/icons/edit-24px.svg";
 import deleteIcon from "../../assets/icons/delete_outline-24px.svg";
 import { renderToStaticMarkup } from "react-dom/server";
 import Tag from "../../components/Tag/Tag";
+import Toast from "../Toast/Toast";
 import DeleteInventoryModal from "../../components/DeleteInventoryModal/DeleteInventoryModal";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Toast from "../Toast/Toast";
+import "./InventoryList.scss";
 
-const InventoryList = ({headerItems, warehouseId = null}) => {
+const InventoryList = ({headerItems, warehouseId = null, search = null, urlSearch = null}) => {
     const baseURL = import.meta.env.VITE_BASE_URL;
     const navigate = useNavigate();
+    const [toast, setToast] = useState(null);
     const [inventories, setInventories] = useState(null);
     const [inventoryToBeDeleted, setInventoryToBeDeleted] = useState(null);
-    const [toast, setToast] = useState(null);
+    let filteredInventories = inventories;
 
     useEffect(() => {
-        const url = warehouseId ? `${baseURL}/api/warehouses/${warehouseId}/inventories` : `${baseURL}/api/inventories`;
+        let url = warehouseId ? `${baseURL}/api/warehouses/${warehouseId}/inventories` : `${baseURL}/api/inventories`;
+        if (urlSearch) {
+            url += `?s=${urlSearch}`;
+        }
         const fetchInventories = async () => {
             try {
                 const { data } = await axios.get(url);
@@ -36,7 +40,7 @@ const InventoryList = ({headerItems, warehouseId = null}) => {
             }
         };
         fetchInventories();
-    }, [baseURL]);
+    }, [baseURL, urlSearch]);
 
     const actions = [
         {
@@ -77,6 +81,17 @@ const InventoryList = ({headerItems, warehouseId = null}) => {
                 link:
                     key === "item_name" ? `/inventories/${inventory.id}` : null,
             }));
+
+    if (search) {
+        filteredInventories = inventories.filter((inventory) => {
+            return (
+                inventory.item_name.toLowerCase().includes(search) ||
+                inventory.warehouse_name.toLowerCase().includes(search) ||
+                inventory.description.toLowerCase().includes(search) ||
+                inventory.category.toLowerCase().includes(search)
+            )
+        })
+    }
     
     return (
         <>
@@ -91,7 +106,7 @@ const InventoryList = ({headerItems, warehouseId = null}) => {
                         }
 
                         {
-                            inventories.map((inventory) => (
+                            filteredInventories.map((inventory) => (
                                 <ListItem
                                     key={inventory.id}
                                     properties={getProperties(inventory)}
