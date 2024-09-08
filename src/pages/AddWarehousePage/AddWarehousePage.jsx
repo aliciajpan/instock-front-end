@@ -44,7 +44,7 @@ function AddWarehousePage() {
 
   return (
     <div className="add-warehouse-page">
-      <WarehouseInput title="Add Warehouse" buttons={buttons} onSubmit={handleSubmit} />
+      <WarehouseInput title="Add New Warehouse" buttons={buttons} onSubmit={handleSubmit} />
       {toast && <Toast message={toast.message} status={toast.status} />}
     </div>
   );
