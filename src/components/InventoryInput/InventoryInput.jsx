@@ -226,7 +226,7 @@ function InventoryInput({title, defaultValues, buttons, onSubmit, warehouses}) {
                                     type="number"
                                     label={propertyNameLabelMap.quantity}
                                     placeholder="Quantity"
-                                    value={formData.quantity}
+                                    value={isNaN(formData.quantity) ? "" : formData.quantity}
                                     onChange={(e) =>
                                         handleChange(e.target.value, "quantity")
                                     }

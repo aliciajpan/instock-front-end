@@ -19,9 +19,7 @@ const Input = ({
 }) => {
     const [inputValue, setInputValue] = useState(value);
     useEffect(() => {
-        if (isNaN(value) || value === null || value === undefined) {
-            setInputValue("");
-        } else if (value !== inputValue) {
+        if (value !== inputValue) {
             setInputValue(value);
         }
     }, [value]);
