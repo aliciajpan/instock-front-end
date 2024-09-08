@@ -242,11 +242,11 @@ function InventoryInput({title, defaultValues, buttons, onSubmit, warehouses}) {
                                 label={propertyNameLabelMap.warehouse_id}
                                 placeholder="Please select"
                                 value={formData.warehouse_id 
-                                    ? {label: formData.warehouse_name, value: formData.warehouse_id} 
+                                    ? {label: warehouses.find(warehouse => warehouse.id === formData.warehouse_id)?.warehouse_name, value: formData.warehouse_id} 
                                     : null}
-                                onChange={(option) =>
-                                    handleChange(option.value, "warehouse_id")
-                                }
+                                onChange={(option) => {
+                                    handleChange(option.value, "warehouse_id");
+                                }}
                                 options={warehouses.map((warehouse) => ({
                                     value: warehouse.id,
                                     label: warehouse.warehouse_name,
