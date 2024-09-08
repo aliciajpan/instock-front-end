@@ -37,7 +37,7 @@ function EditWarehousePage() {
     } catch (error) {
       console.error(error);
       setToast({
-        message: 'Failed to add warehouse',
+        message: 'Failed to update warehouse',
         status: 'error',
       });
     }
