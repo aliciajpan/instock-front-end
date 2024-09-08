@@ -20,7 +20,6 @@ const WarehouseListPage = () => {
     const [toast, setToast] = useState(null);
     const [search, setSearch] = useState(null);
     const [urlSearch, setUrlSearch] = useState(null);
-    let filteredWarehouses = warehouses;
 
     function submitSearch() {
         setUrlSearch(search);
@@ -28,6 +27,66 @@ const WarehouseListPage = () => {
 
     function handleChange (event) {
         setSearch(event.target.value.toString().trim().toLowerCase());
+    }
+
+    const [sortKey, setSortKey] = useState(null);
+    const [sortOrderBy, setSortOrderBy] = useState(null);
+
+    function sortToggle(headerItemKey) {
+        if (headerItemKey === "contact_information") {
+            headerItemKey = "contact_email";
+        }
+
+        if (headerItemKey === sortKey) {
+            if (sortOrderBy === null) {
+                setSortOrderBy("asc");
+            }
+
+            else if (sortOrderBy === "asc") {
+                setSortOrderBy("desc");
+            }
+
+            else if (sortOrderBy === "desc") {
+                setSortOrderBy(null);
+                setSortKey(null);
+            }
+
+            else {
+                console.error("Not a valid sorting order_by");
+                setSortOrderBy(null);
+            }
+        }
+
+        else {
+            setSortKey(headerItemKey);
+            setSortOrderBy("asc");
+        }
+    }
+
+    function sortByKey(array, key, orderBy) {
+        const arrayCopy = [...array];
+        return arrayCopy.sort(function(a, b) {
+            const x = a[key]; 
+            const y = b[key];
+
+            if (x < y) {
+                if (orderBy === "desc") {
+                    return 1;
+                }
+                return -1;
+            }
+
+            else if (x > y) {
+                if (orderBy === "desc") {
+                    return -1;
+                }
+                return 1;
+            }
+
+            else {
+                return 0;
+            }
+        });
     }
 
     const actions = [
@@ -88,8 +147,22 @@ const WarehouseListPage = () => {
         const fetchWarehouses = async () => {
             if (baseURL) {
                 let url = `${baseURL}/api/warehouses`;
-                if (urlSearch) {
-                    url += `?s=${urlSearch}`;
+                if (sortKey) {
+                    url += `?sort_by=${sortKey}`;
+        
+                    if (sortOrderBy) {
+                        url += `&order_by=${sortOrderBy}`;
+                    }
+        
+                    if (urlSearch) {
+                        url += `&s=${urlSearch}`;
+                    }
+                }
+        
+                else {
+                    if (urlSearch) {
+                        url += `?s=${urlSearch}`;
+                    }
                 }
 
                 try {
@@ -108,10 +181,12 @@ const WarehouseListPage = () => {
             }   
         };
         fetchWarehouses();
-    }, [baseURL, urlSearch]);
+    }, [baseURL, urlSearch, sortKey, sortOrderBy]);
 
-    if (search) {
-        filteredWarehouses = warehouses.filter((inventory) => {
+    const sortedWarehouses = sortKey ? sortByKey(warehouses, sortKey, sortOrderBy): warehouses;
+
+    const filteredWarehouses = search ? 
+        sortedWarehouses.filter((inventory) => {
             return (
                 inventory.warehouse_name.toLowerCase().includes(search) ||
                 inventory.address.toLowerCase().includes(search) ||
@@ -123,7 +198,7 @@ const WarehouseListPage = () => {
                 inventory.contact_email.toLowerCase().includes(search)
             )
         })
-    }
+        : sortedWarehouses;
 
     return (
         <>
@@ -142,7 +217,7 @@ const WarehouseListPage = () => {
                     <>
                         {
                             warehouses.length > 0 ?
-                            <TableHeaderWithSorting headerItems={headerItems} />
+                            <TableHeaderWithSorting headerItems={headerItems} sortToggle={sortToggle}/>
                             : <></>
                         }
                     

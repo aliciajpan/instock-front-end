@@ -80,7 +80,7 @@ const InventoryList = ({headerItems, warehouseId = null, sortKey, sortOrderBy, s
             }
         };
         fetchInventories();
-    }, [baseURL, urlSearch]);
+    }, [baseURL, urlSearch, sortKey, sortOrderBy]);
 
     const actions = [
         {
@@ -134,7 +134,7 @@ const InventoryList = ({headerItems, warehouseId = null, sortKey, sortOrderBy, s
                 inventory.category.toLowerCase().includes(search)
             )
         })
-        : sortedInventories
+        : sortedInventories;
     
     return (
         <>
