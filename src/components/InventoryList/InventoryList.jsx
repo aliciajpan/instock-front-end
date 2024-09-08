@@ -1,4 +1,3 @@
-import "./InventoryList.scss";
 import { useNavigate } from "react-router-dom";
 import TableHeaderWithSorting from "../../components/TableHeaderWithSorting/TableHeaderWithSorting";
 import ListItem from "../../components/ListItem/ListItem";
@@ -9,12 +8,15 @@ import Tag from "../../components/Tag/Tag";
 import DeleteInventoryModal from "../../components/DeleteInventoryModal/DeleteInventoryModal";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import "./InventoryList.scss";
 
-const InventoryList = ({headerItems, warehouseId = null}) => {
+const InventoryList = ({headerItems, warehouseId = null, search = null}) => {
     const baseURL = import.meta.env.VITE_BASE_URL;
     const navigate = useNavigate();
     const [inventories, setInventories] = useState(null);
     const [inventoryToBeDeleted, setInventoryToBeDeleted] = useState(null);
+    let filteredInventories = inventories;
+
     useEffect(() => {
         const url = warehouseId ? `${baseURL}/api/warehouses/${warehouseId}/inventories` : `${baseURL}/api/inventories`;
         const fetchInventories = async () => {
@@ -65,6 +67,17 @@ const InventoryList = ({headerItems, warehouseId = null}) => {
             }));
 
     if (!inventories) return <div>Loading...</div>;
+
+    if (search) {
+        filteredInventories = inventories.filter((inventory) => {
+            return (
+                inventory.item_name.toLowerCase().includes(search) ||
+                inventory.warehouse_name.toLowerCase().includes(search) ||
+                inventory.description.toLowerCase().includes(search) ||
+                inventory.category.toLowerCase().includes(search)
+            );
+        })
+    }
     
     return (
         <div className="inventory-list">
@@ -72,7 +85,7 @@ const InventoryList = ({headerItems, warehouseId = null}) => {
                 <TableHeaderWithSorting
                     headerItems={headerItems}
                 />
-                {inventories.map((inventory) => (
+                {filteredInventories.map((inventory) => (
                     <ListItem
                         key={inventory.id}
                         properties={getProperties(inventory)}
