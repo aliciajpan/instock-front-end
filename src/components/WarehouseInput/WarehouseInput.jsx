@@ -137,7 +137,7 @@ function WarehouseInput({ title, defaultValues, buttons, onSubmit, warehouse }) 
                 type="text"
                 label={propertyNameLabelMap.warehouse_name}
                 placeholder={propertyNameLabelMap.warehouse_name}
-                defaultValue={formData.warehouse_name}
+                value={formData.warehouse_name}
                 onChange={(e) => handleChange(e.target.value, 'warehouse_name')}
                 status={errors.warehouse_name ? 'error' : 'default'}
                 error={errors.warehouse_name}
@@ -148,7 +148,7 @@ function WarehouseInput({ title, defaultValues, buttons, onSubmit, warehouse }) 
                 type="text"
                 label={propertyNameLabelMap.address}
                 placeholder={propertyNameLabelMap.address}
-                defaultValue={formData.address}
+                value={formData.address}
                 onChange={(e) => handleChange(e.target.value, 'address')}
                 status={errors.address ? 'error' : 'default'}
                 error={errors.address}
@@ -159,7 +159,7 @@ function WarehouseInput({ title, defaultValues, buttons, onSubmit, warehouse }) 
                 type="text"
                 label={propertyNameLabelMap.city}
                 placeholder={propertyNameLabelMap.city}
-                defaultValue={formData.city}
+                value={formData.city}
                 onChange={(e) => handleChange(e.target.value, 'city')}
                 status={errors.city ? 'error' : 'default'}
                 error={errors.city}
@@ -170,7 +170,7 @@ function WarehouseInput({ title, defaultValues, buttons, onSubmit, warehouse }) 
                 type="text"
                 label={propertyNameLabelMap.country}
                 placeholder={propertyNameLabelMap.country}
-                defaultValue={formData.country}
+                value={formData.country}
                 onChange={(e) => handleChange(e.target.value, 'country')}
                 status={errors.country ? 'error' : 'default'}
                 error={errors.country}
@@ -184,7 +184,7 @@ function WarehouseInput({ title, defaultValues, buttons, onSubmit, warehouse }) 
                 type="text"
                 label={propertyNameLabelMap.contact_name}
                 placeholder={propertyNameLabelMap.contact_name}
-                defaultValue={formData.contact_name}
+                value={formData.contact_name}
                 onChange={(e) => handleChange(e.target.value, 'contact_name')}
                 status={errors.contact_name ? 'error' : 'default'}
                 error={errors.contact_name}
@@ -195,7 +195,7 @@ function WarehouseInput({ title, defaultValues, buttons, onSubmit, warehouse }) 
                 type="text"
                 label={propertyNameLabelMap.contact_position}
                 placeholder={propertyNameLabelMap.contact_position}
-                defaultValue={formData.contact_position}
+                value={formData.contact_position}
                 onChange={(e) => handleChange(e.target.value, 'contact_position')}
                 status={errors.contact_position ? 'error' : 'default'}
                 error={errors.contact_position}
@@ -206,7 +206,7 @@ function WarehouseInput({ title, defaultValues, buttons, onSubmit, warehouse }) 
                 type="text"
                 label={propertyNameLabelMap.contact_phone}
                 placeholder={propertyNameLabelMap.contact_phone}
-                defaultValue={formData.contact_phone}
+                value={formData.contact_phone}
                 onChange={(e) => handleChange(e.target.value, 'contact_phone')}
                 status={errors.contact_phone ? 'error' : 'default'}
                 error={errors.contact_phone}
@@ -217,7 +217,7 @@ function WarehouseInput({ title, defaultValues, buttons, onSubmit, warehouse }) 
                 type="text"
                 label={propertyNameLabelMap.contact_email}
                 placeholder={propertyNameLabelMap.contact_email}
-                defaultValue={formData.contact_email}
+                value={formData.contact_email}
                 onChange={(e) => handleChange(e.target.value, 'contact_email')}
                 status={errors.contact_email ? 'error' : 'default'}
                 error={errors.contact_email}
