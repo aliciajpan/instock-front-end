@@ -3,7 +3,6 @@ import { useState } from "react";
 import searchIcon from "../../assets/icons/search-24px.svg";
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./InventoryListPage.scss";
 
@@ -35,6 +34,7 @@ function InventoryListPage({}) {
 
             else if (sortOrderBy === "desc") {
                 setSortOrderBy(null);
+                setSortKey(null);
             }
 
             else {

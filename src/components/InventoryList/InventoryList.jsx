@@ -18,7 +18,8 @@ const InventoryList = ({headerItems, warehouseId = null, sortKey, sortOrderBy, s
     const [inventories, setInventories] = useState(null);
     const [inventoryToBeDeleted, setInventoryToBeDeleted] = useState(null);
     function sortByKey(array, key, orderBy) {
-        return array.sort(function(a, b) {
+        const arrayCopy = [...array];
+        return arrayCopy.sort(function(a, b) {
             const x = a[key]; 
             const y = b[key];
 
