@@ -5,8 +5,6 @@ import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import { useNavigate } from "react-router-dom";
 import "./InventoryListPage.scss";
-// import axios from "axios";
-// import Toast from "../../components/Toast/Toast";
 
 function InventoryListPage({}) {
     const navigate = useNavigate();
@@ -57,11 +55,9 @@ function InventoryListPage({}) {
                 </div>
             </div>
             <InventoryList
-                // inventories={inventories}
                 headerItems={headerItems}
                 search={search}
             />
-            {/* {toast && <Toast message={toast.message} status={toast.status} />} */}
         </div>
     );
 }

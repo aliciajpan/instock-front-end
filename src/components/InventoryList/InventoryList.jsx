@@ -9,6 +9,7 @@ import DeleteInventoryModal from "../../components/DeleteInventoryModal/DeleteIn
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./InventoryList.scss";
+import Toast from "../Toast/Toast";
 
 const InventoryList = ({headerItems, warehouseId = null, search = null}) => {
     const baseURL = import.meta.env.VITE_BASE_URL;
@@ -17,11 +18,24 @@ const InventoryList = ({headerItems, warehouseId = null, search = null}) => {
     const [inventoryToBeDeleted, setInventoryToBeDeleted] = useState(null);
     let filteredInventories = inventories;
 
+    const [toast, setToast] = useState(null);
+
     useEffect(() => {
         const url = warehouseId ? `${baseURL}/api/warehouses/${warehouseId}/inventories` : `${baseURL}/api/inventories`;
         const fetchInventories = async () => {
-            const { data } = await axios.get(url);
-            setInventories(data);
+            try {
+                const { data } = await axios.get(url);
+                setInventories(data);
+            }
+
+            catch (error) {
+                console.error(error);
+                setToast({
+                    message: "Failed to fetch inventories",
+                    status: "error",
+                });
+                setInventories([]);
+            }
         };
         fetchInventories();
     }, [baseURL]);
@@ -80,26 +94,38 @@ const InventoryList = ({headerItems, warehouseId = null, search = null}) => {
     }
     
     return (
-        <div className="inventory-list">
-            <div className="inventory-list__container">
-                <TableHeaderWithSorting
-                    headerItems={headerItems}
+        <>
+            <div className="inventory-list">
+                <div className="inventory-list__container">
+                    {inventories ? 
+                    <>
+                        {
+                            inventories.length > 0 ? 
+                                <TableHeaderWithSorting headerItems={headerItems}/> 
+                                : <></>
+                        }
+
+                        {
+                            inventories.map((inventory) => (
+                                <ListItem
+                                    key={inventory.id}
+                                    properties={getProperties(inventory)}
+                                    actions={getActions(inventory)}
+                                />
+                            ))
+                        }
+                    </> 
+                    : <div>Loading...</div>}
+                </div>
+                <DeleteInventoryModal 
+                    inventory={inventoryToBeDeleted} 
+                    onClose={() => setInventoryToBeDeleted(null)} 
+                    isOpen={!!inventoryToBeDeleted}
+                    onDelete={() => {setInventories(inventories.filter(inventory => inventory.id !== inventoryToBeDeleted.id))}}
                 />
-                {filteredInventories.map((inventory) => (
-                    <ListItem
-                        key={inventory.id}
-                        properties={getProperties(inventory)}
-                        actions={getActions(inventory)}
-                    />
-                ))}
             </div>
-            <DeleteInventoryModal 
-                inventory={inventoryToBeDeleted} 
-                onClose={() => setInventoryToBeDeleted(null)} 
-                isOpen={!!inventoryToBeDeleted}
-                onDelete={() => {setInventories(inventories.filter(inventory => inventory.id !== inventoryToBeDeleted.id))}}
-            />
-        </div>
+            {toast && <Toast message={toast.message} status={toast.status} onClose={()=>{setToast(null)}}/>}
+        </>
     );
 };
 

@@ -24,6 +24,7 @@ function InventoryDetails({inventoryId}) {
                 message: `Failed to fetch inventory ID ${inventoryId}`,
                 status: "error",
             });
+            setInventoryDetails({});
             
             if (error.status === 404) {
                 navigate("/notfound");
@@ -39,7 +40,7 @@ function InventoryDetails({inventoryId}) {
         fetchInventoryDetails();
     }, [inventoryId, baseURL])
 
-    if (!inventoryDetails && !toast) return <div>Loading...</div>;
+    if (!inventoryDetails) return <div>Loading...</div>;
 
     return (
         <section className='invdetails'>
@@ -78,7 +79,7 @@ function InventoryDetails({inventoryId}) {
                 </div>
             </div>
 
-            {toast && <Toast message={toast.message} status={toast.status} />}
+            {toast && <Toast message={toast.message} status={toast.status} onClose={()=>{setToast(null)}}/>}
         </section>
     );
 }

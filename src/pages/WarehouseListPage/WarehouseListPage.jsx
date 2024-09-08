@@ -10,12 +10,15 @@ import TableHeaderWithSorting from "../../components/TableHeaderWithSorting/Tabl
 import searchIcon from "../../assets/icons/search-24px.svg";
 import axios from "axios";
 import DeleteWarehouseModal from "../../components/DeleteWarehouseModal/DeleteWarehouseModal";
+import Toast from '../../components/Toast/Toast';
 
 const WarehouseListPage = () => {
     const navigate = useNavigate();
     const baseURL = import.meta.env.VITE_BASE_URL;
     const [warehouses, setWarehouses] = useState(null);
     const [warehouseToBeDeleted, setWarehouseToBeDeleted] = useState(null);
+    const [toast, setToast] = useState(null);
+
     const actions = [
         {
             name: "Delete",
@@ -72,14 +75,26 @@ const WarehouseListPage = () => {
 
     useEffect(() => {
         const fetchWarehouses = async () => {
-            if (baseURL) {
-                const { data } = await axios.get(`${baseURL}/api/warehouses`);
-                setWarehouses(data);
+            try {
+                if (baseURL) {
+                    const { data } = await axios.get(`${baseURL}/api/warehouses`);
+                    setWarehouses(data);
+                }
             }
+
+            catch (error) {
+                console.error(error);
+                setToast({
+                    message: 'Failed to fetch warehouses',
+                    status: 'error',
+                });
+                setWarehouses([]);
+            }
+            
         };
         fetchWarehouses();
     }, [baseURL]);
-    if (!warehouses) return <div>Loading...</div>;
+
     return (
         <>
             <div className="warehouse-list">
@@ -93,14 +108,25 @@ const WarehouseListPage = () => {
                     </div>
                 </div>
                 <div className="warehouse-list__container">
-                    <TableHeaderWithSorting headerItems={headerItems} />
-                    {warehouses.map((warehouse) => (
-                        <ListItem
-                            key={warehouse.id}
-                            properties={getProperties(warehouse)}
-                            actions={getActions(warehouse)}
-                        />
-                    ))}
+                    {warehouses ? 
+                    <>
+                        {
+                            warehouses.length > 0 ?
+                            <TableHeaderWithSorting headerItems={headerItems} />
+                            : <></>
+                        }
+                    
+                        {
+                            warehouses.map((warehouse) => (
+                                <ListItem
+                                    key={warehouse.id}
+                                    properties={getProperties(warehouse)}
+                                    actions={getActions(warehouse)}
+                                />
+                            ))
+                        }
+                    </> 
+                    : <div>Loading...</div>}                 
                 </div>
             </div>
             <DeleteWarehouseModal
@@ -116,6 +142,7 @@ const WarehouseListPage = () => {
                     );
                 }}
             />
+            {toast && <Toast message={toast.message} status={toast.status} onClose={()=>{setToast(null)}}/>}
         </>
     );
 };

@@ -7,7 +7,7 @@ import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import WarehouseDetailsPage from './pages/WarehouseDetailsPage/WarehouseDetailsPage';
 import AddWarehouse from './pages/AddWarehousePage/AddWarehousePage';
 import AddInventoryPage from './pages/AddInventoryPage/AddInventoryPage';
-import EditWarehouse from './pages/EditWarehouse/EditWarehouse';
+import EditWarehousePage from './pages/EditWarehousePage/EditWarehousePage';
 import EditInventoryPage from './pages/EditInventoryPage/EditInventoryPage';
 import Footer from './components/Footer/Footer';
 import InventoryDetailsPage from './pages/InventoryDetailsPage/InventoryDetailsPage';
@@ -27,7 +27,7 @@ function App() {
               <Route path="/warehouses/add" element={<AddWarehouse />} />
               <Route path="/inventories/add" element={<AddInventoryPage />} />
               <Route path="/warehouses/:warehouseId" element={<WarehouseDetailsPage />} />
-              <Route path="/warehouses/:id/edit" element={<EditWarehouse />} />
+              <Route path="/warehouses/:id/edit" element={<EditWarehousePage />} />
               <Route path="/inventories/:inventoryId" element={<InventoryDetailsPage />} />
               <Route path="/inventories/:id/edit" element={<EditInventoryPage />} />
               <Route path="*" element={<NotFoundPage />} />
