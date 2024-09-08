@@ -108,14 +108,25 @@ const WarehouseListPage = () => {
                     </div>
                 </div>
                 <div className="warehouse-list__container">
-                    <TableHeaderWithSorting headerItems={headerItems} />
-                    {warehouses ? warehouses.map((warehouse) => (
-                        <ListItem
-                            key={warehouse.id}
-                            properties={getProperties(warehouse)}
-                            actions={getActions(warehouse)}
-                        />
-                    )) : <div>Loading...</div>}
+                    {warehouses ? 
+                    <>
+                        {
+                            warehouses.length > 0 ?
+                            <TableHeaderWithSorting headerItems={headerItems} />
+                            : <></>
+                        }
+                    
+                        {
+                            warehouses.map((warehouse) => (
+                                <ListItem
+                                    key={warehouse.id}
+                                    properties={getProperties(warehouse)}
+                                    actions={getActions(warehouse)}
+                                />
+                            ))
+                        }
+                    </> 
+                    : <div>Loading...</div>}                 
                 </div>
             </div>
             <DeleteWarehouseModal

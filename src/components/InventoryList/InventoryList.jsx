@@ -82,16 +82,25 @@ const InventoryList = ({headerItems, warehouseId = null}) => {
         <>
             <div className="inventory-list">
                 <div className="inventory-list__container">
-                    <TableHeaderWithSorting
-                        headerItems={headerItems}
-                    />
-                    {inventories ? inventories.map((inventory) => (
-                        <ListItem
-                            key={inventory.id}
-                            properties={getProperties(inventory)}
-                            actions={getActions(inventory)}
-                        />
-                    )) : <div>Loading...</div>}
+                    {inventories ? 
+                    <>
+                        {
+                            inventories.length > 0 ? 
+                                <TableHeaderWithSorting headerItems={headerItems}/> 
+                                : <></>
+                        }
+
+                        {
+                            inventories.map((inventory) => (
+                                <ListItem
+                                    key={inventory.id}
+                                    properties={getProperties(inventory)}
+                                    actions={getActions(inventory)}
+                                />
+                            ))
+                        }
+                    </> 
+                    : <div>Loading...</div>}
                 </div>
                 <DeleteInventoryModal 
                     inventory={inventoryToBeDeleted} 
