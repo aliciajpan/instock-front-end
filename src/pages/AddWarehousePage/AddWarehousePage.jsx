@@ -6,49 +6,51 @@ import { useNavigate } from 'react-router-dom';
 import Toast from '../../components/Toast/Toast';
 
 function AddWarehousePage() {
-  const navigate = useNavigate();
-  const baseURL = import.meta.env.VITE_BASE_URL;
-  const [toast, setToast] = useState(null);
+    const navigate = useNavigate();
+    const baseURL = import.meta.env.VITE_BASE_URL;
+    const [toast, setToast] = useState(null);
 
-  const buttons = [
-    {
-      label: 'Cancel',
-      type: 'button',
-      status: 'secondary',
-      onClick: () => navigate(-1),
-    },
-    {
-      label: '+ Add Warehouse',
-      type: 'submit',
-      status: 'primary',
-    },
-  ];
+    const buttons = [
+        {
+            label: 'Cancel',
+            type: 'button',
+            status: 'secondary',
+            onClick: () => navigate(-1),
+        },
+        {
+            label: '+ Add Warehouse',
+            type: 'submit',
+            status: 'primary',
+        },
+    ];
 
-  const handleSubmit = async ({ formData, setToast }) => {
-    try {
-      await axios.post(`${baseURL}/api/warehouses`, formData);
-      setToast({
-        message: 'Warehouse added successfully',
-        status: 'success',
-      });
-      setTimeout(() => {
-        navigate('/warehouses');
-      }, 500);
-    } catch (error) {
-      console.error(error);
-      setToast({
-        message: 'Failed to add warehouse',
-        status: 'error',
-      });
-    }
-  };
+    const handleSubmit = async ({ formData, setToast }) => {
+        try {
+            await axios.post(`${baseURL}/api/warehouses`, formData);
+            setToast({
+                message: 'Warehouse added successfully',
+                status: 'success',
+            });
+            setTimeout(() => {
+                navigate('/warehouses');
+            }, 500);
+        } 
+        
+        catch (error) {
+            console.error(error);
+            setToast({
+                message: 'Failed to add warehouse',
+                status: 'error',
+            });
+        }
+    };
 
-  return (
-    <div className="add-warehouse-page">
-      <WarehouseInput title="Add New Warehouse" buttons={buttons} onSubmit={handleSubmit} />
-      {toast && <Toast message={toast.message} status={toast.status} onClose={()=>{setToast(null)}}/>}
-    </div>
-  );
+    return (
+        <div className="add-warehouse-page">
+            <WarehouseInput title="Add New Warehouse" buttons={buttons} onSubmit={handleSubmit} />
+            {toast && <Toast message={toast.message} status={toast.status} onClose={()=>{setToast(null)}}/>}
+        </div>
+    );
 }
 
 export default AddWarehousePage;

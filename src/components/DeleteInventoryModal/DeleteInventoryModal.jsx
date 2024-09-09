@@ -1,6 +1,6 @@
+import { useState } from "react";
 import Modal from "../Modal/Modal";
 import axios from "axios";
-import { useState } from "react";
 import Toast from "../Toast/Toast";
 
 const DeleteInventoryModal = ({ inventory, onClose, isOpen, onDelete }) => {

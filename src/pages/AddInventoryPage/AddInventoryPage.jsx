@@ -23,6 +23,7 @@ function AddInventoryPage() {
             status: "primary",
         },
     ];
+
     const handleSubmit = async ({ formData, setToast }) => {
         try {
             await axios.post(`${baseURL}/api/inventories`, formData);
@@ -34,7 +35,9 @@ function AddInventoryPage() {
             setTimeout(() => {
                 navigate("/inventories");
             }, 500);
-        } catch (error) {
+        } 
+        
+        catch (error) {
             console.error(error);
             setToast({
                 message: "Failed to add inventory",
@@ -42,6 +45,7 @@ function AddInventoryPage() {
             });
         }
     };
+
     useEffect(() => {
         const fetchWarehouses = async () => {
             try {
@@ -49,7 +53,9 @@ function AddInventoryPage() {
                     `${baseURL}/api/warehouses`
                 );
                 setWarehouses(warehousesFromAPI);
-            } catch (error) {
+            } 
+            
+            catch (error) {
                 console.error(error);
                 setToast({
                     message: "Failed to fetch warehouses",
@@ -59,6 +65,7 @@ function AddInventoryPage() {
         };
         fetchWarehouses();
     }, [baseURL]);
+    
     return (
         <div className="add-inventory-page">
             <InventoryInput

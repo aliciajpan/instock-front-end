@@ -1,5 +1,6 @@
-import "./RadioText.scss";
 import { useState, useEffect } from "react";
+import "./RadioText.scss";
+
 const RadioText = ({ options, label, value, onChange }) => {
     const [selectedOptionValue, setSelectedOptionValue] = useState(value?.value ?? null);
 

@@ -5,9 +5,7 @@ function InventoryDetailsPage() {
     const { inventoryId } = useParams();
 
     return (
-      <>
         <InventoryDetails inventoryId={inventoryId}/>
-      </>
     );
 }
 

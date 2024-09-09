@@ -13,31 +13,30 @@ import Footer from './components/Footer/Footer';
 import InventoryDetailsPage from './pages/InventoryDetailsPage/InventoryDetailsPage';
 
 function App() {
-
-  return (
-    <Router>
-      <div className='app'>
-        <Header />
-        <main className='app__main'>
-          <div className='app__main-content'>
-            <Routes>
-              <Route path="/" element={<Navigate to="/warehouses" replace={true} />} />
-              <Route path="/warehouses" element={<WarehouseListPage />} />
-              <Route path="/inventories" element={<InventoryListPage />} />
-              <Route path="/warehouses/add" element={<AddWarehouse />} />
-              <Route path="/inventories/add" element={<AddInventoryPage />} />
-              <Route path="/warehouses/:warehouseId" element={<WarehouseDetailsPage />} />
-              <Route path="/warehouses/:id/edit" element={<EditWarehousePage />} />
-              <Route path="/inventories/:inventoryId" element={<InventoryDetailsPage />} />
-              <Route path="/inventories/:id/edit" element={<EditInventoryPage />} />
-              <Route path="*" element={<NotFoundPage />} />
-              </Routes>
-          </div>
-        </main>
-        <Footer />
-      </div>
-    </Router>
-  );
+    return (
+        <Router>
+        <div className='app'>
+            <Header />
+            <main className='app__main'>
+            <div className='app__main-content'>
+                <Routes>
+                    <Route path="/" element={<Navigate to="/warehouses" replace={true} />} />
+                    <Route path="/warehouses" element={<WarehouseListPage />} />
+                    <Route path="/inventories" element={<InventoryListPage />} />
+                    <Route path="/warehouses/add" element={<AddWarehouse />} />
+                    <Route path="/inventories/add" element={<AddInventoryPage />} />
+                    <Route path="/warehouses/:warehouseId" element={<WarehouseDetailsPage />} />
+                    <Route path="/warehouses/:id/edit" element={<EditWarehousePage />} />
+                    <Route path="/inventories/:inventoryId" element={<InventoryDetailsPage />} />
+                    <Route path="/inventories/:id/edit" element={<EditInventoryPage />} />
+                    <Route path="*" element={<NotFoundPage />} />
+                </Routes>
+            </div>
+            </main>
+            <Footer />
+        </div>
+        </Router>
+    );
 }
 
 export default App;

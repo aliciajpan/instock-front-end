@@ -1,16 +1,16 @@
-import "./WarehouseListPage.scss";
-import Input from "../../components/Input/Input";
-import Button from "../../components/Button/Button";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import axios from "axios";
 import editIcon from "../../assets/icons/edit-24px.svg";
 import deleteIcon from "../../assets/icons/delete_outline-24px.svg";
 import ListItem from "../../components/ListItem/ListItem";
 import TableHeaderWithSorting from "../../components/TableHeaderWithSorting/TableHeaderWithSorting";
 import searchIcon from "../../assets/icons/search-24px.svg";
-import axios from "axios";
+import Input from "../../components/Input/Input";
+import Button from "../../components/Button/Button";
 import DeleteWarehouseModal from "../../components/DeleteWarehouseModal/DeleteWarehouseModal";
 import Toast from '../../components/Toast/Toast';
+import "./WarehouseListPage.scss";
 
 const WarehouseListPage = () => {
     const navigate = useNavigate();
