@@ -1,0 +1,103 @@
+@use './styles/partials/typography' as *;
+@use './styles/partials/variables' as *;
+@use './styles/partials/mixins' as *;
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: $font-family, Arial;
+    font-size: .8125rem;
+    line-height: 1.25rem;
+    margin: 0;
+    
+    h1 {
+        font-size: 1.75rem;
+        line-height: 2.25rem;
+        font-weight: 600; 
+
+        @include tablet {
+            font-size: 2rem;
+            font-weight: $semi-bold;
+            line-height: 2.5rem;
+        }
+    }
+
+    h2 {
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+
+        @include tablet {
+            font-size: 1.5rem;
+            font-weight: 600;
+            line-height: 2rem;
+        }
+    }
+
+    h3 {
+        font-size: .8125rem;
+        line-height: 1.25rem;
+
+        @include tablet {
+            font-size: .875rem;
+            font-weight: 600;
+            line-height: 1.375rem;
+        }
+    } 
+
+    a {
+        text-decoration: none;
+        color: $color-text-link;
+
+        &:hover {
+        text-decoration: underline;
+        }
+    }
+
+    @include tablet {
+        font-size: .875rem;
+        line-height: 1.375rem;
+    }
+
+    li{
+        list-style: none;
+    }
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 100vh;
+    
+    &__main {
+        display: flex;
+        flex-direction: column;
+        background: linear-gradient(to bottom, $color-background-header 0%, $color-background-header 4rem, $color-background-footer 4rem, $color-background-footer 100%);
+        flex: 1;
+        width: 100%;
+        @include tablet {
+        background: linear-gradient(to bottom, $color-background-header 0%, $color-background-header 6rem, $color-background-footer 6rem, $color-background-footer 100%);
+        }
+    }
+
+    &__main-content {
+        margin: 0 auto;
+        margin-left: 1rem;
+        margin-right: 1rem;
+        background-color: $color-background-main-content;
+        box-shadow: 0 2px 5px $color-box-shadow;
+        border-radius: 0.25rem;
+
+        @include tablet {
+            margin: 0 2rem;
+        }
+
+        @include desktop {
+        margin: 0 auto;
+        width: 80%;
+        max-width: calc($desktop-breakpoint - 2rem);
+        }
+    }
+}

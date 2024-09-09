@@ -1,0 +1,52 @@
+@use "../../styles/partials/_variables.scss" as *;
+@use "../../styles/partials/_mixins.scss" as *;
+@use "../../styles/partials/_typography.scss" as *;
+
+.button {
+    font-family: $font-family;
+    font-weight: $semi-bold;
+    border: none;
+    height: 2.25rem;
+    width: 100%;
+    border-radius: 1.25rem;
+    cursor: pointer;
+    
+    &--primary {
+        background-color: $color-btn-primary-default;
+        color: $color-text-btn-primary;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover {
+            background-color: $color-btn-primary-hover;
+        }
+    }
+
+    &--secondary {
+        background-color: $color-btn-secondary-default;
+        color: $color-text-btn-secondary-default;
+        border: 1px solid $color-border-btn-secondary-default;
+
+        &:hover {
+            background-color: $color-btn-secondary-hover;
+            color: $color-text-btn-secondary-hover;
+            border: 1px solid $color-border-btn-secondary-hover;
+        }
+    }
+
+    &--delete {
+        background-color: $color-btn-delete-default;
+        color: $color-text-btn-delete;
+
+        &:hover {
+            background-color: $color-btn-delete-hover;
+        }
+    }
+
+    @include tablet {
+        height: 2.375rem;
+        padding: 0 1rem;
+        width: fit-content;
+    }
+}

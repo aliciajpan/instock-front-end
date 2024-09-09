@@ -1,0 +1,102 @@
+// Breakpoints
+$tablet-breakpoint: 48rem;
+$desktop-breakpoint: 80rem;
+
+// Primary Colors
+$instock-black: #13182C;
+$instock-indigo: #2E66E5;
+$white: #FFFFFF;
+
+// Secondary Colors
+$slate: #5C667E;
+$cloud: #BDC5D5;
+
+// Background Colors
+$graphite: #232940;
+$light-grey: #F7F8F9;
+$color-background-button-area: rgba($light-grey, 70%);
+$color-background-header: $graphite;
+$color-background-main-content: $white;
+$color-background-footer: rgba($light-grey, 70%);
+$color-box-shadow: rgba($instock-black, 10%);
+$color-background-modal: rgba($instock-black, 50%);
+
+// Text Colors
+$color-text-footer: $slate;
+
+// Supporting Colors
+$green: #158463;
+$red: #C94515;
+
+// Font Weight
+$regular: 400;
+$semi-bold: 600;
+
+// Nav Colors
+$color-nav-text: $cloud;
+$color-nav-text-active: $white;
+$color-nav-background-active: $instock-black;
+
+// Divider
+$color-divider: $cloud;
+
+// Button Colors
+$color-btn-primary-default: $instock-indigo;
+$color-btn-primary-hover: $graphite;
+$color-btn-secondary-default: $white;
+$color-btn-secondary-hover: $white;
+$color-btn-delete-default: $red;
+$color-btn-delete-hover: $graphite;
+$color-text-btn-primary: $white;
+$color-text-btn-secondary-default: $slate;
+$color-text-btn-secondary-hover: $instock-indigo;
+$color-text-btn-delete: $white;
+$color-border-btn-secondary-default: $cloud;
+$color-border-btn-secondary-hover: $instock-indigo;
+
+// Table Colors
+$color-text-column-header: $slate;
+$color-text-column-data: $instock-black;
+$color-border-table-row: $cloud;
+$color-background-header-with-sorting: rgba($light-grey, 70%);
+$color-text-header-with-sorting: $slate;
+$color-background-table-row-hover: rgba($instock-indigo, 7%);
+
+// Input Colors
+$color-text-input-default: $slate;
+$color-text-input-active: $instock-black;
+$color-text-input-error: $red;
+$color-border-input-default: $cloud;
+$color-border-input-active: $instock-indigo;
+$color-border-input-error: $red;
+
+// Link Colors
+$color-text-link: $instock-indigo;
+
+// Tag Colors
+$color-tag-background-default: rgba($green, 7%);
+$color-tag-background-warning: rgba($red, 7%);
+$color-tag-text-default: $green;
+$color-tag-text-warning: $red;
+
+// Toast Colors
+$color-toast-background-success: $green;
+$color-toast-background-error: $red;
+
+// Dropdown Colors
+$color-text-dropdown-default: $slate;
+$color-text-dropdown-active: $instock-black;
+$color-border-dropdown-default: $cloud;
+$color-border-dropdown-active: $instock-indigo;
+$color-background-dropdown-default: $white;
+$color-background-dropdown-active: $white;
+$color-background-dropdown-hover: rgba($instock-indigo, 7%);
+
+// Radio Text Colors
+$color-text-radio-text-default: $slate;
+$color-text-radio-text-active: $instock-black;
+$color-border-radio-text-default: $cloud;
+$color-border-radio-text-active: $instock-indigo;
+$color-background-radio-text-default: $white;
+$color-background-radio-text-active: $white;
+$color-background-radio-text-hover: rgba($instock-indigo, 7%);

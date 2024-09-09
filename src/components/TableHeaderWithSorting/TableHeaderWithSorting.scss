@@ -1,0 +1,51 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.header-with-sorting {
+    display: none;
+    
+    @include tablet {
+        height: 2.5rem;
+        background-color: $color-background-header-with-sorting;
+        text-transform: uppercase;
+        color: $color-text-header-with-sorting;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 1.5rem;
+        width: 100%;
+        font-weight: $semi-bold;
+
+        &__sortable-item {
+            flex: 1;
+            justify-content: flex-start;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            &-img {
+                margin-left: 0.5rem;
+            }
+        }
+    
+        &__item {
+            justify-content: center;
+            display: flex;
+        }
+    }
+
+    &__sort-icon {
+        width: 10%;
+        margin-left: 0.25rem;
+
+        &:hover {
+            cursor: pointer;
+            opacity: 50%;
+        }
+    }
+
+    @include desktop {
+        padding: 0 3rem;
+    }
+}

@@ -1,0 +1,86 @@
+@use '../../styles/partials/mixins' as *;
+@use '../../styles/partials/variables' as *;
+
+.header {
+    background-color: $color-background-header;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &__banner {
+        color: $color-nav-text;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        @include tablet {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem 1rem 1rem;
+            width: 100%;
+        }
+
+        @include desktop {
+            max-width: $desktop-breakpoint;
+            margin: 0 auto;
+            width: 85%;
+        }
+    }
+
+    &__logo {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5rem;
+
+        @include tablet {
+        margin: 1rem;
+        }
+    }
+
+    &__nav {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        justify-content: space-between;
+
+        @include tablet {
+            flex-direction: row;
+            width: auto;
+        }
+
+        @include desktop {
+            gap: 2rem;
+        }
+    }
+
+    &__nav li {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+    }
+
+    &__nav a {
+        color: $cloud;
+        text-decoration: none;
+        border-radius: 20px;
+        padding: 0.5rem 3rem;
+
+        @include tablet {
+            padding: 0.5rem 0;
+        }
+    }
+
+    &__nav a.active {
+        color: $color-nav-text-active;
+        background-color: $color-nav-background-active;
+        text-decoration: none;
+
+        @include tablet {
+            padding: 0.5rem 1rem;
+        }
+    }
+}

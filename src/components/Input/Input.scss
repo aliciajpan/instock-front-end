@@ -1,0 +1,123 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/typography" as *;
+
+.input {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.25rem;
+
+    &__container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    &__box {
+        position: relative;
+    }
+
+    &__label {
+        @include link;
+        & {
+            font-weight: $semi-bold;
+        }
+    }
+
+    &__input {
+        appearance: none;
+        outline: none;
+        height: 2.25rem;
+        border-radius: 1.25rem;
+        width: 100%;
+        padding: 1rem;
+        color: $color-text-input-active;
+        border: 1px solid $color-border-input-default;
+        font-family: $font-family;
+        
+        &:focus {
+            color: $color-text-input-active;
+            border: 1px solid $color-border-input-active;            
+        }
+
+        &::placeholder {
+            font-size: .8125rem;
+            line-height: 1.25rem;
+            color: $color-text-input-default;
+            font-family: $font-family;
+
+            @include tablet {
+                font-size: .875rem;
+                line-height: 1.375rem;
+            }
+        }
+
+        &--error {
+            border: 1px solid $color-border-input-error;
+        }
+
+        @include tablet {
+            height: 2.375rem;
+            padding: 0 1rem;
+        }
+    }
+
+    &__textarea {
+        appearance: none;
+        outline: none;
+        height: 2.25rem;
+        border-radius: 1.25rem;
+        width: 100%;
+        padding: 0.5rem 1rem;
+        color: $color-text-input-active;
+        border: 1px solid $color-border-input-default;
+        resize: none;
+        height: 7.5rem;
+        font-family: $font-family;
+
+        &:focus {
+            color: $color-text-input-active;
+            border: 1px solid $color-border-input-active;            
+        }
+
+        &::placeholder {
+            font-size: .8125rem;
+            line-height: 1.25rem;
+            color: $color-text-input-default;
+            font-family: $font-family;
+
+            @include tablet {
+                font-size: .875rem;
+                line-height: 1.375rem;
+            }
+        }
+
+        &--error {
+            border: 1px solid $color-border-input-error;
+        }
+
+        @include tablet {
+            height: 120px;
+        }
+    }
+
+    &__icon {
+        position: absolute;
+        top: 50%;
+        right: 1rem;
+        transform: translateY(-50%);
+        cursor: pointer;
+    }
+
+    &__error {
+        display: flex;
+        flex-direction: row;
+        gap: 0.25rem;
+        color: $color-text-input-error;
+    }
+    
+    @include tablet {
+        width: fit-content;
+    }
+}
