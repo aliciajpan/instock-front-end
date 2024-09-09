@@ -2,5 +2,5 @@
 @use "../../styles/partials/_mixins.scss" as *;
 
 .inventory-input {
-   @include add-edit-page;
+    @include add-edit-page;
 }

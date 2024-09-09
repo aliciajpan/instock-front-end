@@ -40,7 +40,9 @@ function EditInventoryPage() {
             setTimeout(() => {
                 navigate("/inventories");
             }, 500);
-        } catch (error) {
+        } 
+        
+        catch (error) {
             console.error(error);
             setToast({
                 message: "Failed to update inventory",
@@ -65,7 +67,9 @@ function EditInventoryPage() {
                         inventoryFromAPI.warehouse_name
                 ).id;
                 setInventory(inventoryFromAPI);
-            } catch (error) {
+            } 
+            
+            catch (error) {
                 console.error(error);
                 setToast({
                     message: "Failed to fetch warehouses/inventory",

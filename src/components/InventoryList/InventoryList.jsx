@@ -1,14 +1,14 @@
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import axios from "axios";
 import TableHeaderWithSorting from "../../components/TableHeaderWithSorting/TableHeaderWithSorting";
 import ListItem from "../../components/ListItem/ListItem";
 import editIcon from "../../assets/icons/edit-24px.svg";
 import deleteIcon from "../../assets/icons/delete_outline-24px.svg";
-import { renderToStaticMarkup } from "react-dom/server";
 import Tag from "../../components/Tag/Tag";
 import Toast from "../Toast/Toast";
 import DeleteInventoryModal from "../../components/DeleteInventoryModal/DeleteInventoryModal";
-import { useState, useEffect } from "react";
-import axios from "axios";
 import "./InventoryList.scss";
 
 const InventoryList = ({headerItems, warehouseId = null, sortKey, sortOrderBy, sortToggle, search = null, urlSearch = null}) => {
@@ -17,6 +17,7 @@ const InventoryList = ({headerItems, warehouseId = null, sortKey, sortOrderBy, s
     const [toast, setToast] = useState(null);
     const [inventories, setInventories] = useState(null);
     const [inventoryToBeDeleted, setInventoryToBeDeleted] = useState(null);
+    
     function sortByKey(array, key, orderBy) {
         const arrayCopy = [...array];
         return arrayCopy.sort(function(a, b) {

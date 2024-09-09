@@ -1,12 +1,12 @@
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
 import Dropdown from "../../components/Dropdown/Dropdown";
 import RadioText from "../../components/RadioText/RadioText";
-import "./InventoryInput.scss";
-import arrowBackIcon from "../../assets/icons/arrow_back-24px.svg";
-import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
 import Toast from "../../components/Toast/Toast";
+import arrowBackIcon from "../../assets/icons/arrow_back-24px.svg";
+import "./InventoryInput.scss";
 
 function InventoryInput({title, defaultValues, buttons, onSubmit, warehouses}) {
     const navigate = useNavigate();
@@ -40,11 +40,13 @@ function InventoryInput({title, defaultValues, buttons, onSubmit, warehouses}) {
     const [formData, setFormData] = useState(initialFormData);
     const [errors, setErrors] = useState(initialErrors);
     const [toast, setToast] = useState(null);
+
     useEffect(() => {
         if (defaultValues) {
             setFormData(defaultValues);
         }
     }, [defaultValues]);
+
     const handleChange = (value, propertyName) => {
         if (propertyName === "status" && value === "Out of Stock") {
             setFormData((prevFormData) => ({ ...prevFormData, quantity: 0 }));
@@ -65,7 +67,7 @@ function InventoryInput({title, defaultValues, buttons, onSubmit, warehouses}) {
             }));
         }
         setFormData((prevFormData) => ({
-          ...prevFormData,
+            ...prevFormData,
             [propertyName]: parsedValue,
         }));
     };
@@ -73,12 +75,14 @@ function InventoryInput({title, defaultValues, buttons, onSubmit, warehouses}) {
     const getValidationResult = (value, propertyName) => {
         let errorMessage = "";
         let parsedValue = value;
+
         if (positiveIntFields.includes(propertyName)) {
             parsedValue = parseInt(value);
             if (parsedValue <= 0 && formData.status === "In Stock") {
                 errorMessage = `${propertyNameLabelMap[propertyName]} must be a positive integer`;
             }
         }
+
         if (value === "") {
             errorMessage = `${propertyNameLabelMap[propertyName]} is required`;
         }
@@ -107,9 +111,10 @@ function InventoryInput({title, defaultValues, buttons, onSubmit, warehouses}) {
             return acc;
         }, initialErrors);
         setErrors((prevErrors) => ({
-          ...prevErrors,
+            ...prevErrors,
             ...errors,
         }));
+        
         if (Object.values(errors).some((error) => error !== "")) {
             return false;
         }

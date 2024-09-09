@@ -1,5 +1,5 @@
-import Modal from "../Modal/Modal";
 import { useState } from "react";
+import Modal from "../Modal/Modal";
 import axios from "axios";
 import Toast from "../Toast/Toast";
 
@@ -16,6 +16,7 @@ const DeleteWarehouseModal = ({ warehouse, onClose, isOpen, onDelete }) => {
                 onClose();
             },
         },
+
         {
             id: "delete",
             text: "Delete",
@@ -43,6 +44,7 @@ const DeleteWarehouseModal = ({ warehouse, onClose, isOpen, onDelete }) => {
             },
         },
     ];
+
     return (
         <>
             {warehouse && (
@@ -59,6 +61,7 @@ const DeleteWarehouseModal = ({ warehouse, onClose, isOpen, onDelete }) => {
                     </div>
                 </Modal>
             )}
+            
             {toast && (
                 <Toast
                     message={toast.message}

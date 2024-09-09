@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from "react";
-import "./Dropdown.scss";
 import dropdownIcon from "../../assets/icons/arrow_drop_down-24px.svg";
 import dropdownActiveIcon from "../../assets/icons/arrow_drop_down-active-24px.svg";
 import errorIcon from "../../assets/icons/error-24px.svg";
+import "./Dropdown.scss";
 
 const Dropdown = ({
     options,

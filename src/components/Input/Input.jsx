@@ -1,6 +1,6 @@
-import "./Input.scss";
-import errorIcon from "../../assets/icons/error-24px.svg";
 import { useState, useEffect } from "react";
+import errorIcon from "../../assets/icons/error-24px.svg";
+import "./Input.scss";
 
 const Input = ({ 
     type = "text",
